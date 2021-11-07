@@ -107,7 +107,16 @@ onChildAdded(dbRefChat,function(data) {
         speech_balloon.append(chat_info);
 
 
-    // Color or Semantic Btn
+    // SpeechBalloon Btn
+
+    let edit_btn = document.createElement("button");
+        edit_btn.classList.add("EditBtn", "SelectorBtn", key+"SelectorBtn", "CircleBtn", "Inactive");
+        edit_btn.setAttribute("id", key);
+    let edit_btn_icon = document.createElement("span");
+        edit_btn_icon.classList.add("fas", "fa-edit", "fa-2x");
+        edit_btn.append(edit_btn_icon);
+        selector_menu.append(edit_btn);
+
 
     // let color_selector_btn = document.createElement("button");
     //     color_selector_btn.classList.add("ColorSelectorBtn", "SelectorBtn", key+"SelectorBtn", "CircleBtn", "Inactive");
@@ -124,6 +133,15 @@ onChildAdded(dbRefChat,function(data) {
         semantic_selector_btn_icon.classList.add("far", "fa-comment-dots", "fa-2x");
         semantic_selector_btn.append(semantic_selector_btn_icon);
         selector_menu.append(semantic_selector_btn);
+
+
+    let trash_btn = document.createElement("button");
+        trash_btn.classList.add("TrashBtn", "SelectorBtn", key+"SelectorBtn", "CircleBtn", "Inactive");
+        trash_btn.setAttribute("id", key);
+    let trash_btn_icon = document.createElement("span");
+        trash_btn_icon.classList.add("fas", "fa-trash", "fa-2x");
+        trash_btn.append(trash_btn_icon);
+        selector_menu.append(trash_btn);
 
 
     // Color
@@ -241,8 +259,8 @@ onChildAdded(dbRefChat,function(data) {
         'border': 'solid 1px black',
         'background-color': 'gainsboro',
         'position': 'absolute',
-        'top': '0',
-        'left': '0'
+        'top': Math.random(30),
+        'left': Math.random(30)
     });
 
 });

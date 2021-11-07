@@ -55,7 +55,7 @@ header {
     background-color: rgba(34, 49, 52, 0.9);
     position :fixed;
     top: 0;
-    z-index: --max-z-index;
+    z-index: var(--max-z-index);
     height: 60px;
     /* display: flex;
     justify-content: space-between;
@@ -180,6 +180,8 @@ header {
 }
 
 .SpeechBalloon .SelectorMenu {
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: -20px;
     right: -60px;
@@ -206,15 +208,6 @@ header {
 }
 .SpeechBalloon p {
     margin-top: 0;
-}
-
-.CloseBtn {
-    width: 10px;
-    height: 10px;
-    margin: 5px;
-    padding: 2px;
-    border: solid 1px #dedede;
-    background-color: black;
 }
 .ColorSelector {
     position: absolute;
@@ -312,7 +305,7 @@ footer {
     background-color: rgba(227,228,232,.8);
     position :fixed;
     bottom: 0;
-    z-index: --max-z-index;
+    z-index: var(--max-z-index);
 }
 
 .Btn {
@@ -481,6 +474,34 @@ footer {
 .CircleBtn:hover {
     background-color: gainsboro;
     opacity: 1;
+}
+
+.SelectorMenu .CircleBtn {
+    margin: 5px 5px;
+}
+
+.MiniCircleBtn {
+    height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    padding: 1px;
+    border: solid 1px #ababab;
+    cursor: pointer;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    border-radius: 50%;
+    /* border: 2px solid black; */
+    margin: 20px 20px;
+    background-color: white;
+}
+/* #voice-rec-btn:hover { */
+.MiniCircleBtn:hover {
+    background-color: gainsboro;
+    opacity: 1;
+}
+.SelectorMenu .MiniCircleBtn {
+    margin: 15px 15px;
 }
 
 .Unread {

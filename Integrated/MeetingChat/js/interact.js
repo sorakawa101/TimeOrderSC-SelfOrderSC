@@ -132,12 +132,19 @@ inertia: true
     //     $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
     //     // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
     //     event.preventDefault();
-
+    } else if (target.classList.contains('EditBtn')) {
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        console.log("edit");
+        event.preventDefault();
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
         event.preventDefault();
-
+    } else if (target.classList.contains('TrashBtn')) {
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        $("."+tap_id+"SpeechBalloon").css('display', 'none');
+        // remove(dbRefChat, tap_id);
+        event.preventDefault();
     } else {
         let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
 
