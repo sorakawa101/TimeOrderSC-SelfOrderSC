@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./js/tinymce/tinymce.min.js"></script>
+    <script src="./js/tinymce/jquery.tinymce.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- <div class="container"> -->
+            <div class="header-left">
+                <a class="logo" href="#">Chat</a>
+            </div>
+
+            <div class="header-right">
+                <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
+                <ul id="dropdown-menu">
+                    <li><a href="../../Integrated/Chat/index.html">Integrated</a></li>
+                    <li><a href="./index.html">Chat</a></li>
+                    <li><a href="../Postit/index.html">Post-it</a></li>
+                    <li><a href="../Whiteboard/index.html">Whiteboard</a></li>
+                    <li><a href="../SpeechBalloon/index.html">SpeechBalloon</a></li>
+                </ul>
+            </div>
+        <!-- </div> -->
+    </header>
+
+    <!-- コンテンツ表示画面 -->
+    <div class="main-wrapper">
+        <div class="pdf-wrapper">
+            <iframe width="700" height="1040" src="./src/sample.pdf" ></iframe>
+        </div>
+        <div class="msg-wrapper">
+            <div id="output-form"></div>
+
+            <form id="input-form" action="#" method="GET">
+                <input type="text" id="uname" placeholder="Username">
+                <input type="button" id="scroll-btn" value="Scroll">
+                <input type="button" id="unread-btn" value="Unread">
+                <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                <input type="submit" id="send-btn" value="Post">
+            </form>
+        </div>
+    </div>
+
+    <!-- javascript -->
+    <script type="module" src="js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="js/init-tinymce.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no">
+    <title>Whiteboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- <div class="container"> -->
+            <div class="header-left">
+                <a class="logo" href="#">Whiteboard</a>
+            </div>
+
+            <div class="header-right">
+                <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
+                <ul id="dropdown-menu">
+                    <li><a href="../Chat/index.html">Chat</a></li>
+                    <li><a href="../Postit/index.html">Post-it</a></li>
+                    <li><a href="./index.html">Whiteboard</a></li>
+                </ul>
+            </div>
+        <!-- </div> -->
+    </header>
+
+    <!-- Canvas -->
+    <div class="wrapper">
+        <form>
+            &nbsp;<input type="button" class="b1" style="background: #000000;" value=" " onclick="change_black()">
+            <input type="button" class="b1" style="background: #ff0000;" value=" " onclick="change_red()">
+            <input type="button" class="b1" style="background: #008000;" value=" " onclick="change_green()">
+            <input type="button" class="b1" style="background: #0000ff;" value=" " onclick="change_blue()">
+            <input type="button" class="b1" style="background: #ffff00;" value=" " onclick="change_yellow()">
+            <input type="button" class="b1" style="background: #ffffff;" value=" " onclick="change_white()">
+            &nbsp;&nbsp;線幅&nbsp;<input type="button" class="b2" value="8px" onclick="change_8()">
+            <input type="button" class="b2" value="16px" onclick="change_16()">
+            &nbsp;&nbsp;<input type="button" class="b2" value="全面" onclick="spread()">
+            <input type="button" class="b2" value="消去" onclick="clr()">
+            &nbsp;&nbsp;
+        </form>
+            <canvas id="drawArea"></canvas>
+    </div>
+
+    <!-- javascript -->
+    <script type="module" src="./js/script.js"></script>
+
+</body>
+</html>

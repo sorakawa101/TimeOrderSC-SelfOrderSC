@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Postit</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- Drag -->
+    <div id="drag-1" class="draggable">
+        <p> You can drag one element </p>
+    </div>
+    <div id="drag-2" class="draggable">
+        <p> with each pointer </p>
+    </div>
+
+
+
+    <!-- Drag & Drop -->
+    <div id="no-drop" class="drag-drop"> #no-drop </div>
+
+    <div id="yes-drop" class="drag-drop"> #yes-drop </div>
+
+    <div id="outer-dropzone" class="dropzone">
+        #outer-dropzone
+        <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+    </div>
+
+
+
+    <!-- Snap -->
+    <div id="grid-snap">
+        Dragging is constrained to the corners of a grid
+    </div>
+
+
+
+    <!-- Resize -->
+    <div class="resize-drag">
+        Resize from any edge or corner
+    </div>
+
+
+
+    <!-- Tap $ DoubleTap & Hold -->
+    <div class="tap-target">
+        <p>Tap to change color</p>
+        <p>Doubletap to change size</p>
+        <p>Hold to rotate</p>
+    </div>
+
+
+
+    <!-- javascript -->
+    <script type="module" src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
+
+</body>
+</html>

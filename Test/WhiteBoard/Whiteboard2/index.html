@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Whiteboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- <div class="container"> -->
+            <div class="header-left">
+                <a class="logo" href="#">Whiteboard</a>
+            </div>
+
+            <div class="header-right">
+                <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
+                <ul id="dropdown-menu">
+                    <li><a href="../Chat/index.html">Chat</a></li>
+                    <li><a href="../Postit/index.html">Post-it</a></li>
+                    <li><a href="./index.html">Whiteboard</a></li>
+                </ul>
+            </div>
+        <!-- </div> -->
+    </header>
+
+    <!-- Canvas -->
+    <canvas id="canvassample" width="500" height="300"></canvas>
+    <div style="padding:10px">
+        <button type="button" onclick="clearCanvas()">リセット</button>
+        <button type="button" onclick="prevCanvas()">戻る</button>
+        <button type="button" onclick="nextCanvas()">進む</button>
+    </div>
+
+    <div style="padding:10px">
+        <button type="button" onclick="chgImg()" value="1">画像変換</button>
+    </div>
+    <h2>画像出力</h2>
+    <div id="img-box"><img id="newImg"></div>
+
+    <!-- javascript -->
+    <script type="module" src="js/script.js"></script>
+
+</body>
+</html>
