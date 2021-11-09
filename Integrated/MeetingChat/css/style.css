@@ -443,6 +443,7 @@ footer {
     margin-bottom: 10px;
     display: block;
 } */
+
 #uname {
     border: 1px #000 solid;
     border-radius: 5px;
@@ -452,6 +453,7 @@ footer {
     width: 350px;
     height: 40px;
     margin: 10px 250px 10px 10px;
+    /* float: left; */
 }
 
 /* #voice-rec-btn { */

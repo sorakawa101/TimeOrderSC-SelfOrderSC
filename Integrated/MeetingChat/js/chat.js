@@ -76,7 +76,7 @@ onChildAdded(dbRefChat,function(data) {
     // Name
 
         let unameText = document.createElement("p");
-        unameText.classList.add("Name");
+        unameText.classList.add("Name", key+"Name");
         if (msg.uname) {
             unameText.textContent = msg.uname;
         } else {
@@ -237,6 +237,7 @@ onChildAdded(dbRefChat,function(data) {
     let textText = document.createElement("div");
         textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
         textText = textText.firstElementChild; // 最初のこ要素を取得（divタグを除去）
+        textText.classList.add(key+"Msg");
 
         // speech_balloon.append(unameText);
         speech_balloon.append(textText);
