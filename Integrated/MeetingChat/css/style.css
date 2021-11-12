@@ -164,7 +164,7 @@ header {
     margin: 1rem;
     font-size: 20px;
     font-family: sans-serif;
-
+    /* translate: (0, 0); */
     touch-action: none;
 
     /* This makes things *much* easier */

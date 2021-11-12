@@ -28,39 +28,6 @@ const dbRefInteract = ref(db, "interact");
 
 
 
-// Method <----------------------------------------------------------------------------------------------------
-let rewrite_id = [];
-
-// function rewrite_get(id) {
-//     $("#uname").val($("."+id+"Name").text())
-//     tinyMCE.get("text").setContent($("."+id+"Msg").text())
-//     $("#rewrite-btn").toggleClass("Inactive")
-//     $("#uname").css('margin', '10px 130px 10px 10px')
-//     rewrite_id.push(id);
-//     event.preventDefault();
-// }
-
-// function rewrite_set(id) {
-//     $("."+id+"Name").text($("#uname").val())
-//     $("."+id+"Msg").text(tinyMCE.get("text").getContent())
-//     $("#rewrite-btn").toggleClass("Inactive")
-//     $("#uname").css('margin', '10px 250px 10px 10px')
-//     rewrite_id.pop();
-
-//     // 送信したら入力されたテキストを削除
-//     let textForm = document.getElementById("uname");
-//         textForm.value = '';
-//         tinyMCE.get("text").setContent('');
-// }
-
-// $("#rewrite-btn").on("click", function() {
-//     rewrite_set(rewrite_id[0]);
-// });
-
-// ----------------------------------------------------------------------------------------------------> Method
-
-
-
 
 // Interact <----------------------------------------------------------------------------------------------------
 
@@ -165,19 +132,12 @@ inertia: true
     //     $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
     //     // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
     //     event.preventDefault();
-    } else if (target.classList.contains('EditBtn')) {
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        // rewrite_get(tap_id);
-        event.preventDefault();
+
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
         event.preventDefault();
-    } else if (target.classList.contains('TrashBtn')) {
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"SpeechBalloon").css('display', 'none');
-        // remove(dbRefChat, tap_id);
-        event.preventDefault();
+
     } else {
         let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
 
@@ -220,6 +180,9 @@ inertia: true
         }
     }
 })
+
+
+
 
 // RealTimeDatabaseに新しい要素が追加された時に実行
 onChildAdded(dbRefInteract,function(data) {

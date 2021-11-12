@@ -218,5 +218,5 @@ onChildAdded(dbRefInteract,function(data) {
     const draw = data.val();
     const key = data.key; // ユニークキーを取得
 
-    console.log("addChild");
+    // console.log("addChild");
 });
