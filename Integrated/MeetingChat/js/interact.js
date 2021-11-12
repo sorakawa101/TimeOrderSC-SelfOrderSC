@@ -45,7 +45,12 @@ function updateChatData(id) {
         text: tinyMCE.get("text").getContent()
     }
     // const newPostRef = push(dbRefChat); // ユニークキーを生成
-    update(dbRefChatChild, msg)
+    update(dbRefChatChild, msg);
+}
+
+function removeChatData(id) {
+    const dbRefChatChild = ref(db, "chat/"+id);
+    remove(dbRefChatChild);
 }
 
 
@@ -191,15 +196,20 @@ inertia: true
     //     $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
     //     // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
     //     event.preventDefault();
+    } else if (target.classList.contains('EditBtn')) {
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        rewrite_get(tap_id);
+        event.preventDefault();
 
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
         event.preventDefault();
 
-    } else if (target.classList.contains('EditBtn')) {
+    } else if (target.classList.contains('TrashBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        rewrite_get(tap_id);
+        $("."+tap_id+"SpeechBalloon").toggleClass('Inactive') // 一旦隠す
+        removeChatData(tap_id); // 再読み込みしないと消えない
         event.preventDefault();
 
     } else {
