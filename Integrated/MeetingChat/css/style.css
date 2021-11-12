@@ -346,7 +346,38 @@ footer {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    margin-top: 15px;
+    /* margin-top: 15px; */
+}
+
+.FacilitateWrapper .Tools {
+    height: 150px;
+    justify-content: space-between;
+}
+
+.FacilitateWrapper .CheckBtns {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 5px;
+}
+
+.FacilitateWrapper .Check {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10%;
+    background-color: rgba(247,248,252,.8);
+    margin: 0 10px;
+}
+
+.FacilitateWrapper .Check p {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.FacilitateWrapper .Icon {
+    text-align: center;
 }
 
 .Tools .ColorField {

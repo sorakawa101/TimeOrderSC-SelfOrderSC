@@ -134,6 +134,10 @@ $(".InputMenuBtn").on("click", function() {
     $(".InputWrapper").toggleClass("Inactive");
 });
 
+$(".FacilitateMenuBtn").on("click", function() {
+    $(".FacilitateWrapper").toggleClass("Inactive");
+});
+
 $(".DrawMenuBtn").on("click", function() {
     $(".DrawWrapper").toggleClass("Inactive");
     $("#canvas").toggleClass("Inactive");
