@@ -2,7 +2,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -58,8 +58,6 @@ $(".SendBtn").on("click", function() {
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
-
-    if (msg.tag === "post") {
 
     // SpeechBalloon
 
@@ -269,34 +267,36 @@ onChildAdded(dbRefChat,function(data) {
         'top': Math.random(30),
         'left': Math.random(30)
     });
-    } else {
-        // msg.key = msg.id;
-
-        // let unameText = document.createElement("p");
-        //     unameText.classList.add("Name", key+"Name");
-        // if (msg.uname) {
-        //     unameText.textContent = msg.uname;
-        // } else {
-        //     unameText.textContent = "匿名";
-        // }
-
-        // let textText = document.createElement("div");
-        // textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
-        // textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
-        // textText.classList.add(msg.id+"Msg");
-
-        // $("."+msg.id+"Name").replaceWith(unameText)
-        // $("."+msg.id+"Msg").replaceWith(textText)
-        // $("#rewrite-btn").toggleClass("Inactive")
-        // $("#uname").css('margin', '10px 250px 10px 10px')
-
-        // // 送信したら入力されたテキストを削除
-        // let textForm = document.getElementById("uname");
-        //     textForm.value = '';
-        //     tinyMCE.get("text").setContent('');
-        ;
-    }
 
 });
 
+
+onChildChanged(dbRefChat,function(data) {
+    console.log("change");
+    const msg = data.val();
+    const key = data.key; // ユニークキーを取得
+
+    let unameText = document.createElement("p");
+        unameText.classList.add("Name", key+"Name");
+    if (msg.uname) {
+        unameText.textContent = msg.uname;
+    } else {
+        unameText.textContent = "匿名";
+    }
+
+    let textText = document.createElement("div");
+    textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
+    textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
+    textText.classList.add(msg.id+"Msg");
+
+    $("."+msg.id+"Name").replaceWith(unameText)
+    $("."+msg.id+"Msg").replaceWith(textText)
+    $("#rewrite-btn").toggleClass("Inactive")
+    $("#uname").css('margin', '10px 250px 10px 10px')
+
+    // 送信したら入力されたテキストを削除
+    let textForm = document.getElementById("uname");
+        textForm.value = '';
+        tinyMCE.get("text").setContent('');
+});
 // ----------------------------------------------------------------------------------------------------> Chat
