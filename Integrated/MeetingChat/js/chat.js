@@ -25,12 +25,7 @@ const dbRefInteract = ref(db, "interact");
 
 // ----------------------------------------------------------------------------------------------------> Firebase Config
 
-
-
-// Chat <----------------------------------------------------------------------------------------------------
-
-// 送信ボタンが押された時
-$(".SendBtn").on("click", function() {
+function setChatData() {
     const date = new Date();
     // const now = date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
     // const now = ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2) + " " + ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
@@ -38,7 +33,7 @@ $(".SendBtn").on("click", function() {
 
 
     const msg = {
-        tag : "msg",
+        tag : "post",
         uname : $("#uname").val(),
         time: now,
         // text : $("#text").val()
@@ -47,6 +42,15 @@ $(".SendBtn").on("click", function() {
     }
     const newPostRef = push(dbRefChat); // ユニークキーを生成
     set(newPostRef, msg);
+}
+
+
+
+// Chat <----------------------------------------------------------------------------------------------------
+
+// 送信ボタンが押された時
+$(".SendBtn").on("click", function() {
+    setChatData();
 });
 
 
@@ -54,6 +58,8 @@ $(".SendBtn").on("click", function() {
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
+
+    if (msg.tag === "post") {
 
     // SpeechBalloon
 
@@ -236,7 +242,7 @@ onChildAdded(dbRefChat,function(data) {
 
     let textText = document.createElement("div");
         textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
-        textText = textText.firstElementChild; // 最初のこ要素を取得（divタグを除去）
+        textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
         textText.classList.add(key+"Msg");
 
         // speech_balloon.append(unameText);
@@ -263,6 +269,33 @@ onChildAdded(dbRefChat,function(data) {
         'top': Math.random(30),
         'left': Math.random(30)
     });
+    } else {
+        // msg.key = msg.id;
+
+        // let unameText = document.createElement("p");
+        //     unameText.classList.add("Name", key+"Name");
+        // if (msg.uname) {
+        //     unameText.textContent = msg.uname;
+        // } else {
+        //     unameText.textContent = "匿名";
+        // }
+
+        // let textText = document.createElement("div");
+        // textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
+        // textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
+        // textText.classList.add(msg.id+"Msg");
+
+        // $("."+msg.id+"Name").replaceWith(unameText)
+        // $("."+msg.id+"Msg").replaceWith(textText)
+        // $("#rewrite-btn").toggleClass("Inactive")
+        // $("#uname").css('margin', '10px 250px 10px 10px')
+
+        // // 送信したら入力されたテキストを削除
+        // let textForm = document.getElementById("uname");
+        //     textForm.value = '';
+        //     tinyMCE.get("text").setContent('');
+        ;
+    }
 
 });
 

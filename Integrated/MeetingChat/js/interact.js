@@ -2,7 +2,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+import { getDatabase, ref, push, set, update, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,6 +25,65 @@ const dbRefInteract = ref(db, "interact");
 
 // ----------------------------------------------------------------------------------------------------> Firebase Config
 
+
+// Method <----------------------------------------------------------------------------------------------------
+function updateChatData(id) {
+    const dbRefChatChild = ref(db, "chat/"+id);
+
+    const date = new Date();
+    // const now = date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+    // const now = ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2) + " " + ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
+    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
+
+
+    const msg = {
+        tag : "rewrite",
+        uname : $("#uname").val(),
+        time: now,
+        // text : $("#text").val()
+        // text : tinyMCE.get("text").getContent({format: "text"})
+        text: tinyMCE.get("text").getContent()
+    }
+    // const newPostRef = push(dbRefChat); // ユニークキーを生成
+    update(dbRefChatChild, msg)
+}
+
+
+let rewrite_id = [];
+
+function rewrite_get(id) {
+    $("#uname").val($("."+id+"Name").text())
+    tinyMCE.get("text").setContent($("."+id+"Msg").text())
+    $("#rewrite-btn").toggleClass("Inactive")
+    $("#uname").css('margin', '10px 130px 10px 10px')
+    rewrite_id.push(id);
+}
+
+// function rewrite_set(id) {
+//     let textText = document.createElement("div");
+//         textText.innerHTML = tinyMCE.get("text").getContent(); // テキスト内のhtmlタグを取得
+//         textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
+//         textText.classList.add(id+"Msg");
+
+//     $("."+id+"Name").text($("#uname").val())
+//     $("."+id+"Msg").replaceWith(textText)
+//     $("#rewrite-btn").toggleClass("Inactive")
+//     $("#uname").css('margin', '10px 250px 10px 10px')
+//     rewrite_id.pop();
+
+//     // 送信したら入力されたテキストを削除
+//     let textForm = document.getElementById("uname");
+//         textForm.value = '';
+//         tinyMCE.get("text").setContent('');
+// }
+
+$("#rewrite-btn").on("click", function() {
+    // rewrite_set(rewrite_id[0]);
+    updateChatData(rewrite_id[0]);
+    rewrite_id.pop();
+});
+
+// ----------------------------------------------------------------------------------------------------> Method
 
 
 
@@ -120,8 +179,8 @@ inertia: true
     let tap_id = target.getAttribute('id')
     let tap_class = target.getAttribute('class')
 
-    console.log(tap_id);
-    console.log(tap_class);
+    // console.log(tap_id);
+    // console.log(tap_class);
 
     if (tap_class === "SpeechBalloon") {
         // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
@@ -136,6 +195,11 @@ inertia: true
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
+        event.preventDefault();
+
+    } else if (target.classList.contains('EditBtn')) {
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        rewrite_get(tap_id);
         event.preventDefault();
 
     } else {
@@ -270,6 +334,8 @@ onChildAdded(dbRefInteract,function(data) {
         $("." + info.id + "SpeechBalloon").css('min-width', '210px');
     } else {;}
 });
+
+
 
 // ----------------------------------------------------------------------------------------------------> Interact
 
