@@ -83,6 +83,11 @@ function rewrite_get(id) {
 // }
 
 $("#rewrite-btn").on("click", function() {
+
+    // Case. text=""
+    if (tinyMCE.get("text").getContent() === "") {
+        return 0;
+    }
     // rewrite_set(rewrite_id[0]);
     updateChatData(rewrite_id[0]);
     rewrite_id.pop();
@@ -187,6 +192,7 @@ inertia: true
     // console.log(tap_id);
     // console.log(tap_class);
 
+    // tap SpeechBalloon
     if (tap_class === "SpeechBalloon") {
         // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
@@ -196,19 +202,24 @@ inertia: true
     //     $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
     //     // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
     //     event.preventDefault();
+
+    // tap EditBtn
     } else if (target.classList.contains('EditBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         rewrite_get(tap_id);
         event.preventDefault();
 
+    // tap SemanticSelectorBtn
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
         event.preventDefault();
 
+    // tap TrashBtn
     } else if (target.classList.contains('TrashBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"SpeechBalloon").toggleClass('Inactive') // 一旦隠す
+        // $("."+tap_id+"SpeechBalloon").toggleClass('Inactive') // 一旦隠す
+        $("."+tap_id+"SpeechBalloon").remove()
         removeChatData(tap_id); // 再読み込みしないと消えない
         event.preventDefault();
 
@@ -348,5 +359,4 @@ onChildAdded(dbRefInteract,function(data) {
 
 
 // ----------------------------------------------------------------------------------------------------> Interact
-
 

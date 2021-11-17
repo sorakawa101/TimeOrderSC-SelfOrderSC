@@ -25,6 +25,11 @@ const dbRefInteract = ref(db, "interact");
 
 // ----------------------------------------------------------------------------------------------------> Firebase Config
 
+
+
+
+// Method <----------------------------------------------------------------------------------------------------
+
 function setChatData() {
     const date = new Date();
     // const now = date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
@@ -44,6 +49,10 @@ function setChatData() {
     set(newPostRef, msg);
 }
 
+// ----------------------------------------------------------------------------------------------------> Method
+
+
+
 
 
 // Chat <----------------------------------------------------------------------------------------------------
@@ -55,9 +64,15 @@ $(".SendBtn").on("click", function() {
 
 
 // <-- RealTimeDatabase(Chat)
+
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
+
+    // Case. text=""
+    if (msg.text === "") {
+        return 0;
+    }
 
     // SpeechBalloon
 
@@ -246,10 +261,11 @@ onChildAdded(dbRefChat,function(data) {
         // speech_balloon.append(unameText);
         speech_balloon.append(textText);
 
-
-    if (msg.text) {
         $("#output-form").append(speech_balloon);
-    } else {;}
+
+    // if (msg.text) {
+    //     $("#output-form").append(speech_balloon);
+    // } else {;}
 
 
     // 送信したら入力されたテキストを削除
@@ -272,7 +288,7 @@ onChildAdded(dbRefChat,function(data) {
 
 
 onChildChanged(dbRefChat,function(data) {
-    console.log("change");
+    console.log("rewritten");
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
 
