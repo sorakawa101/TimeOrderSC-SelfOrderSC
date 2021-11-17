@@ -324,6 +324,15 @@ footer {
     background-color: gainsboro;
 }
 
+#rewrite-btn {
+    background-color: rgba(255,105,98,1);
+}
+
+#rewrite-btn:hover {
+    background-color: rgba(255,105,98,.6);
+}
+
+
 .HalfBtn {
     align-self: center;
     width: 50px;
