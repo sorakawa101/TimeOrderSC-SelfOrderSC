@@ -8,5 +8,13 @@ tinyMCE.init({
     fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 34px',
     height: 150,
     lists_indent_on_tab: false,
-    branding: false // POWERED BY TINYのリンク非表示
+    branding: false, // POWERED BY TINYのリンク非表示
+
+    // Cmd+Shift+p でPostBtn押下ショートカット
+    setup: function (editor) {
+        editor.addShortcut(
+        'meta+shift+p', 'Add yellow highlight to selected text.', function () {
+        $(".SendBtn").trigger('click')
+    });
+    },
 });
