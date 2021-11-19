@@ -1,7 +1,7 @@
 // Import <----------------------------------------------------------------------------------------------------
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
-from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import {firebaseConfig, app, db, dbRefChat, dbRefInteract, } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -27,24 +27,6 @@ $("#scroll-btn").on("click", function() {
     $(this).toggleClass("Unread");
     $(this).val('Scroll');
 });
-
-
-// // Unread Case
-// $("#unread-btn").on("click", function() {
-//     const op = $("#output-form");
-
-//     const scrollHeight = op.get(0).scrollHeight;
-//     const scrollTop = op.scrollTop();
-
-//     let scrollToBottom = () => {
-//         op.animate(
-//             { scrollTop: scrollHeight },
-//         );
-//     };
-//     scrollToBottom();
-//     document.getElementById("scroll-btn").style.display = "block";
-//     document.getElementById("unread-btn").style.display = "none";
-// });
 
 
 // When Posted
@@ -85,16 +67,6 @@ $("#input-form").on("submit", function() {
     }
     // console.log(isScrollBottom());
 
-});
-
-// Shift+Enterで送信
-$(".mce-content-body").keydown(function(e) {
-    if( e.keyCode === 13 ) {  // When "Shift + Enter"
-        console.log("Enter");
-    } else {
-        e.preventDefault(); // イベントキャンセル
-    }
-    $("#send-btn").trigger("submit");
 });
 
 // ----------------------------------------------------------------------------------------------------> Btn

@@ -1,18 +1,19 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
-from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyB1e7dTQDCTEKfrNTSyWb63V-s408nqN_o",
-    authDomain: "research-project-dad15.firebaseapp.com",
-    projectId: "research-project-dad15",
-    storageBucket: "research-project-dad15.appspot.com",
-    messagingSenderId: "760369282337",
-    appId: "1:760369282337:web:47ab3f3ebf3ca4a43b1260"
+    apiKey: "AIzaSyDHpq5C7jhHEcs6XV0j8sTwOVGFCFnB7vw",
+    authDomain: "research-2094b.firebaseapp.com",
+    databaseURL: "https://research-2094b-default-rtdb.firebaseio.com",
+    projectId: "research-2094b",
+    storageBucket: "research-2094b.appspot.com",
+    messagingSenderId: "843244079366",
+    appId: "1:843244079366:web:d08d4237f347b6604db687"
 };
 
 
