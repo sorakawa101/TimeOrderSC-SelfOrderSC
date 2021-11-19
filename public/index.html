@@ -27,7 +27,7 @@
                 <button class="Btn MenuBtn pdfMenuBtn">PDF</button>
                 <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
                 <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button>
-                <button class="Btn MenuBtn DrawMenuBtn">DRAW</button>
+                <button class="Btn MenuBtn LogMenuBtn">LOG</button>
                 <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
             </div>
         <!-- </div> -->
@@ -37,7 +37,7 @@
     <div class="MainWrapper">
 
         <div class="pdfWrapper Inactive">
-            <iframe class="Doc" id="doc1"   src="./src/doc.pdf" ></iframe>
+            <iframe class="Doc" id="doc"   src="./src/doc.pdf" ></iframe>
             <!-- <iframe class="Doc" id="doc2" width="720" height="1070" src="./src/doc2.pdf" ></iframe> -->
         </div>
 
@@ -45,38 +45,13 @@
             <div id="output-form" class="OutputForm"></div>
         </div>
 
+        <div class="LogWrapper Inactive">
+            <div class="Log" id="log">Log</div>
+        </div>
+
     </div>
 
     <footer>
-
-        <div class="DrawWrapper Inactive">
-
-            <div class="Tools">
-                <button type="button" class="Btn" id="undo">Undo</button>
-                <button type="button" class="Btn" id="redo">Redo</button>
-                <button type="button" class="Btn" id="clear">Clear</button>
-                <button type="button" class="EraserS HalfBtn" id="eraserS" style="background: white;"><span class="fa fa-eraser"></span></button>
-                <button type="button" class="EraserM HalfBtn" id="eraserM" style="background: white;"><span class="fa fa-eraser fa-lg"></span></button>
-                <button type="button" class="EraserL HalfBtn" id="eraserL" style="background: white;"><span class="fa fa-eraser fa-2x"></span></button>
-
-
-                <div class="ColorField" style="background: black;"></div>
-                <div class="ColorField" style="background: tomato;"></div>
-                <div class="ColorField" style="background: darkturquoise;"></div>
-                <div class="ColorField" style="background: gold;"></div>
-                <div class="ColorField" style="background: mediumseagreen;"></div>
-
-
-                <input oninput="draw_color=this.value" type="color" class="ColorPicker">
-                <div class="PenWeightBtnS"  style="background: black;"></div>
-                <input type="range" min="1" max="10" class="PenWeight" id="range">
-                <div class="PenWeightBtnL" style="background: black;"></div>
-
-                <!-- <a id="download" href="#" download="canvas.jpg">ダウンロード</a>
-                <div id="result"><img src="#"></div> -->
-            </div>
-
-        </div>
 
         <div class="FacilitateWrapper Inactive">
 
@@ -154,8 +129,6 @@
     <script type="module" src="js/chat.js"></script>
     <script type="module" src="js/interact.js"></script>
     <script type="module" src="js/voice-input.js"></script>
-    <!-- <script src="js/canvas.js"></script> -->
-    <script type="module" src="js/canvas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>

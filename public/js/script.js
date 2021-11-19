@@ -138,9 +138,8 @@ $(".FacilitateMenuBtn").on("click", function() {
     $(".FacilitateWrapper").toggleClass("Inactive");
 });
 
-$(".DrawMenuBtn").on("click", function() {
-    $(".DrawWrapper").toggleClass("Inactive");
-    $("#canvas").toggleClass("Inactive");
+$(".LogMenuBtn").on("click", function() {
+    $(".LogWrapper").toggleClass("Inactive");
 });
 
 $(".ResetMenuBtn").on("click", function() {
