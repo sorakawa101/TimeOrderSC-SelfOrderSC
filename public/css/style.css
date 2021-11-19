@@ -86,17 +86,19 @@ header {
     width: 100%;
     /* height: 1070px; */
     height: 1000px;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
 }
 
 .pdfWrapper {
-    width: 1000px;
+    width: 550px;
     height: 100%;
-    margin-left: 10px;
-    /* margin: 0 auto; */
-    /* text-align: center; */
-    position: relative;
+    /* margin-left: 10px; */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: var(--max-z-index);
+    background-color: rgba(227,228,232,.8);
 }
 
 .Doc {
@@ -114,7 +116,7 @@ header {
 .MsgWrapper {
     /* width: 900px; */
     width: 100%;
-    height: auto;
+    height: 100%;
     margin: 20px auto;
     background-color: rgba(128,128,128,.1);
     /* padding: 10px 10px; */
@@ -126,12 +128,33 @@ header {
 .LogWrapper {
     width: 300px;
     height: 100%;
-    margin-right: 10px;
-    /* margin: 0 auto; */
-    /* text-align: center; */
-    position: relative;
+    /* margin-right: 10px; */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    z-index: var(--max-z-index);
+    background-color: rgba(227,228,232,.8);
+    margin-top: 60px;
+    padding: 10px 10px 30px 10px;
 }
 
+.Log {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.LogContent {
+    display: flex;
+    justify-content: space-between;
+    height: 25px;
+}
+
+.Log p {
+    font-size: small;
+    margin: 5px 0;
+}
 
 .InputWrapper {
     width: 100%;

@@ -36,7 +36,6 @@ function setChatData() {
     // const now = ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2) + " " + ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
-
     const msg = {
         tag : "post",
         uname : $("#uname").val(),
@@ -47,6 +46,27 @@ function setChatData() {
     }
     const newPostRef = push(dbRefChat); // ユニークキーを生成
     set(newPostRef, msg);
+}
+
+
+// ChatLog
+function genChatLog(uname, time) {
+    // SemanticLog
+    let chatLogContent = $("<div>", {class: 'LogContent'})
+    let txt = $("<p>", {text: uname+"がChatを送信しました"}).appendTo(chatLogContent)
+    $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.5rem'}).prependTo(txt)
+    $("<p>", {text: time}).appendTo(chatLogContent)
+    $(".Log").append(chatLogContent)
+}
+
+// RewriteLog
+function genRewriteLog(uname, time) {
+    // SemanticLog
+    let rewriteLogContent = $("<div>", {class: 'LogContent'})
+    let txt = $("<p>", {text: uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
+    $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.5rem'}).prependTo(txt)
+    $("<p>", {text: time}).appendTo(rewriteLogContent)
+    $(".Log").append(rewriteLogContent)
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
@@ -263,10 +283,7 @@ onChildAdded(dbRefChat,function(data) {
 
         $("#output-form").append(speech_balloon);
 
-    // if (msg.text) {
-    //     $("#output-form").append(speech_balloon);
-    // } else {;}
-
+    genChatLog(msg.uname, msg.time); // Log
 
     // 送信したら入力されたテキストを削除
     let textForm = document.getElementById("uname");
@@ -274,11 +291,12 @@ onChildAdded(dbRefChat,function(data) {
         tinyMCE.get("text").setContent('');
 
 
+    // SpeechBalloonの初期設定
     $("."+ key +"SpeechBalloon").css({
         'min-width': '200px',
         'min-height': '70px',
         'border': 'solid 1px black',
-        'background-color': 'gainsboro',
+        'background-color': 'rgba(227,228,232,.6)',
         'position': 'absolute',
         'top': Math.random(30),
         'left': Math.random(30)
@@ -288,7 +306,7 @@ onChildAdded(dbRefChat,function(data) {
 
 
 onChildChanged(dbRefChat,function(data) {
-    console.log("rewritten");
+    // console.log("rewritten");
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
 
@@ -309,6 +327,8 @@ onChildChanged(dbRefChat,function(data) {
     $("."+msg.id+"Msg").replaceWith(textText)
     $("#rewrite-btn").toggleClass("Inactive")
     $("#uname").css('margin', '10px 250px 10px 10px')
+
+    genRewriteLog(msg.uname, msg.time) // RewriteLog
 
     // 送信したら入力されたテキストを削除
     let textForm = document.getElementById("uname");
