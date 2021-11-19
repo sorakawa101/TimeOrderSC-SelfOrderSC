@@ -31,6 +31,70 @@ function setChatData() {
     set(newPostRef, msg);
 }
 
+// SpeechBalloon生成
+function genSpeechBalloon(uname, time, text, key) {
+
+    let speech_balloon = $("<div>", {class: 'SpeechBalloon', id: key}).addClass(key+'SpeechBalloon');
+
+
+    // Chat Info
+
+    let chat_info = $("<div>", {class: 'ChatInfo'});
+
+    let uname_text = $("<p>", {class: 'Name'}).addClass(key+'Name');
+    if(uname) {
+        uname_text.text() = uname;
+    } else {
+        uname_text = "匿名";
+    }
+    chat_info.append(uname_text);
+
+    $("<p>", {class: 'Semantic'}).addClass(key+'Semantic').appendTo(chat_info);
+
+    $("<p>", {class: 'TimeStamp', text: time}).appendTo(chat_info);
+
+    speech_balloon.append(chat_info);
+
+
+    // Selector Menu
+
+    let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
+
+    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn', id: key});
+        $("<span>", {class: 'fas fa-edit fa-2x'}).appendTo(edit_btn);
+
+    let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+        $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
+
+    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+        $("<span>", {class: 'fas fa-trash fa-2x'}).appendTo(trash_btn);
+
+    selector_menu.append(edit_btn, semantic_selector_btn, trash_btn);
+
+
+    // Semantic
+
+    let semantic_selector = $("<div>", {class: 'SemanticSelector'}).appendTo(speech_balloon);
+
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'none', text: "None"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'idea', text: "提案"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'facilitation', text: "進行"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'question', text: "質疑"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "応答"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'comment', text: "感想"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "連絡"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+
+
+    // Text
+    let text_text = document.createElement("div");
+        text_text.innerHTML = text; // テキスト内のhtmlタグを取得
+        text_text = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
+        text_text.classList.add(key+"Msg");
+
+    speech_balloon.append(text_text);
+
+    $("#output-form").append(speech_balloon);
+}
 
 // ChatLog
 function genChatLog(uname, time) {
@@ -96,14 +160,14 @@ onChildAdded(dbRefChat,function(data) {
 
     // Name
 
-        let unameText = document.createElement("p");
-        unameText.classList.add("Name", key+"Name");
-        if (msg.uname) {
-            unameText.textContent = msg.uname;
-        } else {
-            unameText.textContent = "匿名";
-        }
-        chat_info.append(unameText);
+    let unameText = document.createElement("p");
+    unameText.classList.add("Name", key+"Name");
+    if (msg.uname) {
+        unameText.textContent = msg.uname;
+    } else {
+        unameText.textContent = "匿名";
+    }
+    chat_info.append(unameText);
 
     // Semantic
 
@@ -265,6 +329,8 @@ onChildAdded(dbRefChat,function(data) {
         speech_balloon.append(textText);
 
         $("#output-form").append(speech_balloon);
+
+    // genSpeechBalloon(msg.uname, msg.time, msg.text, key);
 
     genChatLog(msg.uname, msg.time); // Log
 
