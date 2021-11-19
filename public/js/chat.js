@@ -30,6 +30,7 @@ const dbRefInteract = ref(db, "interact");
 
 // Method <----------------------------------------------------------------------------------------------------
 
+// Firebaseの"chat"にデータ送信
 function setChatData() {
     const date = new Date();
     // const now = date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
@@ -44,6 +45,7 @@ function setChatData() {
         // text : tinyMCE.get("text").getContent({format: "text"})
         text: tinyMCE.get("text").getContent()
     }
+
     const newPostRef = push(dbRefChat); // ユニークキーを生成
     set(newPostRef, msg);
 }
@@ -61,7 +63,6 @@ function genChatLog(uname, time) {
 
 // RewriteLog
 function genRewriteLog(uname, time) {
-    // SemanticLog
     let rewriteLogContent = $("<div>", {class: 'LogContent'})
     let txt = $("<p>", {text: uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
     $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.5rem'}).prependTo(txt)
@@ -90,15 +91,15 @@ onChildAdded(dbRefChat,function(data) {
     const key = data.key; // ユニークキーを取得
 
     // Case. text=""
-    if (msg.text === "") {
-        return 0;
-    }
+    if (msg.text === "") { return 0; }
 
     // SpeechBalloon
 
     let speech_balloon = document.createElement("div");
         speech_balloon.classList.add("SpeechBalloon", key+"SpeechBalloon");
         speech_balloon.setAttribute("id", key);
+
+    // let speech_balloon = $('<div>', {class: 'SpeechBalloon', id: key}).addClass(key+'SpeechBalloon')
 
     let selector_menu = document.createElement("div");
         selector_menu.classList.add("SelectorMenu");
@@ -223,6 +224,7 @@ onChildAdded(dbRefChat,function(data) {
 
     // Semantic
 
+    // let semantic_selector = $('<div>', {class: 'SemanticSelector'})
     let semantic_selector = document.createElement("div");
         semantic_selector.classList.add("SemanticSelector");
         speech_balloon.classList.add("SpeechBalloon");

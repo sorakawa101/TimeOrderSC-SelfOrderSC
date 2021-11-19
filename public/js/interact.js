@@ -26,7 +26,10 @@ const dbRefInteract = ref(db, "interact");
 // ----------------------------------------------------------------------------------------------------> Firebase Config
 
 
+
+
 // Method <----------------------------------------------------------------------------------------------------
+
 function updateChatData(id) {
     const dbRefChatChild = ref(db, "chat/"+id);
 
@@ -64,23 +67,6 @@ function rewrite_get(id) {
     rewrite_id.push(id);
 }
 
-// function rewrite_set(id) {
-//     let textText = document.createElement("div");
-//         textText.innerHTML = tinyMCE.get("text").getContent(); // テキスト内のhtmlタグを取得
-//         textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
-//         textText.classList.add(id+"Msg");
-
-//     $("."+id+"Name").text($("#uname").val())
-//     $("."+id+"Msg").replaceWith(textText)
-//     $("#rewrite-btn").toggleClass("Inactive")
-//     $("#uname").css('margin', '10px 250px 10px 10px')
-//     rewrite_id.pop();
-
-//     // 送信したら入力されたテキストを削除
-//     let textForm = document.getElementById("uname");
-//         textForm.value = '';
-//         tinyMCE.get("text").setContent('');
-// }
 
 $("#rewrite-btn").on("click", function() {
 
@@ -297,47 +283,29 @@ onChildAdded(dbRefInteract,function(data) {
     // document.getElementById(info.id).style.border = "solid 1px #000";
 
     if (info.tag === "pos") {
-        document.getElementById(info.id).style.transform = 'translate(' + info.posX + 'px, ' + info.posY + 'px)';
-        document.getElementById(info.id).setAttribute('data-x', info.posX);
-        document.getElementById(info.id).setAttribute('data-y', info.posY);
-        // console.log("pos");
+
+        $("#"+info.id).css('transform', 'translate(' + info.posX + 'px, ' + info.posY + 'px)')
+        $("#"+info.id).attr({
+            'data-x': info.posX,
+            'data-y': info.posY
+        })
+        // // console.log("pos");
 
     } else if (info.tag === "size") {
-        document.getElementById(info.id).style.width = info.sizeW + 'px';
-        document.getElementById(info.id).style.height = info.sizeH + 'px';
-        document.getElementById(info.id).style.transform = 'translate(' + info.posX + 'px,' + info.posY + 'px)';
-        document.getElementById(info.id).setAttribute('data-x', info.posX);
-        document.getElementById(info.id).setAttribute('data-y', info.posY);
-        document.getElementById(info.id).style.border = "solid 1px #000";
+
+        $("#"+info.id).css({
+            'width': info.sizeW + 'px',
+            'height': info.sizeH + 'px',
+            'transform': 'translate(' + info.posX + 'px,' + info.posY + 'px)',
+            'border': "solid 1px #000"
+        })
+
+        $("#"+info.id).attr({
+            'data-x': info.posX,
+            'data-y': info.posY
+        })
         // console.log("size");
 
-    // } else if (info.tag === "color") {
-
-    //     switch(info.color) {
-    //         case "black":
-    //             // document.getElementById(info.id).style.backgroundColor = "black";
-    //             document.getElementById(info.id).classList.toggle('Inactive');
-    //             break;
-    //         case "tomato":
-    //             document.getElementById(info.id).style.backgroundColor = "tomato";
-    //             break;
-    //         case "darkturquoise":
-    //             document.getElementById(info.id).style.backgroundColor = "darkturquoise";
-    //             break;
-    //         case "gold":
-    //             document.getElementById(info.id).style.backgroundColor = "gold";
-    //             break;
-    //         case "mediumseagreen":
-    //             document.getElementById(info.id).style.backgroundColor = "mediumseagreen";
-    //             break;
-    //         case "gainsboro":
-    //             document.getElementById(info.id).style.backgroundColor = "gainsboro";
-    //             break;
-    //         default:
-    //             ;
-    //         //     console.log("status");
-    //     }
-        // console.log("status");
     } else if (info.tag === "semantic") {
 
         switch (info.semantic) {
@@ -381,10 +349,10 @@ onChildAdded(dbRefInteract,function(data) {
         }
 
         $("." + info.id + "SpeechBalloon").css('min-width', '210px');
+        // console.log("semantic");
+
     } else {;}
+
 });
 
-
-
 // ----------------------------------------------------------------------------------------------------> Interact
-
