@@ -112,3 +112,28 @@ $(".DrawWrapper").on("dblclick", function() {
 });
 
 // ----------------------------------------------------------------------------------------------------> Menu
+
+
+
+
+// Switch <----------------------------------------------------------------------------------------------------
+
+// pdf切り替え
+$("#pdf-switch-btn").on("click", function(e) {
+
+    e.preventDefault();
+
+    if ($("#doc").hasClass("Active")) {
+        $("#doc").toggleClass("Active Inactive");
+        $("#doc2").toggleClass("Active Inactive");
+    } else if ($("#doc2").hasClass("Active")) {
+        $("#doc2").toggleClass("Active Inactive");
+        $("#doc3").toggleClass("Active Inactive");
+    } else {
+        $("#doc3").toggleClass("Active Inactive");
+        $("#doc").toggleClass("Active Inactive");
+    }
+
+})
+
+// ----------------------------------------------------------------------------------------------------> Switch
