@@ -41,10 +41,18 @@ function removeChatData(id) {
 let rewrite_id = [];
 
 function rewrite_get(id) {
+
     $("#uname").val($("."+id+"Name").text())
     tinyMCE.get("text").setContent($("."+id+"Msg").text())
     $("#rewrite-btn").toggleClass("Inactive")
-    $("#uname").css('margin', '10px 130px 10px 10px')
+
+    let flag = $("#rewrite-btn").hasClass("Inactive")
+    if (flag) {
+        $("#uname").css('margin', '10px 250px 10px 10px')
+    } else {
+        $("#uname").css('margin', '10px 130px 10px 10px')
+    }
+
     rewrite_id.push(id);
 }
 
@@ -198,7 +206,13 @@ inertia: true
 
     // tap EditBtn
     } else if (target.classList.contains('EditBtn')) {
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+
+        let flag = $(".InputWrapper").hasClass("Inactive");
+        if (flag) {
+            $(".InputWrapper").toggleClass('Inactive');
+        } else {;}
+
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive');
         rewrite_get(tap_id);
         event.preventDefault();
 
@@ -219,18 +233,6 @@ inertia: true
     } else {
         let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
 
-        // if (target.classList.contains('ColorCircle')) {
-        //     let cc_color = target.getAttribute('id');
-        //     let color = {
-        //         tag : "color",
-        //         id : cc_id,
-        //         color : cc_color
-        //     }
-        //     let newPostRef = push(dbRefInteract); // ユニークキーを生成
-        //     set(newPostRef, color);
-        //     $("."+cc_id+"ColorCircle").toggleClass('Inactive')
-        //     event.preventDefault();
-
         if (target.classList.contains('SemanticCircle')) {
             let sc_semantic = target.getAttribute('id');
             setSemanticData(cc_id, sc_semantic);
@@ -242,9 +244,6 @@ inertia: true
             $("."+cc_id+"SelectorBtn").toggleClass('Inactive')
             event.preventDefault();
 
-            // if (!$("."+cc_id+"ColorCircle").hasClass("Inactive")) {
-            //     $("."+cc_id+"ColorCircle").toggleClass('Inactive')
-            // }
             if (!$("."+cc_id+"SemanticCircle").hasClass("Inactive")) {
                 $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
             }
