@@ -47,7 +47,7 @@ function genSpeechBalloon(uname, time, txt, key) {
     if(uname) {
         uname_text.text(uname);
     } else {
-        uname_text = "匿名";
+        uname_text.text("匿名");
     }
     chat_info.append(uname_text);
 

@@ -13,8 +13,13 @@ tinyMCE.init({
     // Cmd+Shift+p でPostBtn押下ショートカット
     setup: function (editor) {
         editor.addShortcut(
-        'meta+shift+p', 'Add yellow highlight to selected text.', function () {
+        'meta+shift+p', 'Click Post.', function () {
         $(".SendBtn").trigger('click')
-    });
+        },
+        // 'meta+shift+', 'Click Rewrite', function () {
+        //     $("#rewrite-btn").trigger('click')
+        // }
+        );
+
     },
 });
