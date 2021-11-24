@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog} from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -98,6 +98,7 @@ $(".LogMenuBtn").on("click", function() {
 $(".ResetMenuBtn").on("click", function() {
     remove(dbRefChat);
     remove(dbRefInteract);
+    remove(dbRefLog);
 });
 
 

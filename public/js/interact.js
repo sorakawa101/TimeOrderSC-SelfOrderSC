@@ -2,7 +2,9 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog } from "./config.js";
+import {setLogData, genChatLog, genRewriteLog, genSemanticLog} from "./log.js";
+
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -30,6 +32,10 @@ function updateChatData(id) {
     }
     // const newPostRef = push(dbRefChat); // ユニークキーを生成
     update(dbRefChatChild, msg);
+
+    if (msg.uname === "") { msg.uname = "匿名"; } else {;}
+
+    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, msg.key); // Log
 }
 
 function removeChatData(id) {
@@ -73,25 +79,19 @@ function setSemanticData(cc_id, sc_semantic) {
     const date = new Date();
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
-    let semantic = {
+    const info = {
         tag : "semantic",
         id : cc_id,
         semantic : sc_semantic,
-        uname : "user", // ベタ書き
+        uname : $("#uname").val(),
         time : now
     }
     let newPostRef = push(dbRefInteract); // ユニークキーを生成
-    set(newPostRef, semantic);
-}
+    set(newPostRef, info);
 
+    if (info.uname === "") { info.uname = "匿名"; } else {;}
 
-function genSemanticLog(uname, semantic, time, rgba) {
-    // SemanticLog
-    let semanticLogContent = $("<div>", {class: 'LogContent'})
-    let txt = $("<p>", {text: uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
-    $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.5rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(semanticLogContent)
-    $(".Log").append(semanticLogContent)
+    setLogData(info.tag, info.uname, info.time, null, info.semantic, info.key); // Log
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
@@ -296,33 +296,27 @@ onChildAdded(dbRefInteract,function(data) {
             case "idea":
                 $("."+ info.id +"Semantic").text("<提案>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(255,105,98,.6)');
-                genSemanticLog(info.uname, "提案", info.time, 'rgba(255,105,98,.8)');
                 break;
             case "facilitation":
                 $("."+ info.id +"Semantic").text("<進行>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(136,196,228,.6)');
-                genSemanticLog(info.uname, "進行", info.time, 'rgba(136,196,228,.8)');
                 break;
             case "question":
                 $("."+ info.id +"Semantic").text("<質疑>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(255,175,104,.6)');
-                genSemanticLog(info.uname, "質疑", info.time, 'rgba(255,175,104,.8)');
                 break;
             case "answer":
                 $("."+ info.id +"Semantic").text("<応答>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(192,231,197,.6)');
-                genSemanticLog(info.uname, "応答", info.time, 'rgba(192,231,197,.8)');
 
                 break;
             case "comment":
                 $("."+ info.id +"Semantic").text("<感想>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(246,230,131,.6)');
-                genSemanticLog(info.uname, "感想", info.time, 'rgba(246,230,131,.8)');
                 break;
             case "information":
                 $("."+ info.id +"Semantic").text("<連絡>");
                 $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(151,150,188,.6)');
-                genSemanticLog(info.uname, "連絡", info.time, 'rgba(151,150,188,.8)');
                 break;
             default:
                 ;

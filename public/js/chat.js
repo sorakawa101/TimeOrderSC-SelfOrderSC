@@ -2,7 +2,9 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog } from "./config.js";
+import {setLogData, genChatLog, genRewriteLog, genSemanticLog} from "./log.js";
+
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -29,7 +31,12 @@ function setChatData() {
 
     const newPostRef = push(dbRefChat); // ユニークキーを生成
     set(newPostRef, msg);
+
+    if (msg.uname === "") { msg.uname = "匿名"; } else {;}
+
+    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, msg.key); // Log
 }
+
 
 // SpeechBalloon生成
 function genSpeechBalloon(uname, time, txt, key) {
@@ -95,25 +102,6 @@ function genSpeechBalloon(uname, time, txt, key) {
     $("#output-form").append(speech_balloon);
 }
 
-// ChatLog
-function genChatLog(uname, time) {
-    // SemanticLog
-    let chatLogContent = $("<div>", {class: 'LogContent'})
-    let txt = $("<p>", {text: uname+"がChatを送信しました"}).appendTo(chatLogContent)
-    $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.5rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(chatLogContent)
-    $(".Log").append(chatLogContent)
-}
-
-// RewriteLog
-function genRewriteLog(uname, time) {
-    let rewriteLogContent = $("<div>", {class: 'LogContent'})
-    let txt = $("<p>", {text: uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
-    $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.5rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(rewriteLogContent)
-    $(".Log").append(rewriteLogContent)
-}
-
 // ----------------------------------------------------------------------------------------------------> Method
 
 
@@ -138,8 +126,6 @@ onChildAdded(dbRefChat,function(data) {
     if (msg.text === "") { return 0; }
 
     genSpeechBalloon(msg.uname, msg.time, msg.text, key); // SpeechBalloonを生成
-
-    genChatLog(msg.uname, msg.time); // ChatLog
 
     // 送信したら入力されたテキストを削除
     let textForm = document.getElementById("uname");
@@ -183,8 +169,6 @@ onChildChanged(dbRefChat,function(data) {
     $("."+msg.id+"Msg").replaceWith(textText)
     $("#rewrite-btn").toggleClass("Inactive")
     $("#uname").css('margin', '10px 250px 10px 10px')
-
-    genRewriteLog(msg.uname, msg.time) // RewriteLog
 
     // 送信したら入力されたテキストを削除
     let textForm = document.getElementById("uname");
