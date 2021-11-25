@@ -94,6 +94,15 @@ function setSemanticData(cc_id, sc_semantic) {
     setLogData(info.tag, info.uname, info.time, null, info.semantic, info.id); // Log
 }
 
+function setCheckData(cc_id) {
+    const info = {
+        tag : "check",
+        id : cc_id,
+    }
+    let newPostRef = push(dbRefInteract); // ユニークキーを生成
+    set(newPostRef, info);
+}
+
 // ----------------------------------------------------------------------------------------------------> Method
 
 
@@ -197,12 +206,20 @@ inertia: true
     if (tap_class === "SpeechBalloon") {
         // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        $("."+tap_id+"TrashBtn").toggleClass('Inactive')
         event.preventDefault();
 
     // } else if (target.classList.contains('ColorSelectorBtn')) {
     //     $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
     //     // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
     //     event.preventDefault();
+
+    // tap CheckBtn
+    } else if (target.classList.contains('CheckBtn')) {
+        let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
+        $("."+tap_id+"StatusBtn").toggleClass('Inactive');
+        setCheckData(cc_id);
+        event.preventDefault();
 
     // tap EditBtn
     } else if (target.classList.contains('EditBtn')) {
@@ -326,6 +343,8 @@ onChildAdded(dbRefInteract,function(data) {
         $("." + info.id + "SpeechBalloon").css('min-width', '210px');
         // console.log("semantic");
 
+    } else if (info.tag === "check") {
+        $("."+ info.id +"SpeechBalloon").css('border', 'solid 1px black');
     } else {;}
 
 });

@@ -67,6 +67,18 @@ function genSpeechBalloon(uname, time, txt, key) {
     speech_balloon.append(chat_info);
 
 
+    // Status Menu
+
+    let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
+
+    let check_btn = $("<button>", {class: 'CheckBtn StatusBtn HalfCircleBtn', id: key}).addClass(key+'StatusBtn');
+        $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
+    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+        $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
+
+    status_menu.append(check_btn, trash_btn);
+
+
     // Selector Menu
 
     let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
@@ -75,10 +87,8 @@ function genSpeechBalloon(uname, time, txt, key) {
         $("<span>", {class: 'fas fa-edit fa-2x'}).appendTo(edit_btn);
     let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
-    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
-        $("<span>", {class: 'fas fa-trash fa-2x'}).appendTo(trash_btn);
 
-    selector_menu.append(edit_btn, semantic_selector_btn, trash_btn);
+    selector_menu.append(edit_btn, semantic_selector_btn);
 
 
     // Semantic
@@ -140,12 +150,11 @@ onChildAdded(dbRefChat,function(data) {
     $("."+ key +"SpeechBalloon").css({
         'min-width': '200px',
         'min-height': '70px',
-        'border': 'solid 1px black',
+        // 'border': 'solid 1px black',
         'background-color': 'rgba(227,228,232,.6)',
         'position': 'absolute',
         'top': Math.random(30),
         'left': Math.random(30),
-        'opacity': '.5'
     });
 
 });
