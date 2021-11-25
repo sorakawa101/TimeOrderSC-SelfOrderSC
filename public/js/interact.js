@@ -2,8 +2,8 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog } from "./config.js";
-import {setLogData, genChatLog, genRewriteLog, genSemanticLog} from "./log.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefEffect } from "./config.js";
+import {setLogData,} from "./log.js";
 
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -21,7 +21,6 @@ function updateChatData(id) {
     // const now = ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2) + " " + ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
-
     const msg = {
         tag : "rewrite",
         uname : $("#uname").val(),
@@ -32,10 +31,11 @@ function updateChatData(id) {
     }
     // const newPostRef = push(dbRefChat); // ユニークキーを生成
     update(dbRefChatChild, msg);
+    const PostedKey = dbRefChatChild.key;
 
     if (msg.uname === "") { msg.uname = "匿名"; } else {;}
 
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, msg.key); // Log
+    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, PostedKey); // Log
 }
 
 function removeChatData(id) {
@@ -91,7 +91,7 @@ function setSemanticData(cc_id, sc_semantic) {
 
     if (info.uname === "") { info.uname = "匿名"; } else {;}
 
-    setLogData(info.tag, info.uname, info.time, null, info.semantic, info.key); // Log
+    setLogData(info.tag, info.uname, info.time, null, info.semantic, info.id); // Log
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
@@ -250,6 +250,7 @@ inertia: true
             // console.log(cc_id);
         }
     }
+    console.log(tap_class);
 })
 
 

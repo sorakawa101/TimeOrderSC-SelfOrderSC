@@ -374,7 +374,7 @@ footer {
 
 .FacilitateWrapper .Tools {
     height: 150px;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .FacilitateWrapper .CheckBtns {
@@ -401,6 +401,25 @@ footer {
 
 .FacilitateWrapper .Icon {
     text-align: center;
+}
+
+.FacilitateWrapper .OK:hover {
+    background-color: rgba(192,231,197,1);
+}
+
+.FacilitateWrapper .NG:hover {
+    background-color: rgba(255,105,98,1);
+}
+
+.FacilitateWrapper .RequestBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.FacilitateWrapper .RequestBtns button {
+    height: 60px;
 }
 
 .Tools .ColorField {
@@ -588,3 +607,11 @@ footer {
 }
 
 
+/* Log */
+.LogContent {
+    cursor: pointer;
+}
+
+.LogContent:hover {
+    opacity: .5;
+}

@@ -2,8 +2,8 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog } from "./config.js";
-import {setLogData, genChatLog, genRewriteLog, genSemanticLog} from "./log.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefEffect } from "./config.js";
+import {setLogData} from "./log.js";
 
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -30,11 +30,14 @@ function setChatData() {
     }
 
     const newPostRef = push(dbRefChat); // ユニークキーを生成
+    const newPostKey = newPostRef.key;
     set(newPostRef, msg);
 
     if (msg.uname === "") { msg.uname = "匿名"; } else {;}
 
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, msg.key); // Log
+    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, newPostKey); // Log
+
+    // console.log(newPostKey);
 }
 
 
@@ -128,8 +131,8 @@ onChildAdded(dbRefChat,function(data) {
     genSpeechBalloon(msg.uname, msg.time, msg.text, key); // SpeechBalloonを生成
 
     // 送信したら入力されたテキストを削除
-    let textForm = document.getElementById("uname");
-        textForm.value = '';
+    // let textForm = document.getElementById("uname");
+    //     textForm.value = '';
         tinyMCE.get("text").setContent('');
 
 
@@ -141,7 +144,8 @@ onChildAdded(dbRefChat,function(data) {
         'background-color': 'rgba(227,228,232,.6)',
         'position': 'absolute',
         'top': Math.random(30),
-        'left': Math.random(30)
+        'left': Math.random(30),
+        'opacity': '.5'
     });
 
 });
@@ -171,8 +175,8 @@ onChildChanged(dbRefChat,function(data) {
     $("#uname").css('margin', '10px 250px 10px 10px')
 
     // 送信したら入力されたテキストを削除
-    let textForm = document.getElementById("uname");
-        textForm.value = '';
+    // let textForm = document.getElementById("uname");
+    //     textForm.value = '';
         tinyMCE.get("text").setContent('');
 });
 // ----------------------------------------------------------------------------------------------------> Chat

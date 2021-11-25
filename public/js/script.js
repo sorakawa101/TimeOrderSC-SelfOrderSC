@@ -81,6 +81,7 @@ $("#input-form").on("submit", function() {
 
 $(".pdfMenuBtn").on("click", function() {
     $(".pdfWrapper").toggleClass("Inactive");
+    $("#pdf-switch-btn").toggleClass("Inactive");
 });
 
 $(".InputMenuBtn").on("click", function() {
