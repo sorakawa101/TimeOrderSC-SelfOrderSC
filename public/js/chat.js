@@ -71,7 +71,7 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
 
-    let check_btn = $("<button>", {class: 'CheckBtn StatusBtn HalfCircleBtn', id: key}).addClass(key+'StatusBtn');
+    let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
     let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
@@ -153,8 +153,9 @@ onChildAdded(dbRefChat,function(data) {
         // 'border': 'solid 1px black',
         'background-color': 'rgba(227,228,232,.6)',
         'position': 'absolute',
-        'top': Math.random(30),
-        'left': Math.random(30),
+        'top': 10,
+        // 'left': Math.random(100),
+        'left': 30,
     });
 
 });

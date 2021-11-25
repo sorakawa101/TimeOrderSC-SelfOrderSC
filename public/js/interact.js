@@ -133,6 +133,15 @@ function dragMoveListener (event) {
 window.dragMoveListener = dragMoveListener
 
 
+interact('.LogContent')
+.on('tap', function (event) {
+    let target = event.target
+    let tap_class = target.getAttribute('class')
+    console.log(tap_class);
+})
+
+
+
 interact('.SpeechBalloon')
 .draggable({
     inertia: true,
@@ -217,7 +226,7 @@ inertia: true
     // tap CheckBtn
     } else if (target.classList.contains('CheckBtn')) {
         let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
-        $("."+tap_id+"StatusBtn").toggleClass('Inactive');
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive');
         setCheckData(cc_id);
         event.preventDefault();
 
@@ -295,7 +304,6 @@ onChildAdded(dbRefInteract,function(data) {
             'width': info.sizeW + 'px',
             'height': info.sizeH + 'px',
             'transform': 'translate(' + info.posX + 'px,' + info.posY + 'px)',
-            'border': "solid 1px #000"
         })
 
         $("#"+info.id).attr({
@@ -341,6 +349,7 @@ onChildAdded(dbRefInteract,function(data) {
         }
 
         $("." + info.id + "SpeechBalloon").css('min-width', '210px');
+        $("." + info.id + "SpeechBalloon").css('border', 'none');
         // console.log("semantic");
 
     } else if (info.tag === "check") {
