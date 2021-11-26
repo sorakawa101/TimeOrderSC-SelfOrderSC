@@ -105,10 +105,14 @@ function genSpeechBalloon(uname, time, txt, key) {
 
 
     // Text
-    let text_text = document.createElement("div");
-        text_text.innerHTML = txt; // テキスト内のhtmlタグを取得
-        text_text = text_text.firstElementChild; // 最初の子要素を取得（divタグを除去）
-        text_text.classList.add(key+"Msg");
+
+    let text_text = $("<p>", {class: 'Msg'}).addClass(key+'Msg').html(txt);
+
+    // let text_text = document.createElement("div");
+    //     text_text.innerHTML = txt; // テキスト内のhtmlタグを取得
+    //     text_text = text_text.firstElementChild; // 最初の子要素を取得（divタグを除去）
+    //     text_text.classList.add(key+"Msg");
+
 
     speech_balloon.append(text_text);
 

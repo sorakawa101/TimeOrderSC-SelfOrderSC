@@ -253,6 +253,7 @@ inertia: true
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
         // $("."+tap_id+"SpeechBalloon").toggleClass('Inactive') // 一旦隠す
         $("."+tap_id+"SpeechBalloon").remove()
+        // $("."+tap_id+"SpeechBalloon").css('opacity', '0')
         removeChatData(tap_id); // 再読み込みしないと消えない
         event.preventDefault();
 

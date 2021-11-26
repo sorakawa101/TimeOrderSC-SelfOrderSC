@@ -10,6 +10,8 @@ tinyMCE.init({
     lists_indent_on_tab: false,
     branding: false, // POWERED BY TINYのリンク非表示
     forced_root_block : '', // 改行した時,p段落でなくてbr改行する
+    selector: 'textarea',  // change this value according to your HTML
+    deprecation_warnings: false,
 
     // Cmd+Shift+p でPostBtn押下ショートカット
     setup: function (editor) {
