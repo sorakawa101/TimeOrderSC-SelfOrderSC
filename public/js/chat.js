@@ -178,10 +178,12 @@ onChildChanged(dbRefChat,function(data) {
         unameText.textContent = "匿名";
     }
 
-    let textText = document.createElement("div");
-    textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
-    textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
-    textText.classList.add(msg.id+"Msg");
+    let textText = $("<p>", {class: 'Msg'}).addClass(msg.id+'Msg').html(txt);
+
+    // let textText = document.createElement("div");
+    // textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
+    // textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
+    // textText.classList.add(msg.id+"Msg");
 
     $("."+msg.id+"Name").replaceWith(unameText)
     $("."+msg.id+"Msg").replaceWith(textText)
