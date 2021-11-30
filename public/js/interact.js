@@ -1,8 +1,8 @@
 // Import <----------------------------------------------------------------------------------------------------
 
-import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved, update }
+import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefEffect } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
 import {setLogData,} from "./log.js";
 
 
@@ -38,9 +38,27 @@ function updateChatData(id) {
     setLogData(msg.tag, msg.uname, msg.time, msg.text, null, PostedKey); // Log
 }
 
+
 function removeChatData(id) {
     const dbRefChatChild = ref(db, "chat/"+id);
-    remove(dbRefChatChild);
+    // console.log(dbRefChatChild.data.uname);
+
+    get(dbRefChatChild).then((snapshot) => { // archiveにデータをコピー
+        const newPostRef = push(dbRefArchive);
+        set(newPostRef, snapshot.val());
+        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, null, id); // Log
+    });
+
+    // <-- firebase
+    let removed = {
+        tag : "removed",
+        id : id
+    }
+    let newPostRef = push(dbRefInteract); // ユニークキーを生成
+    set(newPostRef, removed);
+    // firebase -->
+
+    remove(dbRefChatChild); // chatの方のデータは削除
 }
 
 
@@ -277,7 +295,7 @@ inertia: true
             // console.log(cc_id);
         }
     }
-    console.log(tap_class);
+    // console.log(tap_class);
 })
 
 
@@ -312,6 +330,11 @@ onChildAdded(dbRefInteract,function(data) {
             'data-y': info.posY
         })
         // console.log("size");
+
+    } else if (info.tag === "removed") {
+
+        // $("#"+info.id).css('display', 'none')
+        $("#"+info.id).remove()
 
     } else if (info.tag === "semantic") {
 
@@ -350,7 +373,7 @@ onChildAdded(dbRefInteract,function(data) {
         }
 
         $("." + info.id + "SpeechBalloon").css('min-width', '210px');
-        $("." + info.id + "SpeechBalloon").css('border', 'none');
+        // $("." + info.id + "SpeechBalloon").css('border', 'none');
         // console.log("semantic");
 
     } else if (info.tag === "check") {

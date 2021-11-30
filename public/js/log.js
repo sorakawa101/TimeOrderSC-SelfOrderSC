@@ -2,8 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefEffect } from "./config.js";
-import { setEffectData } from "./effect.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -54,12 +53,23 @@ export function setLogData(tag, uname, time, text, semantic, id) {
         let newPostRef = push(dbRefLog); // ユニークキーを生成
         set(newPostRef, semantic_log);
 
+    } else if (tag === "removed") {
+        const removed_log = {
+            tag     : "removed_log",
+            uname   : uname,
+            time    : time,
+            text    : text,
+            id      : id
+        }
+
+        let newPostRef = push(dbRefLog); // ユニークキーを生成
+        set(newPostRef, removed_log);
+
     } else {;}
 }
 
 
 // ChatLog
-
 function genChatLog(uname, time, id) {
     // SemanticLog
     let chatLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
@@ -81,7 +91,6 @@ function genRewriteLog(uname, time, id) {
 
 
 // SemanticLog
-
 function genSemanticLog(uname, time, semantic, rgba, id) {
     // SemanticLog
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
@@ -89,6 +98,17 @@ function genSemanticLog(uname, time, semantic, rgba, id) {
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
+}
+
+
+// RemovedLog
+function genRemovedLog(uname, time, id) {
+    // SemanticLog
+    let removedLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
+    let txt = $("<p>", {text: uname+"がChatを削除しました"}).appendTo(removedLogContent)
+    $("<span>", {text: "▲  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
+    $("<p>", {text: time}).appendTo(removedLogContent)
+    $(".Log").append(removedLogContent)
 }
 
 // $(".LogContent").mouseover(function() {
@@ -145,6 +165,8 @@ onChildAdded(dbRefLog,function(data) {
                 ;
         }
     }
+
+    else if (log.tag === "removed_log") { genRemovedLog(log.uname, log.time, log.id); }
 
     else {;}
 });

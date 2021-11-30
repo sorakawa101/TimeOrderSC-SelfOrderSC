@@ -23,4 +23,4 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 export const dbRefChat = ref(db, "chat");
 export const dbRefInteract = ref(db, "interact");
 export const dbRefLog = ref(db, "log");
-export const dbRefEffect = ref(db, "effect");
+export const dbRefArchive = ref(db, "archive");

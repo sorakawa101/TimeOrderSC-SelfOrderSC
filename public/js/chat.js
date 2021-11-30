@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefEffect } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
 import {setLogData} from "./log.js";
 
 
@@ -133,8 +133,6 @@ $(".SendBtn").on("click", function() {
 });
 
 
-// <-- RealTimeDatabase(Chat)
-
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key; // ユニークキーを取得
@@ -178,15 +176,17 @@ onChildChanged(dbRefChat,function(data) {
         unameText.textContent = "匿名";
     }
 
-    let textText = $("<p>", {class: 'Msg'}).addClass(msg.id+'Msg').html(txt);
+    let textText = $("<p>", {class: 'Msg'}).addClass(msg.id+'Msg').html(msg.text);
 
     // let textText = document.createElement("div");
     // textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
     // textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
     // textText.classList.add(msg.id+"Msg");
 
-    $("."+msg.id+"Name").replaceWith(unameText)
-    $("."+msg.id+"Msg").replaceWith(textText)
+    // $("."+msg.id+"Name").replaceWith(unameText)
+    // $("."+msg.id+"Msg").replaceWith(textText)
+    $("."+msg.id+"Name").html(unameText)
+    $("."+msg.id+"Msg").html(textText)
     $("#rewrite-btn").toggleClass("Inactive")
     $("#uname").css('margin', '10px 250px 10px 10px')
 
@@ -194,5 +194,9 @@ onChildChanged(dbRefChat,function(data) {
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
         tinyMCE.get("text").setContent('');
+});
+
+
+onChildRemoved(dbRefChat, function(data) {
 });
 // ----------------------------------------------------------------------------------------------------> Chat
