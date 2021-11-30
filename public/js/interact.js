@@ -4,8 +4,6 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
 import {setLogData,} from "./log.js";
-
-
 // ----------------------------------------------------------------------------------------------------> Import
 
 
@@ -13,29 +11,24 @@ import {setLogData,} from "./log.js";
 
 // Method <----------------------------------------------------------------------------------------------------
 
-function updateChatData(id) {
+function updateChatData(id, text) {
     const dbRefChatChild = ref(db, "chat/"+id);
 
+    get(dbRefChatChild).then((snapshot) => { // archiveにデータをコピー
+        const newPostRef = push(dbRefArchive);
+        set(newPostRef, snapshot.val());
+        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, null, id); // Log
+    });
+
     const date = new Date();
-    // const now = date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-    // const now = ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2) + " " + ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const msg = {
-        tag : "rewrite",
-        uname : $("#uname").val(),
         time: now,
-        // text : $("#text").val()
-        // text : tinyMCE.get("text").getContent({format: "text"})
-        text: tinyMCE.get("text").getContent()
+        text: text
     }
     // const newPostRef = push(dbRefChat); // ユニークキーを生成
     update(dbRefChatChild, msg);
-    const PostedKey = dbRefChatChild.key;
-
-    if (msg.uname === "") { msg.uname = "匿名"; } else {;}
-
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, null, PostedKey); // Log
 }
 
 
@@ -61,36 +54,15 @@ function removeChatData(id) {
     remove(dbRefChatChild); // chatの方のデータは削除
 }
 
-
-let rewrite_id = [];
-
-function rewrite_get(id) {
-
-    $("#uname").val($("."+id+"Name").text())
-    tinyMCE.get("text").setContent($("."+id+"Msg").text())
-    $("#rewrite-btn").toggleClass("Inactive")
-
-    let flag = $("#rewrite-btn").hasClass("Inactive")
-    if (flag) {
-        $("#uname").css('margin', '10px 250px 10px 10px')
-    } else {
-        $("#uname").css('margin', '10px 130px 10px 10px')
+function setRewriteData(id, text) {
+    const info = {
+        tag : "rewrite",
+        id : id,
+        text : text
     }
-
-    rewrite_id.push(id);
+    let newPostRef = push(dbRefInteract); // ユニークキーを生成
+    set(newPostRef, info);
 }
-
-
-$("#rewrite-btn").on("click", function() {
-
-    // Case. text=""
-    if (tinyMCE.get("text").getContent() === "") {
-        return 0;
-    }
-    // rewrite_set(rewrite_id[0]);
-    updateChatData(rewrite_id[0]);
-    rewrite_id.pop();
-});
 
 
 function setSemanticData(cc_id, sc_semantic) {
@@ -225,7 +197,7 @@ inertia: true
     let target = event.target
     let tap_id = target.getAttribute('id')
     let tap_class = target.getAttribute('class')
-
+    let tap_tag = target.getAttribute('tag')
     // console.log(tap_id);
     // console.log(tap_class);
 
@@ -251,13 +223,47 @@ inertia: true
     // tap EditBtn
     } else if (target.classList.contains('EditBtn')) {
 
-        let flag = $(".InputWrapper").hasClass("Inactive");
-        if (flag) {
-            $(".InputWrapper").toggleClass('Inactive');
-        } else {;}
+        let html = $("."+tap_id+"Msg").html();
+        let text = $("."+tap_id+"Msg").text();
+        let rewrite_text = $("."+tap_id+"Msg").val();
 
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive');
-        rewrite_get(tap_id);
+        if (html === text) {
+
+            let tag_class = $("."+tap_id+"Msg").attr('class')
+
+            if ($("."+tap_id+"Msg").hasClass("Editable")) {
+                $("."+tap_id+"Msg").replaceWith(function() {
+                    $(this).replaceWith('<p class="'+tag_class+'">'+$(this).html()+'</p>')
+                });
+                $("."+tap_id+"Msg").toggleClass('Editable')
+                $("."+tap_id+"EditBtn").css('background-color', '')
+                $("."+tap_id+"SpeechBalloon").css('pointer-events', 'all')
+                updateChatData(tap_id, rewrite_text);
+                setRewriteData(tap_id, rewrite_text);
+
+            } else {
+                $("."+tap_id+"Msg").replaceWith(function() {
+                    $(this).replaceWith('<textarea class="'+tag_class+'">'+$(this).html()+'</textarea>')
+                });
+                $("."+tap_id+"Msg").toggleClass('Editable')
+                $("."+tap_id+"EditBtn").css('background-color', 'rgba(192,231,197,1)')
+                $("."+tap_id+"SpeechBalloon").css('pointer-events', 'none')
+                $("."+tap_id+"Msg").css('pointer-events', 'all')
+                $("."+tap_id+"EditBtn").css('pointer-events', 'all')
+            }
+
+        } else {
+
+            $("."+tap_id+"EditBtn").css('background-color', 'rgba(255,105,98,1)')
+            event.preventDefault();
+        }
+
+        // console.log(html);
+        // console.log(text);
+
+        event.preventDefault();
+
+    } else if (target.classList.contains('Editable')) {
         event.preventDefault();
 
     // tap SemanticSelectorBtn
@@ -300,7 +306,6 @@ inertia: true
 
 
 
-
 // RealTimeDatabaseに新しい要素が追加された時に実行
 onChildAdded(dbRefInteract,function(data) {
     const info = data.val();
@@ -335,6 +340,9 @@ onChildAdded(dbRefInteract,function(data) {
 
         // $("#"+info.id).css('display', 'none')
         $("#"+info.id).remove()
+
+    } else if (info.tag === "rewrite") {
+        $("."+info.id+"Msg").html(info.text)
 
     } else if (info.tag === "semantic") {
 

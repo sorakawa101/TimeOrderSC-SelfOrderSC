@@ -83,7 +83,7 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
 
-    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn').addClass(key+'EditBtn');
         $("<span>", {class: 'fas fa-edit fa-2x'}).appendTo(edit_btn);
     let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
@@ -106,7 +106,7 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     // Text
 
-    let text_text = $("<p>", {class: 'Msg'}).addClass(key+'Msg').html(txt);
+    let text_text = $("<p>", {class: 'Msg', id: 'msg'}).addClass(key+'Msg').html(txt);
 
     // let text_text = document.createElement("div");
     //     text_text.innerHTML = txt; // テキスト内のhtmlタグを取得
@@ -193,7 +193,7 @@ onChildChanged(dbRefChat,function(data) {
     // 送信したら入力されたテキストを削除
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
-        tinyMCE.get("text").setContent('');
+    tinyMCE.get("text").setContent('');
 });
 
 

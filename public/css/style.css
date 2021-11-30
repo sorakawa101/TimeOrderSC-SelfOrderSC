@@ -193,6 +193,12 @@ header {
     /* padding: 10px 0; */
 }
 
+.SpeechBalloon textarea {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+}
+
 .SpeechBalloon .SelectorMenu {
     width: 50px;
     height: 50px;
@@ -496,6 +502,7 @@ footer {
     background-color: gainsboro;
     opacity: 1;
 }
+
 .HalfCircleBtn {
     height: 20px;
     width: 20px;

@@ -1,5 +1,5 @@
 tinyMCE.init({
-    selector: "textarea.tinymce",
+    // selector: "textarea.tinymce",
     language: "ja",
     language_url: "./js/tinymce/langs/ja.js",
     plugins: " table lists advlist link wordcount emoticons image insertdatetime",
