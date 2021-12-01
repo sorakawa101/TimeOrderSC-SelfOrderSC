@@ -21,10 +21,10 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Header Menu
 
-$(".pdfMenuBtn").on("click", function() {
-    $(".pdfWrapper").toggleClass("Inactive");
-    $("#pdf-switch-btn").toggleClass("Inactive");
-});
+// $(".pdfMenuBtn").on("click", function() {
+//     $(".pdfWrapper").toggleClass("Inactive");
+//     $("#pdf-switch-btn").toggleClass("Inactive");
+// });
 
 $(".InputMenuBtn").on("click", function() {
     $(".InputWrapper").toggleClass("Inactive");
@@ -64,6 +64,13 @@ $(".DrawWrapper").on("dblclick", function() {
 
 // Switch <----------------------------------------------------------------------------------------------------
 
+// pdfを閉じる
+$("#pdf-close-btn").on("click", function(e) {
+    $(".pdfWrapper").toggleClass("Inactive");
+    $("#pdf-close-btn").toggleClass("Inactive");
+    $("#pdf-switch-btn").toggleClass("Inactive");
+})
+
 // pdf切り替え
 $("#pdf-switch-btn").on("click", function(e) {
 
@@ -78,6 +85,60 @@ $("#pdf-switch-btn").on("click", function(e) {
     } else {
         $("#doc3").toggleClass("Active Inactive");
         $("#doc").toggleClass("Active Inactive");
+    }
+
+})
+
+$("#doc-open").on("click", function(e) {
+    $(".pdfWrapper").removeClass("Inactive");
+    $("#pdf-close-btn").removeClass("Inactive");
+    $("#pdf-switch-btn").removeClass("Inactive");
+    if ($("#doc").hasClass("Active")) {
+        e.preventDefault();
+    } else {
+        $(".pdfWrapper > .Active").toggleClass("Active Inactive")
+        $("#doc").toggleClass("Active Inactive");
+    }
+})
+$("#doc2-open").on("click", function(e) {
+    $(".pdfWrapper").removeClass("Inactive");
+    $("#pdf-close-btn").removeClass("Inactive");
+    $("#pdf-switch-btn").removeClass("Inactive");
+    if ($("#doc2").hasClass("Active")) {
+        e.preventDefault();
+    } else {
+        $(".pdfWrapper > .Active").toggleClass("Active Inactive")
+        $("#doc2").toggleClass("Active Inactive");
+    }
+    console.log("click2");
+})
+$("#doc3-open").on("click", function(e) {
+    $(".pdfWrapper").removeClass("Inactive");
+    $("#pdf-close-btn").removeClass("Inactive");
+    $("#pdf-switch-btn").removeClass("Inactive");
+    if ($("#doc3").hasClass("Active")) {
+        e.preventDefault();
+    } else {
+        $(".pdfWrapper > .Active").toggleClass("Active Inactive")
+        $("#doc3").toggleClass("Active Inactive");
+    }
+    console.log("click2");
+})
+
+// whiteboard切り替え
+$("#board-switch-btn").on("click", function(e) {
+
+    e.preventDefault();
+
+    if ($("#board").hasClass("Active")) {
+        $("#board").toggleClass("Active Inactive");
+        $("#board2").toggleClass("Active Inactive");
+    } else if ($("#board2").hasClass("Active")) {
+        $("#board2").toggleClass("Active Inactive");
+        $("#board3").toggleClass("Active Inactive");
+    } else {
+        $("#board3").toggleClass("Active Inactive");
+        $("#board").toggleClass("Active Inactive");
     }
 
 })

@@ -120,7 +120,9 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     speech_balloon.append(text_text);
 
-    $("#output-form").append(speech_balloon);
+    // $("#board").append(speech_balloon);
+    $(".Board.Active").append(speech_balloon);
+
 }
 
 // ----------------------------------------------------------------------------------------------------> Method

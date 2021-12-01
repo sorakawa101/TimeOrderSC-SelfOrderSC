@@ -20,11 +20,23 @@
 
             <div class="header-right">
                 <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
-                <button class="CircleBtn MenuBtn SwitchBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"></span></button>
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
                 <button class="CircleBtn MenuBtn SwitchBtn" id="board-switch-btn"><span class="far fa-clone fa-2x"></span></button>
-                <button class="Btn MenuBtn pdfMenuBtn">PDF</button>
+                <!-- <button class="Btn MenuBtn pdfMenuBtn">PDF</button>
                 <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
                 <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button>
+                <button class="Btn MenuBtn LogMenuBtn">LOG</button>
+                <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+                <button class="Btn MenuBtn pdfMenuBtn"> PDF
+                    <ul class="DropDownMenu">
+                        <li id="doc-open"><a href="#">DOC1</a></li>
+                        <li id="doc2-open"><a href="#">DOC2</a></li>
+                        <li id="doc3-open"><a href="#">DOC3</a></li>
+                    </ul>
+                </button>
+                <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
+                <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <button class="Btn MenuBtn LogMenuBtn">LOG</button>
                 <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
             </div>
@@ -35,7 +47,9 @@
     <div class="MainWrapper">
 
         <div class="MsgWrapper">
-            <div id="output-form" class="OutputForm"></div>
+            <div id="board" class="Board Active"></div>
+            <div id="board2" class="Board Inactive"></div>
+            <div id="board3" class="Board Inactive"></div>
         </div>
 
     </div>
