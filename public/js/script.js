@@ -2,6 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+import {setChatData} from "./chat.js"
 import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive} from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -11,8 +12,16 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Btn <----------------------------------------------------------------------------------------------------
 
+// 送信ボタンが押された時に実行
+$(".SendBtn").on("click", function() {
+    setChatData();
+});
 
 // ----------------------------------------------------------------------------------------------------> Btn
+
+
+
+
 
 
 
@@ -20,11 +29,6 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 // Menu <----------------------------------------------------------------------------------------------------
 
 // Header Menu
-
-// $(".pdfMenuBtn").on("click", function() {
-//     $(".pdfWrapper").toggleClass("Inactive");
-//     $("#pdf-switch-btn").toggleClass("Inactive");
-// });
 
 $(".InputMenuBtn").on("click", function() {
     $(".InputWrapper").toggleClass("Inactive");
@@ -62,7 +66,11 @@ $(".DrawWrapper").on("dblclick", function() {
 
 
 
-// Switch <----------------------------------------------------------------------------------------------------
+
+
+
+
+// pdf <----------------------------------------------------------------------------------------------------
 
 // pdfを閉じる
 $("#pdf-close-btn").on("click", function(e) {
@@ -71,59 +79,57 @@ $("#pdf-close-btn").on("click", function(e) {
     $("#pdf-switch-btn").toggleClass("Inactive");
 })
 
-// pdf切り替え
+
+// 順番にpdf切り替え
 $("#pdf-switch-btn").on("click", function(e) {
 
-    e.preventDefault();
+    let active_doc_id = $(".Doc.Active").attr('id')
+    let active_doc_num = active_doc_id.split("doc")[1]
+    let next_doc_num = Number(active_doc_num)+1
 
-    if ($("#doc").hasClass("Active")) {
-        $("#doc").toggleClass("Active Inactive");
-        $("#doc2").toggleClass("Active Inactive");
-    } else if ($("#doc2").hasClass("Active")) {
-        $("#doc2").toggleClass("Active Inactive");
-        $("#doc3").toggleClass("Active Inactive");
+    if (active_doc_num === "6") {
+        $("#doc"+active_doc_num).toggleClass("Active Inactive");
+        $("#doc1").toggleClass("Active Inactive");
     } else {
-        $("#doc3").toggleClass("Active Inactive");
-        $("#doc").toggleClass("Active Inactive");
+        $("#doc"+active_doc_num).toggleClass("Active Inactive");
+        $("#doc"+next_doc_num).toggleClass("Active Inactive");
     }
 
+    // console.log(active_doc_num);
+    // console.log(next_doc_num);
 })
 
-$("#doc-open").on("click", function(e) {
+
+// 指定してpdfを開く
+$(".DocOpen").on("click", function(e) {
+    let doc_open_id = $(this).attr('id')
+    let doc_id = doc_open_id.split('-')[0]
+
     $(".pdfWrapper").removeClass("Inactive");
     $("#pdf-close-btn").removeClass("Inactive");
     $("#pdf-switch-btn").removeClass("Inactive");
-    if ($("#doc").hasClass("Active")) {
+
+    if ($("#"+doc_id).hasClass("Active")) {
         e.preventDefault();
     } else {
         $(".pdfWrapper > .Active").toggleClass("Active Inactive")
-        $("#doc").toggleClass("Active Inactive");
+        $("#"+doc_id).toggleClass("Active Inactive");
     }
+
+    // console.log(doc_id);
 })
-$("#doc2-open").on("click", function(e) {
-    $(".pdfWrapper").removeClass("Inactive");
-    $("#pdf-close-btn").removeClass("Inactive");
-    $("#pdf-switch-btn").removeClass("Inactive");
-    if ($("#doc2").hasClass("Active")) {
-        e.preventDefault();
-    } else {
-        $(".pdfWrapper > .Active").toggleClass("Active Inactive")
-        $("#doc2").toggleClass("Active Inactive");
-    }
-    console.log("click2");
-})
-$("#doc3-open").on("click", function(e) {
-    $(".pdfWrapper").removeClass("Inactive");
-    $("#pdf-close-btn").removeClass("Inactive");
-    $("#pdf-switch-btn").removeClass("Inactive");
-    if ($("#doc3").hasClass("Active")) {
-        e.preventDefault();
-    } else {
-        $(".pdfWrapper > .Active").toggleClass("Active Inactive")
-        $("#doc3").toggleClass("Active Inactive");
-    }
-    console.log("click2");
-})
+
+// ----------------------------------------------------------------------------------------------------> pdf
+
+
+
+
+
+
+
+
+// board <----------------------------------------------------------------------------------------------------
+
 
 // whiteboard切り替え
 $("#board-switch-btn").on("click", function(e) {
@@ -143,4 +149,4 @@ $("#board-switch-btn").on("click", function(e) {
 
 })
 
-// ----------------------------------------------------------------------------------------------------> Switch
+// ----------------------------------------------------------------------------------------------------> board

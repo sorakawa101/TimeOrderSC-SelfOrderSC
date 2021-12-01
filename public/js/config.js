@@ -20,6 +20,7 @@ export const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig); // Keyを使ってFirebaseに接続
 export const db = getDatabase(app); // RealTimeDatabaseに接続
+
 export const dbRefChat = ref(db, "chat");
 export const dbRefInteract = ref(db, "interact");
 export const dbRefLog = ref(db, "log");

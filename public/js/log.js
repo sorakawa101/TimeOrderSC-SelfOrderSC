@@ -11,67 +11,8 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Method <----------------------------------------------------------------------------------------------------
 
-// Firebaseの"chat"にデータ送信
-export function setLogData(tag, uname, time, text, semantic, id) {
-
-    if (tag === "post") {
-
-        const post_log = {
-            tag     : "post_log",
-            uname   : uname,
-            time    : time,
-            text    : text,
-            id      : id
-        }
-
-        const newPostRef = push(dbRefLog); // ユニークキーを生成
-        set(newPostRef, post_log);
-
-    } else if (tag === "rewrite") {
-
-        const rewrite_log = {
-            tag     : "rewrite_log",
-            uname   : uname,
-            time    : time,
-            text    : text,
-            id      : id
-        }
-
-        const newPostRef = push(dbRefLog); // ユニークキーを生成
-        set(newPostRef, rewrite_log);
-
-    } else if (tag === "semantic") {
-
-        const semantic_log = {
-            tag         : "semantic_log",
-            uname       : uname,
-            time        : time,
-            semantic    : semantic,
-            id          : id
-        }
-
-        let newPostRef = push(dbRefLog); // ユニークキーを生成
-        set(newPostRef, semantic_log);
-
-    } else if (tag === "removed") {
-        const removed_log = {
-            tag     : "removed_log",
-            uname   : uname,
-            time    : time,
-            text    : text,
-            id      : id
-        }
-
-        let newPostRef = push(dbRefLog); // ユニークキーを生成
-        set(newPostRef, removed_log);
-
-    } else {;}
-}
-
-
-// ChatLog
+// ChatLogを追加
 function genChatLog(uname, time, id) {
-    // SemanticLog
     let chatLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: uname+"がChatを送信しました"}).appendTo(chatLogContent)
     $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
@@ -80,7 +21,7 @@ function genChatLog(uname, time, id) {
 }
 
 
-// RewriteLog
+// RewriteLogを追加
 function genRewriteLog(uname, time, id) {
     let rewriteLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
@@ -90,9 +31,8 @@ function genRewriteLog(uname, time, id) {
 }
 
 
-// SemanticLog
+// SemanticLogを追加
 function genSemanticLog(uname, time, semantic, rgba, id) {
-    // SemanticLog
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
@@ -101,9 +41,8 @@ function genSemanticLog(uname, time, semantic, rgba, id) {
 }
 
 
-// RemovedLog
+// RemovedLogを追加
 function genRemovedLog(uname, time, id) {
-    // SemanticLog
     let removedLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: uname+"がChatを削除しました"}).appendTo(removedLogContent)
     $("<span>", {text: "▲  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
@@ -128,8 +67,72 @@ function genRemovedLog(uname, time, id) {
 
 
 
-// RealTimeDatabase
 
+
+
+
+
+// Firebase <----------------------------------------------------------------------------------------------------
+
+// RealtimeDatabase "log" にデータをセット
+export function setLogData(tag, uname, time, text, semantic, id) {
+
+    if (tag === "post") {
+
+        const post_log = {
+            tag     : "post_log",
+            uname   : uname,
+            time    : time,
+            text    : text,
+            id      : id
+        }
+
+        const newPostRef = push(dbRefLog);
+        set(newPostRef, post_log);
+
+    } else if (tag === "rewrite") {
+
+        const rewrite_log = {
+            tag     : "rewrite_log",
+            uname   : uname,
+            time    : time,
+            text    : text,
+            id      : id
+        }
+
+        const newPostRef = push(dbRefLog);
+        set(newPostRef, rewrite_log);
+
+    } else if (tag === "semantic") {
+
+        const semantic_log = {
+            tag         : "semantic_log",
+            uname       : uname,
+            time        : time,
+            semantic    : semantic,
+            id          : id
+        }
+
+        let newPostRef = push(dbRefLog);
+        set(newPostRef, semantic_log);
+
+    } else if (tag === "removed") {
+        const removed_log = {
+            tag     : "removed_log",
+            uname   : uname,
+            time    : time,
+            text    : text,
+            id      : id
+        }
+
+        let newPostRef = push(dbRefLog);
+        set(newPostRef, removed_log);
+
+    } else {;}
+}
+
+
+// RealTimeDatabase "log" に要素が追加されたときに実行
 onChildAdded(dbRefLog,function(data) {
     const log = data.val();
     const key = data.key; // ユニークキーを取得
@@ -170,3 +173,5 @@ onChildAdded(dbRefLog,function(data) {
 
     else {;}
 });
+
+// ----------------------------------------------------------------------------------------------------> FIrebase
