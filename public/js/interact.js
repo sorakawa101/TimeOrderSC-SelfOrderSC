@@ -237,6 +237,7 @@ inertia: true
                 });
                 $("."+tap_id+"Msg").toggleClass('Editable')
                 $("."+tap_id+"EditBtn").css('background-color', '')
+                $("."+tap_id+"EditBtn > .Hint").text("編集").css('width', '3rem')
                 $("."+tap_id+"SpeechBalloon").css('pointer-events', 'all')
                 updateChatData(tap_id, rewrite_text);
                 setRewriteData(tap_id, rewrite_text);
@@ -247,6 +248,7 @@ inertia: true
                 });
                 $("."+tap_id+"Msg").toggleClass('Editable')
                 $("."+tap_id+"EditBtn").css('background-color', 'rgba(192,231,197,1)')
+                $("."+tap_id+"EditBtn > .Hint").text("編集可能").css('width', '4rem')
                 $("."+tap_id+"SpeechBalloon").css('pointer-events', 'none')
                 $("."+tap_id+"Msg").css('pointer-events', 'all')
                 $("."+tap_id+"EditBtn").css('pointer-events', 'all')
@@ -255,6 +257,7 @@ inertia: true
         } else {
 
             $("."+tap_id+"EditBtn").css('background-color', 'rgba(255,105,98,1)')
+            $("."+tap_id+"EditBtn > .Hint").text("編集不可").css('width', '4rem')
             event.preventDefault();
         }
 

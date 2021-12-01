@@ -71,10 +71,12 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
 
-    let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+    let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
-    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+        $("<span>", {class: 'Hint HintLeft', text: '既読'}).appendTo(check_btn);
+    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
+        $("<span>", {class: 'Hint HintLeft', text: '削除'}).appendTo(trash_btn);
 
     status_menu.append(check_btn, trash_btn);
 
@@ -83,10 +85,12 @@ function genSpeechBalloon(uname, time, txt, key) {
 
     let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
 
-    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn').addClass(key+'EditBtn');
+    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn').addClass(key+'EditBtn');
         $("<span>", {class: 'fas fa-edit fa-2x'}).appendTo(edit_btn);
-    let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+        $("<span>", {class: 'Hint HintRight', text: '編集'}).appendTo(edit_btn);
+    let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
+        $("<span>", {class: 'Hint HintRight', text: '意図'}).appendTo(semantic_selector_btn);
 
     selector_menu.append(edit_btn, semantic_selector_btn);
 
@@ -162,41 +166,4 @@ onChildAdded(dbRefChat,function(data) {
 
 });
 
-
-onChildChanged(dbRefChat,function(data) {
-    // console.log("rewritten");
-    const msg = data.val();
-    const key = data.key; // ユニークキーを取得
-
-    let unameText = document.createElement("p");
-        unameText.classList.add("Name", key+"Name");
-    if (msg.uname) {
-        unameText.textContent = msg.uname;
-    } else {
-        unameText.textContent = "匿名";
-    }
-
-    let textText = $("<p>", {class: 'Msg'}).addClass(msg.id+'Msg').html(msg.text);
-
-    // let textText = document.createElement("div");
-    // textText.innerHTML = msg.text; // テキスト内のhtmlタグを取得
-    // textText = textText.firstElementChild; // 最初の子要素を取得（divタグを除去）
-    // textText.classList.add(msg.id+"Msg");
-
-    // $("."+msg.id+"Name").replaceWith(unameText)
-    // $("."+msg.id+"Msg").replaceWith(textText)
-    $("."+msg.id+"Name").html(unameText)
-    $("."+msg.id+"Msg").html(textText)
-    $("#rewrite-btn").toggleClass("Inactive")
-    $("#uname").css('margin', '10px 250px 10px 10px')
-
-    // 送信したら入力されたテキストを削除
-    // let textForm = document.getElementById("uname");
-    //     textForm.value = '';
-    tinyMCE.get("text").setContent('');
-});
-
-
-onChildRemoved(dbRefChat, function(data) {
-});
 // ----------------------------------------------------------------------------------------------------> Chat

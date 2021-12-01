@@ -11,64 +11,6 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Btn <----------------------------------------------------------------------------------------------------
 
-// Auto Scroll
-$("#scroll-btn").on("click", function() {
-    const op = $("#output-form");
-
-    const scrollHeight = op.get(0).scrollHeight;
-    let scrollTop = op.scrollTop();
-
-    let scrollToBottom = () => {
-        op.animate(
-            { scrollTop: scrollHeight },
-        );
-    };
-    scrollToBottom();
-    $(this).toggleClass("Unread");
-    $(this).val('Scroll');
-});
-
-
-// When Posted
-$("#input-form").on("submit", function() {
-    const op = $("#output-form");
-
-    const scrollHeight = op.get(0).scrollHeight;
-    const scrollTop = op.scrollTop();
-    const offsetHeight = op.height();
-
-    // console.log(scrollHeight);
-    // console.log(scrollTop);
-    // console.log(offsetHeight);
-
-    // Output欄の一番下までスクロール
-    let scrollToBottom = () => {
-        op.animate(
-            { scrollTop: scrollHeight },
-        );
-    };
-
-    // 一番下付近までスクロールしているかどうか
-    let isScrollBottom = () => {
-        // スクロールの可動域 === 現在のスクロール値 + 現在の見えているOutput欄の高さ
-        let boo =  scrollHeight <= scrollTop + offsetHeight + 98;
-        return boo;
-    };
-
-    // 一番下までスクロールされていれば追加後も一番下までスクロールする
-    if (isScrollBottom()) {
-        scrollToBottom();
-    }
-    // 一番下までスクロールされていなければスクロールしない
-    else {
-        // 新規のチャットが投稿されたら未読ボタン表示
-        $("#scroll-btn").toggleClass("Unread");
-        $("#scroll-btn").val('Unread');
-    }
-    // console.log(isScrollBottom());
-
-});
-
 
 // ----------------------------------------------------------------------------------------------------> Btn
 
