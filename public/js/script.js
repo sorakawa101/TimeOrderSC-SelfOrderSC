@@ -130,23 +130,24 @@ $(".DocOpen").on("click", function(e) {
 
 // board <----------------------------------------------------------------------------------------------------
 
+// 指定してボードを切り替える
+$(".BoardOpen").on("click", function(e) {
+    let board_open_id = $(this).attr('id')
+    let board_id = board_open_id.split('-')[0]
+    let board_num = board_id.split("board")[1]
 
-// whiteboard切り替え
-$("#board-switch-btn").on("click", function(e) {
+    $("#board-switch-btn").removeClass("Inactive");
 
-    e.preventDefault();
-
-    if ($("#board").hasClass("Active")) {
-        $("#board").toggleClass("Active Inactive");
-        $("#board2").toggleClass("Active Inactive");
-    } else if ($("#board2").hasClass("Active")) {
-        $("#board2").toggleClass("Active Inactive");
-        $("#board3").toggleClass("Active Inactive");
+    if ($("#"+board_id).hasClass("Active")) {
+        e.preventDefault();
     } else {
-        $("#board3").toggleClass("Active Inactive");
-        $("#board").toggleClass("Active Inactive");
+        $(".MsgWrapper > .Active").toggleClass("Active Inactive")
+        $("#"+board_id).toggleClass("Active Inactive");
     }
 
+    $(".now-board").text('"BOARD'+board_num+'"') // 現在開いているボードを表示
+
+    // console.log(doc_id);
 })
 
 // ----------------------------------------------------------------------------------------------------> board

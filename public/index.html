@@ -16,13 +16,13 @@
         <!-- <div class="container"> -->
             <div class="header-left">
                 <a class="logo" href="./index.html">MeetingChat</a>
+                <span class="now-board">"BOARD1"</span>
             </div>
 
             <div class="header-right">
                 <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
-                <button class="CircleBtn MenuBtn SwitchBtn" id="board-switch-btn"><span class="far fa-clone fa-2x"></span></button>
                 <!-- <button class="Btn MenuBtn pdfMenuBtn">PDF</button>
                 <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
                 <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button>
@@ -38,6 +38,16 @@
                         <li class="DocOpen" id="doc6-open"><a href="#">DOC6</a></li>
                     </ul>
                 </button>
+                <button class="Btn MenuBtn BoardMenuBtn"> BOARD
+                    <ul class="DropDownMenu">
+                        <li class="BoardOpen" id="board1-open"><a href="#">BOARD1</a></li>
+                        <li class="BoardOpen" id="board2-open"><a href="#">BOARD2</a></li>
+                        <li class="BoardOpen" id="board3-open"><a href="#">BOARD3</a></li>
+                        <li class="BoardOpen" id="board4-open"><a href="#">BOARD4</a></li>
+                        <li class="BoardOpen" id="board5-open"><a href="#">BOARD5</a></li>
+                        <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
+                    </ul>
+                </button>
                 <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <button class="Btn MenuBtn LogMenuBtn">LOG</button>
@@ -50,9 +60,12 @@
     <div class="MainWrapper">
 
         <div class="MsgWrapper">
-            <div id="board" class="Board Active"></div>
+            <div id="board1" class="Board Active"></div>
             <div id="board2" class="Board Inactive"></div>
             <div id="board3" class="Board Inactive"></div>
+            <div id="board4" class="Board Inactive"></div>
+            <div id="board5" class="Board Inactive"></div>
+            <div id="board6" class="Board Inactive"></div>
         </div>
 
     </div>

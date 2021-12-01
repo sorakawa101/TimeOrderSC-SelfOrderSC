@@ -45,6 +45,11 @@ header {
     flex-direction: row; */
 }
 
+.header-left {
+    float: left;
+    margin: 10px;
+}
+
 .logo {
     line-height: 40px;
     font-size: 1.5rem;
@@ -53,9 +58,12 @@ header {
     color: #fff;
 }
 
-.header-left {
-    float: left;
-    margin: 10px;
+.now-board {
+    line-height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 40px;
+    color: #fff;
 }
 
 .header-right {
@@ -85,6 +93,19 @@ header {
 }
 
 .pdfMenuBtn:hover .DropDownMenu {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+}
+
+.BoardMenuBtn:hover .DropDownMenu {
     width: 100px;
     display: flex;
     flex-direction: column;
