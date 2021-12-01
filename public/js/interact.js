@@ -112,8 +112,6 @@ inertia: true
     let target = event.target
     let tap_id = target.getAttribute('id')
     let tap_class = target.getAttribute('class')
-    let tap_tag = target.getAttribute('tag')
-
 
     // SpeechBalloon : 吹き出しを押した時
     if (tap_class === "SpeechBalloon") {
@@ -296,15 +294,15 @@ function setRewriteData(id, text) {
 
 
 // RealtimeDatabase "interact" にセマンティックデータをセット
-function setSemanticData(cc_id, sc_semantic) {
+function setSemanticData(id, semantic) {
     const date = new Date();
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const info = {
         tag : "semantic",
-        id : cc_id,
-        semantic : sc_semantic,
-        uname : $("#uname").val(),
+        id : id,
+        semantic : semantic,
+        uname : $("."+id+"Name").text(),
         time : now
     }
     let newPostRef = push(dbRefInteract); // ユニークキーを生成

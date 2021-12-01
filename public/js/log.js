@@ -38,6 +38,7 @@ function genSemanticLog(uname, time, semantic, rgba, id) {
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
+    console.log(uname);
 }
 
 
