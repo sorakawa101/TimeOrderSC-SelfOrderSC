@@ -113,12 +113,14 @@ function genSpeechBalloon(uname, time, txt, key) {
 // RealtimeDatabase "chat" にチャットデータをセット
 export function setChatData() {
 
+    let name = "";
+    if ($("#uname").val()) { name = $("#uname").val() } else { name = "匿名";} // ユーザーネームが空欄の時は"匿名"とする
     const date = new Date();
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const msg = {
         tag : "post",
-        uname : $("#uname").val(),
+        uname : name,
         time: now,
         // text : $("#text").val()
         // text : tinyMCE.get("text").getContent({format: "text"})
@@ -129,8 +131,6 @@ export function setChatData() {
     const newPostKey = newPostRef.key; // ユニークキーを取得
 
     set(newPostRef, msg); // ユニークキーを使ってデータをセット
-
-    if (msg.uname === "") { msg.uname = "匿名"; } else {;} // ユーザーネームが空欄の時は"匿名"とする
 
     setLogData(msg.tag, msg.uname, msg.time, msg.text, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
 
