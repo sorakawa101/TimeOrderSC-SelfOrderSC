@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefDoc } from "./config.js";
 import {setLogData} from "./log.js";
 
 
@@ -121,16 +121,20 @@ export function setChatData() {
 
     let name = "";
     if ($("#uname").val()) { name = $("#uname").val() } else { name = "匿名";} // ユーザーネームが空欄の時は"匿名"とする
+
     const date = new Date();
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
+    const board = a;
+
     const msg = {
-        tag : "post",
-        uname : name,
-        time: now,
+        tag     : "post",
+        uname   : name,
+        time    : now,
         // text : $("#text").val()
         // text : tinyMCE.get("text").getContent({format: "text"})
-        text: tinyMCE.get("text").getContent()
+        text    : tinyMCE.get("text").getContent(),
+        board   : board
     }
 
     const newPostRef = push(dbRefChat); // ユニークキーを生成
@@ -149,9 +153,6 @@ export function setChatData() {
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key;
-
-    // Case. text=""
-    if (msg.text === "") { return 0; }
 
     genSpeechBalloon(msg.uname, msg.time, msg.text, key); // SpeechBalloonを生成
 

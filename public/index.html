@@ -23,11 +23,7 @@
                 <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
-                <!-- <button class="Btn MenuBtn pdfMenuBtn">PDF</button>
-                <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
-                <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button>
-                <button class="Btn MenuBtn LogMenuBtn">LOG</button>
-                <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+
                 <button class="Btn MenuBtn SetMenuBtn">SET</button>
                 <button class="Btn MenuBtn pdfMenuBtn"> PDF
                     <ul class="DropDownMenu">
@@ -88,17 +84,17 @@
 
     <footer>
 
-        <div class="SetWrapper">
+        <div class="SetWrapper Inactive">
             <form id="set-form" class="SetForm" action="#" method="GET">
 
                 <div class="SetFormLeft">
-                    <select name="example" class="SetDoc">
-                        <option value="Doc1">Doc1</option>
-                        <option value="Doc2">Doc2</option>
-                        <option value="Doc3">Doc3</option>
-                        <option value="Doc4">Doc4</option>
-                        <option value="Doc5">Doc5</option>
-                        <option value="Doc6">Doc6</option>
+                    <select name="example" class="SetDoc" id="set-doc-num">
+                        <option value="doc1">Doc1</option>
+                        <option value="doc2">Doc2</option>
+                        <option value="doc3">Doc3</option>
+                        <option value="doc4">Doc4</option>
+                        <option value="doc5">Doc5</option>
+                        <option value="doc6">Doc6</option>
                     </select>
                     <input type="text" class="SetDoc" id="set-doc-name" placeholder="Documentの名前を設定してください">
                     <input type="text" class="SetDoc" id="set-doc-url" placeholder="DocumentのURLを指定してください">
@@ -185,6 +181,7 @@
     <script type="module" src="js/chat.js"></script>
     <script type="module" src="js/interact.js"></script>
     <script type="module" src="js/log.js"></script>
+    <script type="module" src="js/doc.js"></script>
     <script type="module" src="js/voice-input.js"></script>
     <script type="module" src="js/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>

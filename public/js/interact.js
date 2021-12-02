@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefDoc } from "./config.js";
 import {setLogData,} from "./log.js";
 // ----------------------------------------------------------------------------------------------------> Import
 

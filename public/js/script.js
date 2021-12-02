@@ -3,7 +3,8 @@
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import {setChatData} from "./chat.js"
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive} from "./config.js";
+import {setDocData} from "./doc.js"
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefDoc} from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -14,12 +15,14 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Inputの送信ボタンが押された時に実行
 $("#send-btn").on("click", function() {
+    if (tinyMCE.get("text").getContent() === "") { return 0; } // テキストが何も書かれていなければ送信しない
     setChatData();
 });
 
 
 // Setの送信ボタンが押された時に実行
 $("#set-btn").on("click", function() {
+    if ($("#set-doc-url").val() === "") { return 0; } // URLが何も書かれていなければ送信しない
     setDocData();
 })
 
@@ -31,6 +34,10 @@ $("#set-btn").on("click", function() {
 // Menu <----------------------------------------------------------------------------------------------------
 
 // Header Menu
+
+$(".SetMenuBtn").on("click", function() {
+    $(".SetWrapper").toggleClass("Inactive");
+});
 
 $(".InputMenuBtn").on("click", function() {
     $(".InputWrapper").toggleClass("Inactive");
@@ -49,25 +56,21 @@ $(".ResetMenuBtn").on("click", function() {
     remove(dbRefInteract);
     remove(dbRefLog);
     remove(dbRefArchive);
+    remove(dbRefDoc);
 });
 
 
 // When Double Click, Close Menu
 
+$(".SetWrapper").on("dblclick", function() {
+    $(this).toggleClass("Inactive");
+});
+
 $(".InputWrapper").on("dblclick", function() {
     $(this).toggleClass("Inactive");
 });
 
-$(".DrawWrapper").on("dblclick", function() {
-    $(this).toggleClass("Inactive");
-    $("#canvas").toggleClass("Inactive");
-});
-
 // ----------------------------------------------------------------------------------------------------> Menu
-
-
-
-
 
 
 
