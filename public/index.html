@@ -87,21 +87,42 @@
         <div class="SetWrapper Inactive">
             <form id="set-form" class="SetForm" action="#" method="GET">
 
-                <div class="SetFormLeft">
-                    <select name="example" class="SetDoc" id="set-doc-num">
-                        <option value="doc1">Doc1</option>
-                        <option value="doc2">Doc2</option>
-                        <option value="doc3">Doc3</option>
-                        <option value="doc4">Doc4</option>
-                        <option value="doc5">Doc5</option>
-                        <option value="doc6">Doc6</option>
-                    </select>
-                    <input type="text" class="SetDoc" id="set-doc-name" placeholder="Documentの名前を設定してください">
-                    <input type="text" class="SetDoc" id="set-doc-url" placeholder="DocumentのURLを指定してください">
+                <div class="SetFormUpper SetFormStep" id="set-form-upper">
+                    <input type="text" class="Set SetName" id="set-username" placeholder="Usernameを設定してください">
                 </div>
 
-                <div class="SetFormRight">
-                    <input type="submit" class="Btn SetBtn" id="set-btn" value="Set">
+                <div class="SetFormMiddle SetFormStep" id="set-form-middle">
+                        <div class="SetFormLeft">
+                            <select name="example" class="Set SetNum" id="set-board-num">
+                                <option value="board1">Board1</option>
+                                <option value="board2">Board2</option>
+                                <option value="board3">Board3</option>
+                                <option value="board4">Board4</option>
+                                <option value="board5">Board5</option>
+                                <option value="board6">Board6</option>
+                            </select>
+                            <input type="text" class="Set SetName" id="set-board-name" placeholder="Boardの名前を設定してください">
+                        </div>
+
+                </div>
+
+                <div class="SetFormLower SetFormStep" id="set-form-lower">
+                    <div class="SetFormLeft">
+                        <select name="example" class="Set SetNum" id="set-doc-num">
+                            <option value="doc1">Doc1</option>
+                            <option value="doc2">Doc2</option>
+                            <option value="doc3">Doc3</option>
+                            <option value="doc4">Doc4</option>
+                            <option value="doc5">Doc5</option>
+                            <option value="doc6">Doc6</option>
+                        </select>
+                        <input type="text" class="Set SetName" id="set-doc-name" placeholder="Documentの名前を設定してください">
+                        <input type="text" class="Set SetURL" id="set-doc-url" placeholder="DocumentのURLを指定してください">
+                    </div>
+
+                    <div class="SetFormRight">
+                        <input type="submit" class="Btn SetBtn" id="set-btn" value="Set">
+                    </div>
                 </div>
 
             </form>
@@ -161,9 +182,16 @@
             <form id="input-form" class="InputForm" action="#" method="GET">
 
                 <div class="InputFormUpside">
+
+                    <div class="InputFormLeft">
                         <input type="text" id="uname" placeholder="Username">
-                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                    </div>
+
+                    <div class="InputFormRight">
                         <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                    </div>
+
                 </div>
 
                 <div class="InputFormDownside">
@@ -181,7 +209,7 @@
     <script type="module" src="js/chat.js"></script>
     <script type="module" src="js/interact.js"></script>
     <script type="module" src="js/log.js"></script>
-    <script type="module" src="js/doc.js"></script>
+    <script type="module" src="js/setting.js"></script>
     <script type="module" src="js/voice-input.js"></script>
     <script type="module" src="js/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>

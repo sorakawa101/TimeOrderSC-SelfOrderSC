@@ -2,9 +2,9 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {setChatData} from "./chat.js"
-import {setDocData} from "./doc.js"
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefDoc} from "./config.js";
+import { setChatData } from "./chat.js"
+import { setUsernameData, setBoardData, setDocData } from "./setting.js"
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -21,9 +21,23 @@ $("#send-btn").on("click", function() {
 
 
 // Setの送信ボタンが押された時に実行
-$("#set-btn").on("click", function() {
-    if ($("#set-doc-url").val() === "") { return 0; } // URLが何も書かれていなければ送信しない
-    setDocData();
+$("#set-btn").on("click", function(e) {
+
+    if ($("#set-username").val()) { setUsernameData(); }
+    if ($("#set-board-name").val()) { setBoardData(); }
+    if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
+
+    e.preventDefault();
+
+})
+
+
+$("#set-username").on("dblclick", function(e) {
+
+    let click_class = $(this).attr('readonly', false);
+    $("#set-username").css('background-color', 'white')
+
+    e.preventDefault();
 })
 
 // ----------------------------------------------------------------------------------------------------> Btn
@@ -56,19 +70,19 @@ $(".ResetMenuBtn").on("click", function() {
     remove(dbRefInteract);
     remove(dbRefLog);
     remove(dbRefArchive);
-    remove(dbRefDoc);
+    remove(dbRefSetting);
 });
 
 
 // When Double Click, Close Menu
 
-$(".SetWrapper").on("dblclick", function() {
-    $(this).toggleClass("Inactive");
-});
+// $(".SetWrapper").on("dblclick", function() {
+//     $(this).toggleClass("Inactive");
+// });
 
-$(".InputWrapper").on("dblclick", function() {
-    $(this).toggleClass("Inactive");
-});
+// $(".InputWrapper").on("dblclick", function() {
+//     $(this).toggleClass("Inactive");
+// });
 
 // ----------------------------------------------------------------------------------------------------> Menu
 
@@ -135,7 +149,7 @@ $(".DocOpen").on("click", function(e) {
 $(".BoardOpen").on("click", function(e) {
     let board_open_id = $(this).attr('id')
     let board_id = board_open_id.split('-')[0]
-    let board_num = board_id.split("board")[1]
+    // let board_num = board_id.split("board")[1]
 
     $("#board-switch-btn").removeClass("Inactive");
 
@@ -146,7 +160,8 @@ $(".BoardOpen").on("click", function(e) {
         $("#"+board_id).toggleClass("Active Inactive");
     }
 
-    $(".now-board").text('"BOARD'+board_num+'"') // 現在開いているボードを表示
+    // $(".now-board").text('"BOARD'+board_num+'"') // 現在開いているボードを表示
+    $(".now-board").text('"'+$("#"+board_open_id).text()+'"') // 現在開いているボードを表示
 
     // console.log(doc_id);
 })

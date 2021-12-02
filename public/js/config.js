@@ -25,4 +25,4 @@ export const dbRefChat = ref(db, "chat");
 export const dbRefInteract = ref(db, "interact");
 export const dbRefLog = ref(db, "log");
 export const dbRefArchive = ref(db, "archive");
-export const dbRefDoc = ref(db, "doc");
+export const dbRefSetting = ref(db, "setting");

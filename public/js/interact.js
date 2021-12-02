@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefDoc } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
 import {setLogData,} from "./log.js";
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -253,7 +253,7 @@ function updateChatData(id, text) {
     get(dbRefChatChild).then((snapshot) => {
         const newPostRef = push(dbRefArchive);
         set(newPostRef, snapshot.val());
-        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, null, id); //　RealtimeDatabase "log" に編集データをセット
+        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); //　RealtimeDatabase "log" に編集データをセット
     });
 
     const date = new Date();
@@ -277,7 +277,7 @@ function removeChatData(id) {
     get(dbRefChatChild).then((snapshot) => {
         const newPostRef = push(dbRefArchive);
         set(newPostRef, snapshot.val());
-        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, null, id); // RealtimeDatabase "log" に削除データをセット
+        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
     });
 
     let removed = {
@@ -296,7 +296,7 @@ function setRewriteData(id, text) {
     const info = {
         tag : "rewrite",
         id : id,
-        text : text
+        text : text,
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, info);
@@ -309,18 +309,19 @@ function setSemanticData(id, semantic) {
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const info = {
-        tag : "semantic",
-        id : id,
-        semantic : semantic,
-        uname : $("."+id+"Name").text(),
-        time : now
+        tag         : "semantic",
+        id          : id,
+        semantic    : semantic,
+        uname       : $("."+id+"Name").text(),
+        time        : now,
+        board       : $(".Board.Active").attr('id')
     }
     let newPostRef = push(dbRefInteract); // ユニークキーを生成
     set(newPostRef, info);
 
     if (info.uname === "") { info.uname = "匿名"; } else {;}
 
-    setLogData(info.tag, info.uname, info.time, null, info.semantic, info.id); // Log
+    setLogData(info.tag, info.uname, info.time, null, info.board, info.semantic, info.id); // Log
 }
 
 
