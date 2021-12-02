@@ -28,6 +28,7 @@
                 <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button>
                 <button class="Btn MenuBtn LogMenuBtn">LOG</button>
                 <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+                <button class="Btn MenuBtn SetMenuBtn">SET</button>
                 <button class="Btn MenuBtn pdfMenuBtn"> PDF
                     <ul class="DropDownMenu">
                         <li class="DocOpen" id="doc1-open"><a href="#">DOC1</a></li>
@@ -87,6 +88,29 @@
 
     <footer>
 
+        <div class="SetWrapper">
+            <form id="set-form" class="SetForm" action="#" method="GET">
+
+                <div class="SetFormLeft">
+                    <select name="example" class="SetDoc">
+                        <option value="Doc1">Doc1</option>
+                        <option value="Doc2">Doc2</option>
+                        <option value="Doc3">Doc3</option>
+                        <option value="Doc4">Doc4</option>
+                        <option value="Doc5">Doc5</option>
+                        <option value="Doc6">Doc6</option>
+                    </select>
+                    <input type="text" class="SetDoc" id="set-doc-name" placeholder="Documentの名前を設定してください">
+                    <input type="text" class="SetDoc" id="set-doc-url" placeholder="DocumentのURLを指定してください">
+                </div>
+
+                <div class="SetFormRight">
+                    <input type="submit" class="Btn SetBtn" id="set-btn" value="Set">
+                </div>
+
+            </form>
+        </div>
+
         <div class="FacilitateWrapper Inactive">
 
             <div class="Tools">
@@ -138,19 +162,19 @@
 
         <div class="InputWrapper Inactive">
 
-                <form id="input-form" class="InputForm" action="#" method="GET">
+            <form id="input-form" class="InputForm" action="#" method="GET">
 
-                    <div class="InputFormUpside">
-                            <input type="text" id="uname" placeholder="Username">
-                            <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
-                            <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
-                    </div>
+                <div class="InputFormUpside">
+                        <input type="text" id="uname" placeholder="Username">
+                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                </div>
 
-                    <div class="InputFormDownside">
-                        <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
-                    </div>
+                <div class="InputFormDownside">
+                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                </div>
 
-                </form>
+            </form>
 
         </div>
 
