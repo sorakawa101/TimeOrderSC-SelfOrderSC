@@ -33,12 +33,22 @@ function dragMoveListener (event) {
 window.dragMoveListener = dragMoveListener
 
 
-// interact('.LogContent')
-// .on('tap', function (event) {
-//     let target = event.target
-//     let tap_class = target.getAttribute('class')
-//     console.log(tap_class);
-// })
+interact('.LogContent')
+.on('mouseover', function (event) {
+    let target = event.target
+    let tap_class = target.getAttribute('class')
+    let focus = tap_class.split('LogContent LogContent')[1]+"FocusArrow";
+    $("."+focus).toggleClass('Inactive')
+    // console.log(focus);
+})
+
+.on('mouseout', function (event) {
+    let target = event.target
+    let tap_class = target.getAttribute('class')
+    let focus = tap_class.split('LogContent LogContent')[1]+"FocusArrow";
+    $("."+focus).toggleClass('Inactive')
+    // console.log(focus);
+})
 
 
 // SpeechBalloonのInteract

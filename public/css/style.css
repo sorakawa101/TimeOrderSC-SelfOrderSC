@@ -212,6 +212,7 @@ header {
 .Log p {
     font-size: small;
     margin: 5px 0;
+    pointer-events: none;
 }
 
 .InputWrapper {
@@ -284,6 +285,12 @@ header {
     justify-content: space-between;
 }
 
+.FocusArrow {
+    position: absolute;
+    top: -30px;
+    left: 10px;
+}
+
 
 .ChatInfo {
     height: 30px;
@@ -313,37 +320,6 @@ header {
     flex-wrap: wrap;
     /* display: none; */
 }
-/* .ColorCircle {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-    padding: 2px;
-    border: solid 1px #dedede;
-    border-radius: 50%;
-
-}
-.ColorCircle:hover {
-    cursor: pointer;
-    opacity: .5;
-} */
-/* #black {
-    background-color: black;
-}
-#tomato {
-    background-color: tomato;
-}
-#darkturquoise {
-    background-color: darkturquoise;
-}
-#gold {
-    background-color: gold;
-}
-#mediumseagreen {
-    background-color: mediumseagreen;
-}
-#gainsboro {
-    background-color: gainsboro;
-} */
 
 .SemanticSelector {
     position: absolute;
@@ -612,14 +588,17 @@ footer {
 .fa {
     text-align: center;
     pointer-events: none;
+    background-color: transparent;
 }
 .fas {
     text-align: center;
     pointer-events: none;
+    background-color: transparent;
 }
 .far {
     text-align: center;
     pointer-events: none;
+    background-color: transparent;
 }
 
 

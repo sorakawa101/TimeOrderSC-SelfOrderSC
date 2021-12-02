@@ -39,6 +39,12 @@ function genSpeechBalloon(uname, time, txt, key) {
     speech_balloon.append(chat_info);
 
 
+    // Focus Arrow : LogがどのSpeechBalloonに対応しているかを表示
+
+    $("<span>", {class: 'FocusArrow fas fa-angle-double-down Inactive'}).addClass(key+'FocusArrow').appendTo(speech_balloon);
+
+
+
     // Status Menu : 既読ボタン / 削除ボタン
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
