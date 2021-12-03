@@ -23,7 +23,15 @@ $("#send-btn").on("click", function() {
 // Setの送信ボタンが押された時に実行
 $("#set-btn").on("click", function(e) {
 
-    if ($("#set-username").val() && !$("#set-username").attr('readonly')) { setUsernameData(); }
+    if ($("#set-username").val() && !$("#set-username").attr('readonly')) {
+        setUsernameData();
+        $(".now-user").text('現在のユーザー："'+$("#set-username").val()+'"') // ユーザーの名前をheaderに表示
+
+        // Inputのユーザーネームにも同じ名前をセット
+        $("#uname").val($("#set-username").val())
+        $("#uname").attr('readonly', true)
+        $("#uname").css('background-color', 'rgba(34, 49, 52, .1)')
+    }
     if ($("#set-board-name").val()) { setBoardData(); }
     if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
 
@@ -32,7 +40,18 @@ $("#set-btn").on("click", function(e) {
 })
 
 
+
+// ユーザー名を修正したい時はダブルクリック（SET）
 $("#set-username").on("dblclick", function(e) {
+
+    $(this).attr('readonly', false);
+    $(this).css('background-color', 'white')
+
+    e.preventDefault();
+})
+
+// ユーザー名を修正したい時はダブルクリック（INPUT）
+$("#uname").on("dblclick", function(e) {
 
     $(this).attr('readonly', false);
     $(this).css('background-color', 'white')
@@ -157,7 +176,7 @@ $(".BoardOpen").on("click", function(e) {
     }
 
     // $(".now-board").text('"BOARD'+board_num+'"') // 現在開いているボードを表示
-    $(".now-board").text('"'+$("#"+board_open_id).text()+'"') // 現在開いているボードを表示
+    $(".now-board").text('現在のボード："'+$("#"+board_open_id).text()+'"') // 現在開いているボードを表示
 
     // console.log(doc_id);
 })

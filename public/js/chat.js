@@ -88,7 +88,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     // Who : 誰がそのSpeechBalloonを操作しているか
 
-    $("<span>", {class: 'Who WhoRight Inactive', text: 'test'}).addClass(key+'Who').appendTo(speech_balloon);
+    $("<span>", {class: 'Who Inactive', text: 'test'}).addClass(key+'Who').appendTo(speech_balloon);
 
     // Text : 送信したメッセージ
 

@@ -69,11 +69,11 @@ header {
     color: #fff;
 }
 
-.now-board {
+.now {
     line-height: 40px;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     font-weight: bold;
-    margin-left: 40px;
+    margin-left: 20px;
     color: #fff;
 }
 
@@ -776,11 +776,8 @@ footer {
     /* display: none; */
     color: white;
     background-color: rgba(34, 49, 52, .8);
-    border-radius: 5%;
+    border-radius: 10%;
     padding: 0 .5rem;
-}
-
-.WhoRight {
     position: absolute;
     top: -40px;
     left: 10px;
