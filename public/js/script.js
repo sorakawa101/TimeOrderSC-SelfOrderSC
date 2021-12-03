@@ -77,9 +77,7 @@ $(".ResetMenuBtn").on("click", function() {
 // When Double Click, Close Menu
 
 $(".MsgWrapper").on("click", function() {
-    if (!$(".SetWrapper").hasClass('Inactive')) {
-        $(".SetWrapper").addClass('Inactive')
-    }
+    $(".SetWrapper").addClass('Inactive')
 });
 
 // ----------------------------------------------------------------------------------------------------> Menu

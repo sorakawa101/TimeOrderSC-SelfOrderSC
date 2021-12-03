@@ -11,6 +11,17 @@ import {setLogData,} from "./log.js";
 
 // Method <----------------------------------------------------------------------------------------------------
 
+// ----------------------------------------------------------------------------------------------------> Method
+
+
+
+
+
+
+
+
+// Interact <----------------------------------------------------------------------------------------------------
+
 // マウス情報 Listener
 function dragMoveListener (event) {
     let target = event.target
@@ -117,17 +128,63 @@ inertia: true
 })
 
 
+// MouseDown
+.on('mousedown', function (event) {
+    let target = event.target;
+    let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
+    let username = "";
+
+    if ($("#set-username").val()) {
+        username = $("#set-username").val()
+    } else {
+        username = "匿名"
+    }
+
+    let mouse = {
+        tag : "mousedown",
+        who : username,
+        id : tap_id
+    }
+
+    let newPostRef = push(dbRefInteract);
+    set(newPostRef, mouse);
+})
+
+
+// MouseUp
+.on('mouseup', function (event) {
+    let target = event.target;
+    let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
+    let username = "";
+
+    if ($("#set-username").val()) {
+        username = $("#set-username").val()
+    } else {
+        username = "匿名"
+    }
+
+    let mouse = {
+        tag : "mouseup",
+        who : username,
+        id : tap_id
+    }
+
+    let newPostRef = push(dbRefInteract);
+    set(newPostRef, mouse);
+})
+
+
 // Tap
 .on('tap', function (event) {
     let target = event.target
     let tap_id = target.getAttribute('id')
     let tap_class = target.getAttribute('class')
 
+
     // SpeechBalloon : 吹き出しを押した時
     if (tap_class === "SpeechBalloon") {
         // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"Who").toggleClass('Inactive')
         event.preventDefault();
 
 
@@ -135,7 +192,6 @@ inertia: true
     } else if (target.classList.contains('CheckBtn')) {
         let cc_id = target.closest(".SpeechBalloon").getAttribute('id')
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"Who").toggleClass('Inactive')
         setCheckData(cc_id);
         event.preventDefault();
 
@@ -143,7 +199,6 @@ inertia: true
     // TrashBtn : 削除ボタンを押した時
     } else if (target.classList.contains('TrashBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"Who").toggleClass('Inactive')
         $("."+tap_id+"SpeechBalloon").remove()
         removeChatData(tap_id);
         event.preventDefault();
@@ -222,27 +277,29 @@ inertia: true
             let sc_semantic = target.getAttribute('id');
             setSemanticData(cc_id, sc_semantic);
             $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
-            $("."+cc_id+"Who").toggleClass('Inactive')
             event.preventDefault();
 
         } else {
             $("."+cc_id+"SelectorBtn").toggleClass('Inactive')
-            $("."+cc_id+"Who").toggleClass('Inactive')
             event.preventDefault();
 
             if (!$("."+cc_id+"SemanticCircle").hasClass("Inactive")) {
                 $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
-                $("."+cc_id+"Who").toggleClass('Inactive')
             }
             // console.log(cc_id);
         }
 
     }
 
+    if (!$("."+tap_id+"SelectorBtn").hasClass('Inactive')) {
+        console.log("Active");
+    }
+
     // console.log(tap_class);
 })
 
-// ----------------------------------------------------------------------------------------------------> Method
+
+// ----------------------------------------------------------------------------------------------------> Interact
 
 
 
@@ -376,6 +433,20 @@ onChildAdded(dbRefInteract,function(data) {
             'data-y': info.posY
         })
         // console.log("size");
+
+
+    // SpeechBalloonをdrag/resizeしている時
+    } else if (info.tag === "mousedown") {
+
+        $("."+info.id+"Who").text(info.who)
+        $("."+info.id+"Who").removeClass('Inactive')
+
+
+    // SpeechBalloonをdrag/resizeし終わって離した時
+    } else if (info.tag === "mouseup") {
+
+        $("."+info.id+"Who").text(info.who)
+        $("."+info.id+"Who").addClass('Inactive')
 
 
     // SpeechBalloonを削除した時
