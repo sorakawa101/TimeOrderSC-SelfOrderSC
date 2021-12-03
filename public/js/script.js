@@ -29,34 +29,12 @@ $("#set-btn").on("click", function(e) {
 
         // Inputのユーザーネームにも同じ名前をセット
         $("#uname").val($("#set-username").val())
-        $("#uname").attr('readonly', true)
-        $("#uname").css('background-color', 'rgba(34, 49, 52, .1)')
     }
     if ($("#set-board-name").val()) { setBoardData(); }
     if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
 
     e.preventDefault();
 
-})
-
-
-
-// ユーザー名を修正したい時はダブルクリック（SET）
-$("#set-username").on("dblclick", function(e) {
-
-    $(this).attr('readonly', false);
-    $(this).css('background-color', 'white')
-
-    e.preventDefault();
-})
-
-// ユーザー名を修正したい時はダブルクリック（INPUT）
-$("#uname").on("dblclick", function(e) {
-
-    $(this).attr('readonly', false);
-    $(this).css('background-color', 'white')
-
-    e.preventDefault();
 })
 
 // ----------------------------------------------------------------------------------------------------> Btn
@@ -182,3 +160,45 @@ $(".BoardOpen").on("click", function(e) {
 })
 
 // ----------------------------------------------------------------------------------------------------> board
+
+
+
+
+// Username <----------------------------------------------------------------------------------------------------
+
+// ユーザー名を修正したい時はダブルクリック（SET）
+$("#set-username").on("dblclick", function(e) {
+
+    $(this).attr('readonly', false);
+    $(this).css('background-color', 'white')
+
+    e.preventDefault();
+})
+
+// ユーザー名を修正したい時はダブルクリック（INPUT）
+$("#uname").on("dblclick", function(e) {
+
+    $(this).attr('readonly', false);
+    $(this).css('background-color', 'white')
+
+    e.preventDefault();
+})
+
+
+// ユーザー名を修正したい時はダブルクリック（SET）のヒントを表示
+$("#set-username").hover(function() {
+        if ($(this).attr('readonly', true)) { $(".SetWrapper .HintUname").css('display', 'inline') }
+    }, function() {
+        $(".HintUname").css('display', 'none')
+    }
+)
+
+// ユーザー名を修正したい時はダブルクリック（INPUT）のヒントを表示
+$("#uname").hover(function() {
+        if ($(this).attr('readonly', true)) { $(".InputWrapper .HintUname").css('display', 'inline') }
+    }, function() {
+        $(".HintUname").css('display', 'none')
+    }
+)
+
+// ----------------------------------------------------------------------------------------------------> Username

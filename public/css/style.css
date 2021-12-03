@@ -765,6 +765,16 @@ footer {
     left: -50%;
 }
 
+
+.HintUname {
+    display: none;
+    font-size: .8rem;
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
 /* <---------------------------------------------------------------------------------------------------- Hint */
 
 
@@ -776,7 +786,7 @@ footer {
     /* display: none; */
     color: white;
     background-color: rgba(34, 49, 52, .8);
-    border-radius: 10%;
+    border-radius: 5%;
     padding: 0 .5rem;
     position: absolute;
     top: -40px;
