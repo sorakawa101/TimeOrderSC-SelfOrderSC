@@ -23,7 +23,7 @@ $("#send-btn").on("click", function() {
 // Setの送信ボタンが押された時に実行
 $("#set-btn").on("click", function(e) {
 
-    if ($("#set-username").val()) { setUsernameData(); }
+    if ($("#set-username").val() && !$("#set-username").attr('readonly')) { setUsernameData(); }
     if ($("#set-board-name").val()) { setBoardData(); }
     if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
 
@@ -34,8 +34,8 @@ $("#set-btn").on("click", function(e) {
 
 $("#set-username").on("dblclick", function(e) {
 
-    let click_class = $(this).attr('readonly', false);
-    $("#set-username").css('background-color', 'white')
+    $(this).attr('readonly', false);
+    $(this).css('background-color', 'white')
 
     e.preventDefault();
 })
@@ -76,13 +76,11 @@ $(".ResetMenuBtn").on("click", function() {
 
 // When Double Click, Close Menu
 
-// $(".SetWrapper").on("dblclick", function() {
-//     $(this).toggleClass("Inactive");
-// });
-
-// $(".InputWrapper").on("dblclick", function() {
-//     $(this).toggleClass("Inactive");
-// });
+$(".MsgWrapper").on("click", function() {
+    if (!$(".SetWrapper").hasClass('Inactive')) {
+        $(".SetWrapper").addClass('Inactive')
+    }
+});
 
 // ----------------------------------------------------------------------------------------------------> Menu
 

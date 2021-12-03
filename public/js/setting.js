@@ -83,7 +83,7 @@ onChildAdded(dbRefSetting,function(data) {
     if (info.tag === "username") {
 
         $("#set-username").attr('readonly', true)
-        $("#set-username").css('background-color', 'gainsboro')
+        $("#set-username").css('background-color', 'rgba(34, 49, 52, .1)')
 
     } else if (info.tag === "board") {
 

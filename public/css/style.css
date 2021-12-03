@@ -162,8 +162,8 @@ header {
 /* Contents */
 .MainWrapper {
     margin-top: 60px;
-    width: 100%;
-    height: 1260px;
+    width: 100vw;
+    height: 100vw;
     /* display: flex;
     justify-content: space-between; */
 }
@@ -766,3 +766,24 @@ footer {
 }
 
 /* <---------------------------------------------------------------------------------------------------- Hint */
+
+
+
+
+/* Who ----------------------------------------------------------------------------------------------------> */
+
+.Who {
+    /* display: none; */
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+    border-radius: 5%;
+    padding: 0 .5rem;
+}
+
+.WhoRight {
+    position: absolute;
+    top: -40px;
+    left: 10px;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Who */

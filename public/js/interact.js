@@ -127,14 +127,15 @@ inertia: true
     if (tap_class === "SpeechBalloon") {
         // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"TrashBtn").toggleClass('Inactive')
+        $("."+tap_id+"Who").toggleClass('Inactive')
         event.preventDefault();
 
 
     // CheckBtn : 既読ボタンを押した時
     } else if (target.classList.contains('CheckBtn')) {
-        let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive');
+        let cc_id = target.closest(".SpeechBalloon").getAttribute('id')
+        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        $("."+tap_id+"Who").toggleClass('Inactive')
         setCheckData(cc_id);
         event.preventDefault();
 
@@ -142,6 +143,7 @@ inertia: true
     // TrashBtn : 削除ボタンを押した時
     } else if (target.classList.contains('TrashBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        $("."+tap_id+"Who").toggleClass('Inactive')
         $("."+tap_id+"SpeechBalloon").remove()
         removeChatData(tap_id);
         event.preventDefault();
@@ -208,6 +210,7 @@ inertia: true
     // Semantic SelectorBtn : セマンティックタグを出現させるボタンを押した時
     } else if (target.classList.contains('SemanticSelectorBtn')) {
         $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
+        // $("."+tap_id+"Who").toggleClass('Inactive')
         $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
         event.preventDefault();
 
@@ -219,18 +222,23 @@ inertia: true
             let sc_semantic = target.getAttribute('id');
             setSemanticData(cc_id, sc_semantic);
             $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
+            $("."+cc_id+"Who").toggleClass('Inactive')
             event.preventDefault();
 
         } else {
             $("."+cc_id+"SelectorBtn").toggleClass('Inactive')
+            $("."+cc_id+"Who").toggleClass('Inactive')
             event.preventDefault();
 
             if (!$("."+cc_id+"SemanticCircle").hasClass("Inactive")) {
                 $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
+                $("."+cc_id+"Who").toggleClass('Inactive')
             }
             // console.log(cc_id);
         }
+
     }
+
     // console.log(tap_class);
 })
 

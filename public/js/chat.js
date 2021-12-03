@@ -86,6 +86,10 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "連絡"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
 
 
+    // Who : 誰がそのSpeechBalloonを操作しているか
+
+    $("<span>", {class: 'Who WhoRight Inactive', text: 'test'}).addClass(key+'Who').appendTo(speech_balloon);
+
     // Text : 送信したメッセージ
 
     let text_text = $("<p>", {class: 'Msg', id: 'msg'}).addClass(key+'Msg').html(txt);
