@@ -11,7 +11,7 @@ import {setLogData,} from "./log.js";
 
 // Method <----------------------------------------------------------------------------------------------------
 
-export function getUsername() {
+export function getUsernameFromSet() {
     let username = "";
 
     if ($("#set-username").val()) {
@@ -42,7 +42,7 @@ function dragMoveListener (event) {
 
     let pos = {
         tag     : "pos",
-        uname   : getUsername(),
+        uname   : getUsernameFromSet(),
         id      : key,
         posX    : x,
         posY    : y,
@@ -113,7 +113,7 @@ listeners: {
 
     let size = {
         tag     : "size",
-        uname   : getUsername(),
+        uname   : getUsernameFromSet(),
         id      : key,
         sizeW   : w,
         sizeH   : h,
@@ -146,14 +146,18 @@ inertia: true
     let target = event.target;
     let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
 
-    let mouse = {
-        tag : "mousedown",
-        who : getUsername(),
-        id : tap_id
-    }
+    if ($("#"+tap_id+" .SelectorBtn").hasClass('Inactive') && $("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
 
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, mouse);
+        let mouse = {
+            tag : "mousedown",
+            who : getUsernameFromSet(),
+            id  : tap_id
+        }
+
+        let newPostRef = push(dbRefInteract);
+        set(newPostRef, mouse);
+
+    }
 })
 
 
@@ -162,14 +166,18 @@ inertia: true
     let target = event.target;
     let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
 
-    let mouse = {
-        tag : "mouseup",
-        who : getUsername(),
-        id : tap_id
-    }
+    if ($("#"+tap_id+" .SelectorBtn").hasClass('Inactive') && $("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
 
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, mouse);
+        let mouse = {
+            tag : "mouseup",
+            who : getUsernameFromSet(),
+            id  : tap_id
+        }
+
+        let newPostRef = push(dbRefInteract);
+        set(newPostRef, mouse);
+
+    }
 })
 
 
@@ -193,6 +201,7 @@ inertia: true
             }
 
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
+
             event.preventDefault();
             break;
 
@@ -270,6 +279,7 @@ inertia: true
         default:
             event.preventDefault();
     }
+
 })
 
 // ----------------------------------------------------------------------------------------------------> Interact
@@ -298,8 +308,8 @@ function updateChatData(id, text) {
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const msg = {
-        time: now,
-        text: text
+        time : now,
+        text : text
     }
 
     update(dbRefChatChild, msg); // "chat"のデータを更新
@@ -320,7 +330,7 @@ function removeChatData(id) {
 
     let removed = {
         tag     : "removed",
-        uname   : getUsername(),
+        uname   : getUsernameFromSet(),
         id      : id
     }
     let newPostRef = push(dbRefInteract);
@@ -334,7 +344,7 @@ function removeChatData(id) {
 function setRewriteData(id, text) {
     const info = {
         tag     : "rewrite",
-        uname   : getUsername(),
+        uname   : getUsernameFromSet(),
         id      : id,
         text    : text,
     }
@@ -352,7 +362,7 @@ function setSemanticData(id, semantic) {
         tag         : "semantic",
         id          : id,
         semantic    : semantic,
-        uname       : getUsername(),
+        uname       : getUsernameFromSet(),
         time        : now,
         board       : $(".Board.Active").attr('id')
     }
@@ -369,7 +379,7 @@ function setSemanticData(id, semantic) {
 function setCheckData(id) {
     const info = {
         tag     : "check",
-        uname   : getUsername(),
+        uname   : getUsernameFromSet(),
         id      : id,
     }
     let newPostRef = push(dbRefInteract);
