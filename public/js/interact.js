@@ -11,6 +11,17 @@ import {setLogData,} from "./log.js";
 
 // Method <----------------------------------------------------------------------------------------------------
 
+export function getUsername() {
+    let username = "";
+
+    if ($("#set-username").val()) {
+        username = $("#set-username").val()
+    } else {
+        username = "匿名";
+    }
+    return username;
+}
+
 // ----------------------------------------------------------------------------------------------------> Method
 
 
@@ -30,10 +41,11 @@ function dragMoveListener (event) {
     let key = target.getAttribute('id')
 
     let pos = {
-        tag : "pos",
-        id : key,
-        posX : x,
-        posY : y,
+        tag     : "pos",
+        uname   : getUsername(),
+        id      : key,
+        posX    : x,
+        posY    : y,
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, pos);
@@ -47,17 +59,17 @@ window.dragMoveListener = dragMoveListener
 interact('.LogContent')
 .on('mouseover', function (event) {
     let target = event.target
-    let tap_class = target.getAttribute('class')
-    let focus = tap_class.split('LogContent LogContent')[1]+"FocusArrow";
-    $("."+focus).toggleClass('Inactive')
+    let hover_class = target.getAttribute('class')
+    let focus = hover_class.split('LogContent LogContent')[1]; // 対応するSpeechBalloonのID
+    $("#"+focus+" .FocusArrow").toggleClass('Inactive')
     // console.log(focus);
 })
 
 .on('mouseout', function (event) {
     let target = event.target
-    let tap_class = target.getAttribute('class')
-    let focus = tap_class.split('LogContent LogContent')[1]+"FocusArrow";
-    $("."+focus).toggleClass('Inactive')
+    let hover_class = target.getAttribute('class')
+    let focus = hover_class.split('LogContent LogContent')[1]; // 対応するSpeechBalloonのID
+    $("#"+focus+" .FocusArrow").toggleClass('Inactive')
     // console.log(focus);
 })
 
@@ -100,12 +112,13 @@ listeners: {
     y += event.deltaRect.top
 
     let size = {
-        tag : "size",
-        id : key,
-        sizeW : w,
-        sizeH : h,
-        posX : x,
-        posY : y
+        tag     : "size",
+        uname   : getUsername(),
+        id      : key,
+        sizeW   : w,
+        sizeH   : h,
+        posX    : x,
+        posY    : y
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, size);
@@ -132,17 +145,10 @@ inertia: true
 .on('mousedown', function (event) {
     let target = event.target;
     let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
-    let username = "";
-
-    if ($("#set-username").val()) {
-        username = $("#set-username").val()
-    } else {
-        username = "匿名"
-    }
 
     let mouse = {
         tag : "mousedown",
-        who : username,
+        who : getUsername(),
         id : tap_id
     }
 
@@ -155,17 +161,10 @@ inertia: true
 .on('mouseup', function (event) {
     let target = event.target;
     let tap_id = target.closest(".SpeechBalloon").getAttribute('id');
-    let username = "";
-
-    if ($("#set-username").val()) {
-        username = $("#set-username").val()
-    } else {
-        username = "匿名"
-    }
 
     let mouse = {
         tag : "mouseup",
-        who : username,
+        who : getUsername(),
         id : tap_id
     }
 
@@ -175,129 +174,103 @@ inertia: true
 
 
 // Tap
-.on('tap', function (event) {
-    let target = event.target
-    let tap_id = target.getAttribute('id')
-    let tap_class = target.getAttribute('class')
+.on('tap', function(event) {
+    let target = event.target;
+    let tap_id = target.getAttribute('id'); // SpeechBalloonのID
+    let tap_closest_id = target.closest(".SpeechBalloon").getAttribute('id'); // タップした要素の親要素のSpeechBalloonのID
+    let tap_class = target.getAttribute('class').split(' ')[0]; // タップした要素の１つ目のクラス
 
+    console.log(tap_id);
+    console.log(tap_closest_id);
+    console.log(tap_class);
 
-    // SpeechBalloon : 吹き出しを押した時
-    if (tap_class === "SpeechBalloon") {
-        // $("."+tap_id+"ColorCircle").toggleClass('Inactive')
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        event.preventDefault();
+    switch (tap_class) {
 
+        case "SpeechBalloon":
 
-    // CheckBtn : 既読ボタンを押した時
-    } else if (target.classList.contains('CheckBtn')) {
-        let cc_id = target.closest(".SpeechBalloon").getAttribute('id')
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        setCheckData(cc_id);
-        event.preventDefault();
+            if (!$("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
+                $("#"+tap_id+" .SemanticCircle").toggleClass('Inactive')
+            }
 
+            $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
+            event.preventDefault();
+            break;
 
-    // TrashBtn : 削除ボタンを押した時
-    } else if (target.classList.contains('TrashBtn')) {
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        $("."+tap_id+"SpeechBalloon").remove()
-        removeChatData(tap_id);
-        event.preventDefault();
+        case "CheckBtn":
+            $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
+            setCheckData(tap_id);
+            event.preventDefault();
+            break;
 
+        case "TrashBtn":
+            $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
+            removeChatData(tap_id);
+            event.preventDefault();
+            break;
 
-    // EditBtn : 編集ボタンを押した時
-    } else if (target.classList.contains('EditBtn')) {
+        case "EditBtn":
+            let html = $("#"+tap_id+" .Msg").html();
+            let text = $("#"+tap_id+" .Msg").text();
+            let rewrite_text = $("#"+tap_id+" .Msg").val();
 
-        let html = $("."+tap_id+"Msg").html();
-        let text = $("."+tap_id+"Msg").text();
-        let rewrite_text = $("."+tap_id+"Msg").val();
+            if (html === text) {
 
-        // SpeechBalloon上のテキストがpタグのみで構成されている場合（装飾がない時） / 編集可能
-        if (html === text) {
+                let tag_class = $("#"+tap_id+" .Msg").attr('class')
 
-            let tag_class = $("."+tap_id+"Msg").attr('class')
+                // テキストが編集可能状態の時（テキスト部分のタグがtextareaの時）
+                if($("#"+tap_id+" .Msg").hasClass("Editable")) {
 
-            // テキストが編集可能状態の時（テキスト部分のタグがtextareaの時）
-            if ($("."+tap_id+"Msg").hasClass("Editable")) {
+                    // textarea => p
+                    $("#"+tap_id+" .Msg").replaceWith(function() {
+                        $(this).replaceWith('<p class="'+tag_class+'">'+$(this).html()+'</p>')
+                    })
 
-                // textarea => p
-                $("."+tap_id+"Msg").replaceWith(function() {
-                    $(this).replaceWith('<p class="'+tag_class+'">'+$(this).html()+'</p>')
-                });
+                    $("#"+tap_id+" .Msg").toggleClass('Editable')
+                    $("#"+tap_id+" .EditBtn").css('background-color', '')
+                    $("#"+tap_id+" .EditBtn > .Hint").text("編集").css('width', '3rem')
+                    $("#"+tap_id).css('pointer-events', 'all')
 
-                $("."+tap_id+"Msg").toggleClass('Editable')
-                $("."+tap_id+"EditBtn").css('background-color', '')
-                $("."+tap_id+"EditBtn > .Hint").text("編集").css('width', '3rem')
-                $("."+tap_id+"SpeechBalloon").css('pointer-events', 'all')
+                    updateChatData(tap_id, rewrite_text);
+                    setRewriteData(tap_id, rewrite_text);
 
-                updateChatData(tap_id, rewrite_text);
-                setRewriteData(tap_id, rewrite_text);
+                // テキストが編集不可状態の時（テキスト部分のタグがpタグの時）
+                } else {
 
-            // テキストが編集不可状態の時（テキスト部分のタグがpタグの時）
+                    // p => textarea
+                    $("#"+tap_id+" .Msg").replaceWith(function() {
+                        $(this).replaceWith('<textarea class="'+tag_class+'">'+$(this).html()+'</textarea>')
+                    })
+
+                    $("#"+tap_id+" .Msg").toggleClass('Editable')
+                    $("#"+tap_id+" .EditBtn").css('background-color', 'rgba(192,231,197,1)')
+                    $("#"+tap_id+" .EditBtn > .Hint").text("編集可能").css('width', '3rem')
+                    $("#"+tap_id).css('pointer-events', 'none')
+                    $("#"+tap_id+" .Msg").css('pointer-events', 'all')
+                    $("#"+tap_id+" .EditBtn").css('pointer-events', 'all')
+                }
+
             } else {
-
-                // p => textarea
-                $("."+tap_id+"Msg").replaceWith(function() {
-                    $(this).replaceWith('<textarea class="'+tag_class+'">'+$(this).html()+'</textarea>')
-                });
-
-                $("."+tap_id+"Msg").toggleClass('Editable')
-                $("."+tap_id+"EditBtn").css('background-color', 'rgba(192,231,197,1)')
-                $("."+tap_id+"EditBtn > .Hint").text("編集可能").css('width', '4rem')
-                $("."+tap_id+"SpeechBalloon").css('pointer-events', 'none') // textarea以外触れないようにする
-                $("."+tap_id+"Msg").css('pointer-events', 'all')
-                $("."+tap_id+"EditBtn").css('pointer-events', 'all')
+                $("#"+tap_id+" .EditBtn").css('background-color', 'rgba(255,105,98,1)')
+                $("#"+tap_id+" .EditBtn > .Hint").text("編集不可").css('width', '3rem')
+                event.preventDefault();
             }
+            break;
 
-        // SpeechBalloon上のテキストがpタグのみで構成されていない場合（装飾がある時） / 編集不可
-        } else {
-
-            $("."+tap_id+"EditBtn").css('background-color', 'rgba(255,105,98,1)')
-            $("."+tap_id+"EditBtn > .Hint").text("編集不可").css('width', '4rem')
+        case "SemanticSelectorBtn":
+            $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
+            $("#"+tap_id+" .SemanticCircle").toggleClass('Inactive')
             event.preventDefault();
-        }
+            break;
 
-        event.preventDefault();
-
-    // 編集可能状態の時にtextareaを押しても何も起こらないようにする（編集のみが可能なように）
-    } else if (target.classList.contains('Editable')) {
-        event.preventDefault();
-
-    // Semantic SelectorBtn : セマンティックタグを出現させるボタンを押した時
-    } else if (target.classList.contains('SemanticSelectorBtn')) {
-        $("."+tap_id+"SelectorBtn").toggleClass('Inactive')
-        // $("."+tap_id+"Who").toggleClass('Inactive')
-        $("."+tap_id+"SemanticCircle").toggleClass('Inactive')
-        event.preventDefault();
-
-    // Semantic Circle : セマンティックタグを押した時
-    } else {
-        let cc_id = target.closest(".SpeechBalloon").getAttribute('id');
-
-        if (target.classList.contains('SemanticCircle')) {
-            let sc_semantic = target.getAttribute('id');
-            setSemanticData(cc_id, sc_semantic);
-            $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
+        case "SemanticCircle":
+            setSemanticData(tap_closest_id, tap_id); // ここのtap_idはSemanticCircleのidを指す
+            $("#"+tap_closest_id+" .SemanticCircle").toggleClass('Inactive')
             event.preventDefault();
 
-        } else {
-            $("."+cc_id+"SelectorBtn").toggleClass('Inactive')
+        default:
             event.preventDefault();
-
-            if (!$("."+cc_id+"SemanticCircle").hasClass("Inactive")) {
-                $("."+cc_id+"SemanticCircle").toggleClass('Inactive')
-            }
-            // console.log(cc_id);
-        }
-
     }
-
-    if (!$("."+tap_id+"SelectorBtn").hasClass('Inactive')) {
-        console.log("Active");
-    }
-
-    // console.log(tap_class);
 })
-
 
 // ----------------------------------------------------------------------------------------------------> Interact
 
@@ -318,7 +291,7 @@ function updateChatData(id, text) {
     get(dbRefChatChild).then((snapshot) => {
         const newPostRef = push(dbRefArchive);
         set(newPostRef, snapshot.val());
-        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); //　RealtimeDatabase "log" に編集データをセット
+        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
     });
 
     const date = new Date();
@@ -346,8 +319,9 @@ function removeChatData(id) {
     });
 
     let removed = {
-        tag : "removed",
-        id : id
+        tag     : "removed",
+        uname   : getUsername(),
+        id      : id
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, removed);
@@ -359,9 +333,10 @@ function removeChatData(id) {
 // RealtimeDatabase "interact" に編集されたチャットデータをセット
 function setRewriteData(id, text) {
     const info = {
-        tag : "rewrite",
-        id : id,
-        text : text,
+        tag     : "rewrite",
+        uname   : getUsername(),
+        id      : id,
+        text    : text,
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, info);
@@ -377,7 +352,7 @@ function setSemanticData(id, semantic) {
         tag         : "semantic",
         id          : id,
         semantic    : semantic,
-        uname       : $("."+id+"Name").text(),
+        uname       : getUsername(),
         time        : now,
         board       : $(".Board.Active").attr('id')
     }
@@ -391,10 +366,11 @@ function setSemanticData(id, semantic) {
 
 
 // RealtimeDatabase "interact" に既読データをセット
-function setCheckData(cc_id) {
+function setCheckData(id) {
     const info = {
-        tag : "check",
-        id : cc_id,
+        tag     : "check",
+        uname   : getUsername(),
+        id      : id,
     }
     let newPostRef = push(dbRefInteract);
     set(newPostRef, info);
@@ -438,15 +414,15 @@ onChildAdded(dbRefInteract,function(data) {
     // SpeechBalloonをdrag/resizeしている時
     } else if (info.tag === "mousedown") {
 
-        $("."+info.id+"Who").text(info.who)
-        $("."+info.id+"Who").removeClass('Inactive')
+        $("#"+info.id+" .Who").text(info.who)
+        $("#"+info.id+" .Who").removeClass('Inactive')
 
 
     // SpeechBalloonをdrag/resizeし終わって離した時
     } else if (info.tag === "mouseup") {
 
-        $("."+info.id+"Who").text(info.who)
-        $("."+info.id+"Who").addClass('Inactive')
+        $("#"+info.id+" .Who").text(info.who)
+        $("#"+info.id+" .Who").addClass('Inactive')
 
 
     // SpeechBalloonを削除した時
@@ -458,7 +434,7 @@ onChildAdded(dbRefInteract,function(data) {
 
     // SpeechBalloonのテキストを編集した時
     } else if (info.tag === "rewrite") {
-        $("."+info.id+"Msg").html(info.text)
+        $("#"+info.id+" .Msg").html(info.text)
 
 
     // SpeechBalloonのセマンティックタグを選択した時
@@ -466,46 +442,46 @@ onChildAdded(dbRefInteract,function(data) {
 
         switch (info.semantic) {
             case "none":
-                $("."+ info.id +"Semantic").text(" ");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(227,228,232,.6)');
+                $("#"+info.id+" .Semantic").text(" ");
+                $("#"+info.id).css('background-color', 'rgba(227,228,232,.6)');
                 break;
             case "idea":
-                $("."+ info.id +"Semantic").text("<提案>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(255,105,98,.6)');
+                $("#"+info.id+" .Semantic").text("<提案>");
+                $("#"+info.id).css('background-color', 'rgba(255,105,98,.6)');
                 break;
             case "facilitation":
-                $("."+ info.id +"Semantic").text("<進行>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(136,196,228,.6)');
+                $("#"+info.id+" .Semantic").text("<進行>");
+                $("#"+info.id).css('background-color', 'rgba(136,196,228,.6)');
                 break;
             case "question":
-                $("."+ info.id +"Semantic").text("<質疑>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(255,175,104,.6)');
+                $("#"+info.id+" .Semantic").text("<質疑>");
+                $("#"+info.id).css('background-color', 'rgba(255,175,104,.6)');
                 break;
             case "answer":
-                $("."+ info.id +"Semantic").text("<応答>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(192,231,197,.6)');
+                $("#"+info.id+" .Semantic").text("<応答>");
+                $("#"+info.id).css('background-color', 'rgba(192,231,197,.6)');
 
                 break;
             case "comment":
-                $("."+ info.id +"Semantic").text("<感想>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(246,230,131,.6)');
+                $("#"+info.id+" .Semantic").text("<感想>");
+                $("#"+info.id).css('background-color', 'rgba(246,230,131,.6)');
                 break;
             case "information":
-                $("."+ info.id +"Semantic").text("<連絡>");
-                $("."+ info.id +"SpeechBalloon").css('background-color', 'rgba(151,150,188,.6)');
+                $("#"+info.id+" .Semantic").text("<連絡>");
+                $("#"+info.id).css('background-color', 'rgba(151,150,188,.6)');
                 break;
             default:
                 ;
         }
 
-        $("." + info.id + "SpeechBalloon").css('min-width', '210px');
-        // $("." + info.id + "SpeechBalloon").css('border', 'none');
+        $("#"+info.id).css('min-width', '210px');
+        // $("#"+info.id).css('border', 'none');
         // console.log("semantic");
 
 
     // SpeechBalloonを既読にした時
     } else if (info.tag === "check") {
-        $("."+ info.id +"SpeechBalloon").css('border', 'solid 1px black');
+        $("#"+info.id).css('border', 'solid 1px black');
 
     } else {;}
 

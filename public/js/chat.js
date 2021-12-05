@@ -18,14 +18,14 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     // SpeechBalloon
 
-    let speech_balloon = $("<div>", {class: 'SpeechBalloon', id: key}).addClass(key+'SpeechBalloon');
+    let speech_balloon = $("<div>", {class: 'SpeechBalloon', id: key});
 
 
     // Chat Info : ユーザーネーム / セマンティックタグ / タイムスタンプ
 
     let chat_info = $("<div>", {class: 'ChatInfo'});
 
-    let uname_text = $("<p>", {class: 'Name'}).addClass(key+'Name');
+    let uname_text = $("<p>", {class: 'Name'});
     if(uname) {
         uname_text.text(uname);
     } else {
@@ -33,7 +33,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     }
     chat_info.append(uname_text);
 
-    $("<p>", {class: 'Semantic'}).addClass(key+'Semantic').appendTo(chat_info);
+    $("<p>", {class: 'Semantic'}).appendTo(chat_info);
     $("<p>", {class: 'TimeStamp', text: time}).appendTo(chat_info);
 
     speech_balloon.append(chat_info);
@@ -41,7 +41,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     // Focus Arrow : LogがどのSpeechBalloonに対応しているかを表示
 
-    $("<span>", {class: 'FocusArrow fas fa-angle-double-down Inactive'}).addClass(key+'FocusArrow').appendTo(speech_balloon);
+    $("<span>", {class: 'FocusArrow fas fa-angle-double-down Inactive'}).appendTo(speech_balloon);
 
 
 
@@ -49,10 +49,10 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
 
-    let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+    let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
         $("<span>", {class: 'Hint HintLeft', text: '既読'}).appendTo(check_btn);
-    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+    let trash_btn = $("<button>", {class: 'TrashBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
         $("<span>", {class: 'Hint HintLeft', text: '削除'}).appendTo(trash_btn);
 
@@ -63,10 +63,10 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
 
-    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn').addClass(key+'EditBtn');
+    let edit_btn = $("<button>", {class: 'EditBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-edit fa-2x'}).appendTo(edit_btn);
         $("<span>", {class: 'Hint HintRight', text: '編集'}).appendTo(edit_btn);
-    let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key}).addClass(key+'SelectorBtn');
+    let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
         $("<span>", {class: 'Hint HintRight', text: '意図'}).appendTo(semantic_selector_btn);
 
@@ -77,22 +77,22 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     let semantic_selector = $("<div>", {class: 'SemanticSelector'}).appendTo(speech_balloon);
 
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'none', text: "None"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'idea', text: "提案"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'facilitation', text: "進行"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'question', text: "質疑"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "応答"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'comment', text: "感想"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "連絡"}).addClass(key+'SemanticCircle').appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'none', text: "None"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'idea', text: "提案"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'facilitation', text: "進行"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'question', text: "質疑"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "応答"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'comment', text: "感想"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "連絡"}).appendTo(semantic_selector);
 
 
     // Who : 誰がそのSpeechBalloonを操作しているか
 
-    $("<span>", {class: 'Who Inactive', text: '匿名'}).addClass(key+'Who').appendTo(speech_balloon);
+    $("<span>", {class: 'Who Inactive', text: '匿名'}).appendTo(speech_balloon);
 
     // Text : 送信したメッセージ
 
-    let text_text = $("<p>", {class: 'Msg', id: 'msg'}).addClass(key+'Msg').html(txt);
+    let text_text = $("<p>", {class: 'Msg', id: 'msg'}).html(txt);
 
     speech_balloon.append(text_text);
 
@@ -165,15 +165,13 @@ onChildAdded(dbRefChat,function(data) {
 
 
     // SpeechBalloonの初期設定
-    $("."+ key +"SpeechBalloon").css({
-        'min-width': '200px',
-        'min-height': '70px',
-        // 'border': 'solid 1px black',
-        'background-color': 'rgba(227,228,232,.6)',
-        'position': 'absolute',
-        'top': 10,
-        // 'left': Math.random(100),
-        'left': 30,
+    $("#"+ key).css({
+        'min-width'         : '200px',
+        'min-height'        : '70px',
+        'background-color'  : 'rgba(227,228,232,.6)',
+        'position'          : 'absolute',
+        'top'               : 10,
+        'left'              : 30,
     });
 
 });
