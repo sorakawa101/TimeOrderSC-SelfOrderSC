@@ -2,9 +2,9 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
-import {setLogData} from "./log.js";
-
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import { setLogData } from "./log.js";
+import { getNow, getUsernameFromInput } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -123,16 +123,10 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 // RealtimeDatabase "chat" にチャットデータをセット
 export function setChatData() {
 
-    let name = "";
-    if ($("#uname").val()) { name = $("#uname").val() } else { name = "匿名";} // ユーザーネームが空欄の時は"匿名"とする
-
-    const date = new Date();
-    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
-
     const msg = {
         tag     : "post",
-        uname   : name,
-        time    : now,
+        uname   : getUsernameFromInput(),
+        time    : getNow(),
         // text : $("#text").val()
         // text : tinyMCE.get("text").getContent({format: "text"})
         text    : tinyMCE.get("text").getContent(),
@@ -161,7 +155,7 @@ onChildAdded(dbRefChat,function(data) {
     // 送信したら入力されたテキストを削除
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
-    tinyMCE.get("text").setContent('');
+    // tinyMCE.get("text").setContent('');
 
 
     // SpeechBalloonの初期設定
@@ -173,6 +167,10 @@ onChildAdded(dbRefChat,function(data) {
         'top'               : 10,
         'left'              : 30,
     });
+
+    if (!$(".pdfWrapper").hasClass('Inactive')) {
+        $("#"+ key).css('left', '580')
+    }
 
 });
 

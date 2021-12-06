@@ -1,3 +1,15 @@
+// Import <----------------------------------------------------------------------------------------------------
+
+import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
+from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import { getUsernameFromInput } from "./script.js";
+
+// ----------------------------------------------------------------------------------------------------> Import
+
+
+
+
 tinyMCE.init({
     // selector: "textarea.tinymce",
     language: "ja",
@@ -23,6 +35,39 @@ tinyMCE.init({
         //     $("#rewrite-btn").trigger('click')
         // }
         );
-
     },
+    init_instance_callback:function(editor) {
+        editor.on('focusin',function() {
+            setFocusIn();
+        });
+        editor.on('focusout',function() {
+            setFocusOut();
+        });
+    }
 });
+
+
+// Focus In
+function setFocusIn() {
+    let mouse = {
+        tag : "focusin",
+        who : getUsernameFromInput(),
+    }
+
+    let newPostRef = push(dbRefInteract);
+    set(newPostRef, mouse);
+    // console.log('setFocusIn');
+}
+
+
+// Focus OUt
+function setFocusOut() {
+    let mouse = {
+        tag : "focusout",
+        who : getUsernameFromInput(),
+    }
+
+    let newPostRef = push(dbRefInteract);
+    set(newPostRef, mouse);
+    // console.log('setFocusOut');
+}

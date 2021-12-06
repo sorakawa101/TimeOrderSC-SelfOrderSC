@@ -2,31 +2,10 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
-import {setLogData,} from "./log.js";
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import { setLogData, } from "./log.js";
+import { getNow, getUsernameFromSet } from "./script.js";
 // ----------------------------------------------------------------------------------------------------> Import
-
-
-
-
-// Method <----------------------------------------------------------------------------------------------------
-
-export function getUsernameFromSet() {
-    let username = "";
-
-    if ($("#set-username").val()) {
-        username = $("#set-username").val()
-    } else {
-        username = "匿名";
-    }
-    return username;
-}
-
-// ----------------------------------------------------------------------------------------------------> Method
-
-
-
-
 
 
 
@@ -304,11 +283,8 @@ function updateChatData(id, text) {
         setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
     });
 
-    const date = new Date();
-    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
-
     const msg = {
-        time : now,
+        time : getNow(),
         text : text
     }
 
@@ -363,7 +339,7 @@ function setSemanticData(id, semantic) {
         id          : id,
         semantic    : semantic,
         uname       : getUsernameFromSet(),
-        time        : now,
+        time        : getNow(),
         board       : $(".Board.Active").attr('id')
     }
     let newPostRef = push(dbRefInteract); // ユニークキーを生成
@@ -433,6 +409,19 @@ onChildAdded(dbRefInteract,function(data) {
 
         $("#"+info.id+" .Who").text(info.who)
         $("#"+info.id+" .Who").addClass('Inactive')
+
+
+    // tinymceの入力欄にフォーカスしている時
+    } else if (info.tag === "focusin") {
+
+        $(".WritingNotify").text('"'+info.who+'"が入力中…')
+        $(".WritingNotify").toggleClass('Inactive')
+
+
+    // tinymceの入力欄からフォーカスを外した時
+    } else if (info.tag === "focusout") {
+
+        $(".WritingNotify").toggleClass('Inactive')
 
 
     // SpeechBalloonを削除した時

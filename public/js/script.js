@@ -10,6 +10,46 @@ import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchi
 
 
 
+// Method <----------------------------------------------------------------------------------------------------
+
+// 現在時刻を取得する
+export function getNow() {
+    const date = new Date();
+    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
+
+    return now;
+}
+
+ // ユーザーネームをSETから取得する
+export function getUsernameFromSet() {
+    let username = "";
+
+    if ($("#set-username").val()) {
+        username = $("#set-username").val()
+    } else {
+        username = "匿名";
+    }
+
+    return username;
+}
+
+
+// ユーザーネームをInputから取得する
+export function getUsernameFromInput() {
+    let username = "";
+
+    if ($("#uname").val()) {
+        username = $("#uname").val()
+    } else { username = "匿名";
+    }
+
+    return username;
+}
+
+// ----------------------------------------------------------------------------------------------------> Method
+
+
+
 
 // Btn <----------------------------------------------------------------------------------------------------
 

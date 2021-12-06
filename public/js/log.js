@@ -50,19 +50,6 @@ function genRemovedLog(uname, time, board, id) {
     $(".Log").append(removedLogContent)
 }
 
-// $(".LogContent").mouseover(function() {
-        //     // console.log($(this).attr('class'));
-        //     console.log("hover");
-        // });
-
-        // mouseover処理は↓こう書かないと動かない（↑はダメ）
-
-// $(document).on("click", ".LogContent", function() {
-//     let id = $(this).attr('class').split(' ')[1].slice(10,-1) // 2番目の classを取得
-//     setEffectData("log", id);
-//     // console.log('set')
-// })
-
 // ----------------------------------------------------------------------------------------------------> Method
 
 
