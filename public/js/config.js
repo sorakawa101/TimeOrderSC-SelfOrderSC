@@ -26,3 +26,4 @@ export const dbRefInteract = ref(db, "interact");
 export const dbRefLog = ref(db, "log");
 export const dbRefArchive = ref(db, "archive");
 export const dbRefSetting = ref(db, "setting");
+export const dbRefUser = ref(db, "user");
