@@ -2,9 +2,9 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
 import { setLogData } from "./log.js";
-import { getNow, getUsernameFromInput } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -126,6 +126,7 @@ export function setChatData() {
     const msg = {
         tag     : "post",
         uname   : getUsernameFromInput(),
+        user    : getUsernameFromSet(),
         time    : getNow(),
         // text : $("#text").val()
         // text : tinyMCE.get("text").getContent({format: "text"})

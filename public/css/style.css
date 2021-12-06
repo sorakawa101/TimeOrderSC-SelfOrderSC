@@ -497,63 +497,6 @@ footer {
 
 
 
-/* Footer : Facilitate ----------------------------------------------------------------------------------------------------> */
-
-
-.FacilitateWrapper .Tools {
-    height: 150px;
-    justify-content: center;
-}
-
-.FacilitateWrapper .CheckBtns {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin: 5px;
-}
-
-.FacilitateWrapper .Check {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 10%;
-    background-color: rgba(247,248,252,.8);
-    margin: 0 10px;
-}
-
-.FacilitateWrapper .Check p {
-    text-align: center;
-    font-weight: bold;
-    margin: 10px 0 0 0;
-}
-
-.FacilitateWrapper .Icon {
-    text-align: center;
-}
-
-.FacilitateWrapper .OK:hover {
-    background-color: rgba(192,231,197,1);
-}
-
-.FacilitateWrapper .NG:hover {
-    background-color: rgba(255,105,98,1);
-}
-
-.FacilitateWrapper .RequestBtns {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-
-.FacilitateWrapper .RequestBtns button {
-    height: 60px;
-}
-
-/* <---------------------------------------------------------------------------------------------------- Footer : Facilitate */
-
-
-
 
 /* Footer : Input ----------------------------------------------------------------------------------------------------> */
 
@@ -585,13 +528,13 @@ footer {
     flex-direction: row;
 }
 
-#uname {
+#input-username {
     border: 1px #000 solid;
     border-radius: 5px;
     padding: 0 10px;
     /* margin-bottom: 20px; */
     font-size: 1rem;
-    width: 350px;
+    width: 100px;
     height: 40px;
     margin: 10px 0;
     /* float: left; */

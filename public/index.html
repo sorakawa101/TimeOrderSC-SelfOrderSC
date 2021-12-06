@@ -89,8 +89,25 @@
             <form id="set-form" class="SetForm" action="#" method="GET">
 
                 <div class="SetFormUpper SetFormStep" id="set-form-upper">
-                    <input type="text" class="Set SetName" id="set-username" autocomplete="off" placeholder="Usernameを設定してください">
-                    <span class="HintUname">修正する場合はダブルクリックしてください</span>
+                    <select type="example" class="Set SetNum" id="set-username">
+                        <option value="undefined"></option>
+                        <option value="橋山">橋山</option>
+                        <option value="松原">松原</option>
+                        <option value="池田">池田</option>
+                        <option value="荻野">荻野</option>
+                        <option value="ニー">ニー</option>
+                        <option value="前本">前本</option>
+                        <option value="安岡">安岡</option>
+                        <option value="植田">植田</option>
+                        <option value="小林">小林</option>
+                        <option value="後藤">後藤</option>
+                        <option value="小川">小川</option>
+                        <option value="笹川">笹川</option>
+                        <option value="堤">堤</option>
+                        <option value="林">林</option>
+                        <option value="名執">名執</option>
+                    </select>
+                    <span class="HintUname">←ここでユーザー名を設定してください</span>
                 </div>
 
                 <div class="SetFormMiddle SetFormStep" id="set-form-middle">
@@ -130,55 +147,6 @@
             </form>
         </div>
 
-        <div class="FacilitateWrapper Inactive">
-
-            <div class="Tools">
-                <div class="CheckBtns">
-                    <div class="VoiceCheck Check">
-                        <div class="Icon">
-                            <div id="voice-icon" class=""><span class="fas fa-microphone-alt fa-2x"></span></div>
-                        </div>
-                        <p>音声</p>
-                        <div class="Btns">
-                            <button id="voice-ok-btn" class="CircleBtn OK"><span class="far fa-thumbs-up fa-2x" ></span></button>
-                            <button id="voice-ng-btn" class="CircleBtn NG"><span class="fas fa-thumbs-down fa-2x" ></span></button>
-                        </div>
-                    </div>
-
-                    <div class="DisplayCheck Check">
-                        <div class="Icon">
-                            <div id="display-icon" class=""><span class="fas fa-desktop fa-2x"></span></div>
-                        </div>
-                        <p>画面共有</p>
-                        <div class="Btns">
-                            <button id="display-ok-btn" class="CircleBtn OK"><span class="far fa-thumbs-up fa-2x" ></span></button>
-                            <button id="display-ng-btn" class="CircleBtn NG"><span class="fas fa-thumbs-down fa-2x" ></span></button>
-                        </div>
-                    </div>
-
-                    <div class="RadioWaveCheck Check">
-                        <div class="Icon">
-                            <div id="radiowave-icon" class=""><span class="fas fa-wifi fa-2x"></span></div>
-                        </div>
-                        <p>電波</p>
-                        <div class="Btns">
-                            <button id="radiowave-ok-btn" class="CircleBtn OK"><span class="far fa-thumbs-up fa-2x" ></span></button>
-                            <button id="radiowave-ng-btn" class="CircleBtn NG"><span class="fas fa-thumbs-down fa-2x" ></span></button>
-                        </div>
-                    </div>
-                </div>
-
-                <input type="text" id="time-left" placeholder="残り時間は？">
-
-                <div class="RequestBtns">
-                    <button type="button" class="Btn" id="comment-request">Comment Request</button>
-                    <button type="button" class="Btn" id="status-check">Status Request</button>
-                </div>
-
-            </div>
-
-        </div>
-
         <div class="InputWrapper Inactive">
 
             <form id="input-form" class="InputForm" action="#" method="GET">
@@ -186,8 +154,11 @@
                 <div class="InputFormUpside">
 
                     <div class="InputFormLeft">
-                        <input type="text" id="uname" autocomplete="off" placeholder="Username">
-                        <span class="HintUname">修正する場合はダブルクリックしてください</span>
+                        <select type="example" id="input-username">
+                            <option value="" id="yourname"></option>
+                            <option value="anonymous">匿名</option>
+                        </select>
+                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
                     </div>
 
                     <div class="InputFormRight">

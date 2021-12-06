@@ -1,8 +1,8 @@
 // Import <----------------------------------------------------------------------------------------------------
 
-import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
+import { getDatabase, ref, push, get, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -17,41 +17,37 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 
 // Firebase <----------------------------------------------------------------------------------------------------
 
-// RealtimeDatabase "doc" にユーザーデータをセット
+// RealtimeDatabase "setting" にユーザーデータをセット
 export function setUsernameData() {
 
     const username = {
-        tag : "username",
-        name : $("#set-username").val(),
+        tag     : "username",
+        user    : $("#set-username").val()
     }
 
     const newPostRef = push(dbRefSetting); // ユニークキーを生成
-    // const newPostKey = newPostRef.key; // ユニークキーを取得
-
     set(newPostRef, username); // ユニークキーを使ってデータをセット
 }
 
 
-// RealtimeDatabase "doc" にボードデータをセット
+// RealtimeDatabase "setting" にボードデータをセット
 export function setBoardData() {
 
     const board_num = $("#set-board-num").val();
     const board_name = $("#set-board-name").val();
 
     const board = {
-        tag : "board",
-        num : board_num,
-        name : board_name,
+        tag     : "board",
+        num     : board_num,
+        user    : board_name,
     }
 
     const newPostRef = push(dbRefSetting); // ユニークキーを生成
-    // const newPostKey = newPostRef.key; // ユニークキーを取得
-
     set(newPostRef, board); // ユニークキーを使ってデータをセット
 }
 
 
-// RealtimeDatabase "doc" にドキュメントデータをセット
+// RealtimeDatabase "setting" にドキュメントデータをセット
 export function setDocData() {
 
     let doc_num = $("#set-doc-num").val();
@@ -62,10 +58,10 @@ export function setDocData() {
     if ($("#set-doc-url").val()) { doc_url = $("#set-doc-url").val() } else { doc_url = $("#"+doc_num).attr('src');}
 
     const doc = {
-        tag : "doc",
-        num : doc_num,
-        name : doc_name,
-        url: doc_url,
+        tag     : "doc",
+        num     : doc_num,
+        user    : doc_name,
+        url     : doc_url,
     }
 
     const newPostRef = push(dbRefSetting); // ユニークキーを生成
@@ -82,13 +78,13 @@ onChildAdded(dbRefSetting,function(data) {
 
     if (info.tag === "username") {
 
-        // set-usernameをreadonlyにする
-        $("#set-username").attr('readonly', true)
-        $("#set-username").css('background-color', 'rgba(34, 49, 52, .1)')
+        // Inputのユーザーネームにも同じ名前をセット
+        $("#yourname").val($("#set-username").val())
+        $("#yourname").text($("#set-username").val())
 
-        // unameをreadonlyにする
-        $("#uname").attr('readonly', true)
-        $("#uname").css('background-color', 'rgba(34, 49, 52, .1)')
+        // ユーザーの名前をheaderに表示
+        $(".now-user").text('現在のユーザー："'+$("#set-username").val()+'"')
+
 
     } else if (info.tag === "board") {
 
@@ -97,6 +93,7 @@ onChildAdded(dbRefSetting,function(data) {
 
         // 送信したら入力されたテキストを削除
         $("#set-board-name").val("")
+
 
     } else if (info.tag === "doc") {
 
@@ -107,6 +104,7 @@ onChildAdded(dbRefSetting,function(data) {
         // 送信したら入力されたテキストを削除
         $("#set-doc-name").val("")
         $("#set-doc-url").val("")
+
 
     } else {;}
 

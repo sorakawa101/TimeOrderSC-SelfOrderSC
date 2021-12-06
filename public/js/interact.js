@@ -2,9 +2,9 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
+import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
 import { setLogData, } from "./log.js";
-import { getNow, getUsernameFromSet } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
 // ----------------------------------------------------------------------------------------------------> Import
 
 
@@ -21,7 +21,7 @@ function dragMoveListener (event) {
 
     let pos = {
         tag     : "pos",
-        uname   : getUsernameFromSet(),
+        user    : getUsernameFromSet(),
         id      : key,
         posX    : x,
         posY    : y,
@@ -92,7 +92,7 @@ listeners: {
 
     let size = {
         tag     : "size",
-        uname   : getUsernameFromSet(),
+        user    : getUsernameFromSet(),
         id      : key,
         sizeW   : w,
         sizeH   : h,
@@ -128,9 +128,10 @@ inertia: true
     if ($("#"+tap_id+" .SelectorBtn").hasClass('Inactive') && $("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
 
         let mouse = {
-            tag : "mousedown",
-            who : getUsernameFromSet(),
-            id  : tap_id
+            tag     : "mousedown",
+            who     : getUsernameFromSet(),
+            user    : getUsernameFromSet(),
+            id      : tap_id
         }
 
         let newPostRef = push(dbRefInteract);
@@ -148,9 +149,10 @@ inertia: true
     if ($("#"+tap_id+" .SelectorBtn").hasClass('Inactive') && $("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
 
         let mouse = {
-            tag : "mouseup",
-            who : getUsernameFromSet(),
-            id  : tap_id
+            tag     : "mouseup",
+            who     : getUsernameFromSet(),
+            user    : getUsernameFromSet(),
+            id      : tap_id
         }
 
         let newPostRef = push(dbRefInteract);
@@ -285,7 +287,7 @@ function updateChatData(id, text) {
 
     const msg = {
         time : getNow(),
-        text : text
+        text : text,
     }
 
     update(dbRefChatChild, msg); // "chat"のデータを更新
@@ -306,7 +308,7 @@ function removeChatData(id) {
 
     let removed = {
         tag     : "removed",
-        uname   : getUsernameFromSet(),
+        user    : getUsernameFromSet(),
         id      : id
     }
     let newPostRef = push(dbRefInteract);
@@ -320,7 +322,7 @@ function removeChatData(id) {
 function setRewriteData(id, text) {
     const info = {
         tag     : "rewrite",
-        uname   : getUsernameFromSet(),
+        user    : getUsernameFromSet(),
         id      : id,
         text    : text,
     }
@@ -338,7 +340,8 @@ function setSemanticData(id, semantic) {
         tag         : "semantic",
         id          : id,
         semantic    : semantic,
-        uname       : getUsernameFromSet(),
+        uname       : getUsernameFromInput(),
+        user        : getUsernameFromSet(),
         time        : getNow(),
         board       : $(".Board.Active").attr('id')
     }
@@ -355,7 +358,7 @@ function setSemanticData(id, semantic) {
 function setCheckData(id) {
     const info = {
         tag     : "check",
-        uname   : getUsernameFromSet(),
+        user    : getUsernameFromSet(),
         id      : id,
     }
     let newPostRef = push(dbRefInteract);
