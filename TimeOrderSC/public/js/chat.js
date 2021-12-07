@@ -156,22 +156,17 @@ onChildAdded(dbRefChat,function(data) {
     // 送信したら入力されたテキストを削除
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
-    // tinyMCE.get("text").setContent('');
+    tinyMCE.get("text").setContent('');
 
 
     // SpeechBalloonの初期設定
     $("#"+ key).css({
-        'min-width'         : '200px',
-        'min-height'        : '70px',
         'background-color'  : 'rgba(227,228,232,.6)',
-        'position'          : 'absolute',
-        'top'               : 10,
-        'left'              : 30,
     });
 
-    if (!$(".pdfWrapper").hasClass('Inactive')) {
-        $("#"+ key).css('left', '580')
-    }
+    // if (!$(".pdfWrapper").hasClass('Inactive')) {
+    //     $("#"+ key).css('left', '580')
+    // }
 
 });
 

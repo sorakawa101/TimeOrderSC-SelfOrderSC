@@ -12,27 +12,27 @@ import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
 
 // Interact <----------------------------------------------------------------------------------------------------
 
-// マウス情報 Listener
-function dragMoveListener (event) {
-    let target = event.target
-    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-    let key = target.getAttribute('id')
+// // マウス情報 Listener
+// function dragMoveListener (event) {
+//     let target = event.target
+//     let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+//     let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+//     let key = target.getAttribute('id')
 
-    let pos = {
-        tag     : "pos",
-        user    : getUsernameFromSet(),
-        id      : key,
-        posX    : x,
-        posY    : y,
-    }
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, pos);
-}
+//     let pos = {
+//         tag     : "pos",
+//         user    : getUsernameFromSet(),
+//         id      : key,
+//         posX    : x,
+//         posY    : y,
+//     }
+//     let newPostRef = push(dbRefInteract);
+//     set(newPostRef, pos);
+// }
 
 
-// this function is used later in the resizing and gesture demos
-window.dragMoveListener = dragMoveListener
+// // this function is used later in the resizing and gesture demos
+// window.dragMoveListener = dragMoveListener
 
 
 interact('.LogContent')
@@ -57,67 +57,67 @@ interact('.LogContent')
 interact('.SpeechBalloon')
 
 // Drag
-.draggable({
-    inertia: true,
-    modifiers: [
-    interact.modifiers.restrictRect({
-        restriction: 'parent',
-        endOnly: true
-    })
-    ],
-    autoScroll: true,
-    // dragMoveListener from the dragging demo above
-    listeners: { move: dragMoveListener}
-})
+// .draggable({
+//     inertia: true,
+//     modifiers: [
+//     interact.modifiers.restrictRect({
+//         restriction: 'parent',
+//         endOnly: true
+//     })
+//     ],
+//     autoScroll: true,
+//     // dragMoveListener from the dragging demo above
+//     listeners: { move: dragMoveListener}
+// })
 
 
 // Resize
-.resizable({
+// .resizable({
 
-// resize from all edges and corners
-edges: { left: true, right: true, bottom: true, top: true },
+// // resize from all edges and corners
+// edges: { left: true, right: true, bottom: true, top: true },
 
-listeners: {
-    move (event) {
-    let target = event.target
-    let x = (parseFloat(target.getAttribute('data-x')) || 0)
-    let y = (parseFloat(target.getAttribute('data-y')) || 0)
-    let w = event.rect.width
-    let h = event.rect.height
-    let key = target.getAttribute('id')
+// listeners: {
+//     move (event) {
+//     let target = event.target
+//     let x = (parseFloat(target.getAttribute('data-x')) || 0)
+//     let y = (parseFloat(target.getAttribute('data-y')) || 0)
+//     let w = event.rect.width
+//     let h = event.rect.height
+//     let key = target.getAttribute('id')
 
-    // translate when resizing from top or left edges
-    x += event.deltaRect.left
-    y += event.deltaRect.top
+//     // translate when resizing from top or left edges
+//     x += event.deltaRect.left
+//     y += event.deltaRect.top
 
-    let size = {
-        tag     : "size",
-        user    : getUsernameFromSet(),
-        id      : key,
-        sizeW   : w,
-        sizeH   : h,
-        posX    : x,
-        posY    : y
-    }
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, size);
-    }
-},
+//     let size = {
+//         tag     : "size",
+//         user    : getUsernameFromSet(),
+//         id      : key,
+//         sizeW   : w,
+//         sizeH   : h,
+//         posX    : x,
+//         posY    : y
+//     }
+//     let newPostRef = push(dbRefInteract);
+//     set(newPostRef, size);
+//     }
+// },
 
-modifiers: [
-    // keep the edges inside the parent
-    interact.modifiers.restrictEdges({
-    outer: 'parent'
-    }),
+// modifiers: [
+//     // keep the edges inside the parent
+//     interact.modifiers.restrictEdges({
+//     outer: 'parent'
+//     }),
 
-    // minimum size
-    interact.modifiers.restrictSize({
-    min: { width: 100, height: 50 }
-    })
-],
+//     // minimum size
+//     interact.modifiers.restrictSize({
+//     min: { width: 100, height: 50 }
+//     })
+// ],
 
-inertia: true
-})
+// inertia: true
+// })
 
 
 // MouseDown
@@ -374,34 +374,34 @@ onChildAdded(dbRefInteract,function(data) {
     const key = data.key;
 
     // SpeechBalloonのDragした時
-    if (info.tag === "pos") {
+    // if (info.tag === "pos") {
 
-        $("#"+info.id).css('transform', 'translate(' + info.posX + 'px, ' + info.posY + 'px)')
-        $("#"+info.id).attr({
-            'data-x': info.posX,
-            'data-y': info.posY
-        })
+    //     $("#"+info.id).css('transform', 'translate(' + info.posX + 'px, ' + info.posY + 'px)')
+    //     $("#"+info.id).attr({
+    //         'data-x': info.posX,
+    //         'data-y': info.posY
+    //     })
         // console.log("pos");
 
 
     // SpeechBalloonのResizeした時
-    } else if (info.tag === "size") {
+    // } else if (info.tag === "size") {
 
-        $("#"+info.id).css({
-            'width': info.sizeW + 'px',
-            'height': info.sizeH + 'px',
-            'transform': 'translate(' + info.posX + 'px,' + info.posY + 'px)',
-        })
+    //     $("#"+info.id).css({
+    //         'width': info.sizeW + 'px',
+    //         'height': info.sizeH + 'px',
+    //         'transform': 'translate(' + info.posX + 'px,' + info.posY + 'px)',
+    //     })
 
-        $("#"+info.id).attr({
-            'data-x': info.posX,
-            'data-y': info.posY
-        })
+    //     $("#"+info.id).attr({
+    //         'data-x': info.posX,
+    //         'data-y': info.posY
+        // })
         // console.log("size");
 
 
     // SpeechBalloonをdrag/resizeしている時
-    } else if (info.tag === "mousedown") {
+    if (info.tag === "mousedown") {
 
         $("#"+info.id+" .Who").text(info.who)
         $("#"+info.id+" .Who").removeClass('Inactive')
@@ -418,13 +418,13 @@ onChildAdded(dbRefInteract,function(data) {
     } else if (info.tag === "focusin") {
 
         $(".WritingNotify").text('"'+info.who+'"が入力中…')
-        $(".WritingNotify").toggleClass('Inactive')
+        $(".WritingNotify").removeClass('Inactive')
 
 
     // tinymceの入力欄からフォーカスを外した時
     } else if (info.tag === "focusout") {
 
-        $(".WritingNotify").toggleClass('Inactive')
+        $(".WritingNotify").addClass('Inactive')
 
 
     // SpeechBalloonを削除した時
