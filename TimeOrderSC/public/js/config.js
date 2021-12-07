@@ -7,13 +7,13 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyDHpq5C7jhHEcs6XV0j8sTwOVGFCFnB7vw",
-    authDomain: "research-2094b.firebaseapp.com",
-    databaseURL: "https://research-2094b-default-rtdb.firebaseio.com",
-    projectId: "research-2094b",
-    storageBucket: "research-2094b.appspot.com",
-    messagingSenderId: "843244079366",
-    appId: "1:843244079366:web:d08d4237f347b6604db687"
+    apiKey: "AIzaSyDx83jBqglixNfP845S75QiALkHZaQQilo",
+    authDomain: "timeordersc.firebaseapp.com",
+    databaseURL: "https://timeordersc-default-rtdb.firebaseio.com",
+    projectId: "timeordersc",
+    storageBucket: "timeordersc.appspot.com",
+    messagingSenderId: "222783552101",
+    appId: "1:222783552101:web:fea9d415e7ba204fc2648c"
 };
 
 
