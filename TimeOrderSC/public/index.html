@@ -17,13 +17,13 @@
             <div class="header-left">
                 <a class="logo" href="./index.html">TimeOrderSC</a>
                 <span class="now-user now">現在のユーザー："undefined"</span>
-                <span class="now-board now">現在のボード："BOARD1"</span>
+                <!-- <span class="now-board now">現在のボード："BOARD1"</span> -->
             </div>
 
             <div class="header-right">
                 <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
-                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
-                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
+                <!-- <button class="CircleBtn MenuBtn SwitchBtn HintBtn" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button> -->
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
 
                 <button class="Btn MenuBtn SetMenuBtn">SET</button>
                 <button class="Btn MenuBtn pdfMenuBtn"> PDF
@@ -36,7 +36,7 @@
                         <li class="DocOpen" id="doc6-open"><a href="#">DOC6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn BoardMenuBtn"> BOARD
+                <!-- <button class="Btn MenuBtn BoardMenuBtn"> BOARD
                     <ul class="DropDownMenu">
                         <li class="BoardOpen" id="board1-open"><a href="#">BOARD1</a></li>
                         <li class="BoardOpen" id="board2-open"><a href="#">BOARD2</a></li>
@@ -46,9 +46,9 @@
                         <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
+                <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
-                <button class="Btn MenuBtn LogMenuBtn">LOG</button>
+                <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
                 <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
             </div>
         <!-- </div> -->
@@ -57,8 +57,8 @@
     <!-- コンテンツ表示画面 -->
     <div class="MainWrapper">
 
-        <div class="pdfWrapper Inactive">
-            <iframe class="Doc Inactive" id="doc1" src="./src/doc.pdf" ></iframe>
+        <div class="pdfWrapper">
+            <iframe class="Doc Active" id="doc1" src="./src/doc.pdf" ></iframe>
             <iframe class="Doc Inactive" id="doc2" src="./src/doc2.pdf" ></iframe>
             <iframe class="Doc Inactive" id="doc3" src="./src/doc3.pdf" ></iframe>
             <iframe class="Doc Inactive" id="doc4" src="./src/doc.pdf" ></iframe>
@@ -75,8 +75,43 @@
             <div id="board6" class="Board Inactive"></div>
         </div>
 
-        <div class="LogWrapper Inactive">
-            <div class="Log" id="log"></div>
+
+        <div class="SideWrapper">
+
+            <div class="LogWrapper">
+                <div class="Log" id="log"></div>
+            </div>
+
+            <div class="InputWrapper">
+
+                <form id="input-form" class="InputForm" action="#" method="GET">
+
+                    <div class="InputFormUpside">
+
+                        <div class="InputFormLeft">
+                            <select type="example" id="input-username">
+                                <option value="" id="yourname"></option>
+                                <option value="anonymous">匿名</option>
+                            </select>
+                            <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
+                        </div>
+
+                        <div class="InputFormRight">
+                            <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                            <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                        </div>
+
+                    </div>
+
+                    <div class="InputFormDownside">
+                        <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                    </div>
+
+                </form>
+
+            </div>
+
+
         </div>
 
     </div>
@@ -108,7 +143,7 @@
                     <span class="HintUname">←ここでユーザー名を設定してください</span>
                 </div>
 
-                <div class="SetFormMiddle SetFormStep" id="set-form-middle">
+                <!-- <div class="SetFormMiddle SetFormStep" id="set-form-middle">
                         <div class="SetFormLeft">
                             <select name="example" class="Set SetNum" id="set-board-num">
                                 <option value="board1">Board1</option>
@@ -121,7 +156,7 @@
                             <input type="text" class="Set SetName" id="set-board-name" autocomplete="off" placeholder="Boardの名前を設定してください">
                         </div>
 
-                </div>
+                </div> -->
 
                 <div class="SetFormLower SetFormStep" id="set-form-lower">
                     <div class="SetFormLeft">
@@ -143,35 +178,6 @@
                 </div>
 
             </form>
-        </div>
-
-        <div class="InputWrapper">
-
-            <form id="input-form" class="InputForm" action="#" method="GET">
-
-                <div class="InputFormUpside">
-
-                    <div class="InputFormLeft">
-                        <select type="example" id="input-username">
-                            <option value="" id="yourname"></option>
-                            <option value="anonymous">匿名</option>
-                        </select>
-                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
-                    </div>
-
-                    <div class="InputFormRight">
-                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
-                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
-                    </div>
-
-                </div>
-
-                <div class="InputFormDownside">
-                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
-                </div>
-
-            </form>
-
         </div>
 
         <div class="NotifyWrapper">
