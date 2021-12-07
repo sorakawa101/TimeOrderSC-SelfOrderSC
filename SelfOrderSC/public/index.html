@@ -46,9 +46,10 @@
                         <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn InputMenuBtn">INPUT</button>
+                <button class="Btn MenuBtn SideMenuBtn">SIDE</button>
+                <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
-                <button class="Btn MenuBtn LogMenuBtn">LOG</button>
+                <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
                 <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
             </div>
         <!-- </div> -->
@@ -79,8 +80,45 @@
 
     </div>
 
-    <div class="LogWrapper Inactive">
-        <div class="Log" id="log"></div>
+    <div class="Side Inactive">
+
+    <div class="SideWrapper">
+
+        <div class="LogWrapper ">
+            <div class="Log" id="log"></div>
+        </div>
+
+        <div class="InputWrapper ">
+
+            <form id="input-form" class="InputForm" action="#" method="GET">
+
+                <div class="InputFormUpside">
+
+                    <div class="InputFormLeft">
+                        <select type="example" id="input-username">
+                            <option value="" id="yourname"></option>
+                            <option value="anonymous">匿名</option>
+                        </select>
+                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
+                    </div>
+
+                    <div class="InputFormRight">
+                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                    </div>
+
+                </div>
+
+                <div class="InputFormDownside">
+                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
     </div>
 
     <footer>
@@ -145,35 +183,6 @@
                 </div>
 
             </form>
-        </div>
-
-        <div class="InputWrapper Inactive">
-
-            <form id="input-form" class="InputForm" action="#" method="GET">
-
-                <div class="InputFormUpside">
-
-                    <div class="InputFormLeft">
-                        <select type="example" id="input-username">
-                            <option value="" id="yourname"></option>
-                            <option value="anonymous">匿名</option>
-                        </select>
-                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
-                    </div>
-
-                    <div class="InputFormRight">
-                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
-                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
-                    </div>
-
-                </div>
-
-                <div class="InputFormDownside">
-                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
-                </div>
-
-            </form>
-
         </div>
 
         <div class="NotifyWrapper">

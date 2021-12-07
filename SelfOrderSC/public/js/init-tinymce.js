@@ -18,7 +18,8 @@ tinyMCE.init({
     menubar: false,
     toolbar: ['undo redo | bold italic | forecolor backcolor | fontsizeselect | styleselect | numlist bullist | emoticons |  image | table | link | insertdatetime'],
     fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 34px',
-    height: 150,
+    width: 360,
+    height: 280,
     lists_indent_on_tab: false,
     branding: false, // POWERED BY TINYのリンク非表示
     forced_root_block : '', // 改行した時,p段落でなくてbr改行する

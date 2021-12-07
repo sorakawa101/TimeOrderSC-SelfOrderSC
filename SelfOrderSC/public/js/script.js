@@ -86,12 +86,8 @@ $(".SetMenuBtn").on("click", function() {
 
 });
 
-$(".InputMenuBtn").on("click", function() {
-    $(".InputWrapper").toggleClass("Inactive");
-});
-
-$(".LogMenuBtn").on("click", function() {
-    $(".LogWrapper").toggleClass("Inactive");
+$(".SideMenuBtn").on("click", function() {
+    $(".Side").toggleClass("Inactive");
 });
 
 $(".ResetMenuBtn").on("click", function() {

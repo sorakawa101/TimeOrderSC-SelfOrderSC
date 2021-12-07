@@ -156,7 +156,7 @@ onChildAdded(dbRefChat,function(data) {
     // 送信したら入力されたテキストを削除
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
-    // tinyMCE.get("text").setContent('');
+    tinyMCE.get("text").setContent('');
 
 
     // SpeechBalloonの初期設定
