@@ -105,6 +105,11 @@ $(".MsgWrapper").on("click", function() {
     $(".SetWrapper").addClass('Inactive')
 });
 
+
+$(".SideWrapper").on("dblclick", function() {
+    $(".Side").addClass('Inactive')
+});
+
 // ----------------------------------------------------------------------------------------------------> Menu
 
 

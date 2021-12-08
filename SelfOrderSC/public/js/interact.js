@@ -418,13 +418,13 @@ onChildAdded(dbRefInteract,function(data) {
     } else if (info.tag === "focusin") {
 
         $(".WritingNotify").text('"'+info.who+'"が入力中…')
-        $(".WritingNotify").toggleClass('Inactive')
+        $(".WritingNotify").removeClass('Inactive')
 
 
     // tinymceの入力欄からフォーカスを外した時
     } else if (info.tag === "focusout") {
 
-        $(".WritingNotify").toggleClass('Inactive')
+        $(".WritingNotify").addClass('Inactive')
 
 
     // SpeechBalloonを削除した時
@@ -448,7 +448,7 @@ onChildAdded(dbRefInteract,function(data) {
                 $("#"+info.id).css('background-color', 'rgba(227,228,232,.6)');
                 break;
             case "idea":
-                $("#"+info.id+" .Semantic").text("<提案>");
+                $("#"+info.id+" .Semantic").text("<重要>");
                 $("#"+info.id).css('background-color', 'rgba(255,105,98,.6)');
                 break;
             case "facilitation":
@@ -469,7 +469,7 @@ onChildAdded(dbRefInteract,function(data) {
                 $("#"+info.id).css('background-color', 'rgba(246,230,131,.6)');
                 break;
             case "information":
-                $("#"+info.id+" .Semantic").text("<連絡>");
+                $("#"+info.id+" .Semantic").text("<解答>");
                 $("#"+info.id).css('background-color', 'rgba(151,150,188,.6)');
                 break;
             default:

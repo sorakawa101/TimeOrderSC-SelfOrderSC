@@ -78,12 +78,12 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     let semantic_selector = $("<div>", {class: 'SemanticSelector'}).appendTo(speech_balloon);
 
     $("<button>", {class: 'SemanticCircle Inactive', id: 'none', text: "None"}).appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'idea', text: "提案"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'idea', text: "重要"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'facilitation', text: "進行"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'question', text: "質疑"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "応答"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'comment', text: "感想"}).appendTo(semantic_selector);
-    $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "連絡"}).appendTo(semantic_selector);
+    $("<button>", {class: 'SemanticCircle Inactive', id: 'information', text: "解答"}).appendTo(semantic_selector);
 
 
     // Who : 誰がそのSpeechBalloonを操作しているか
