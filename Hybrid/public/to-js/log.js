@@ -14,7 +14,7 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 // ChatLogを追加
 function genChatLog(uname, time, board, id) {
     let chatLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを送信しました"}).appendTo(chatLogContent)
+    let txt = $("<p>", {text: uname+"がChatを送信しました"}).appendTo(chatLogContent)
     $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(chatLogContent)
     $(".Log").append(chatLogContent)
@@ -24,7 +24,7 @@ function genChatLog(uname, time, board, id) {
 // RewriteLogを追加
 function genRewriteLog(uname, time, board, id) {
     let rewriteLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
+    let txt = $("<p>", {text: uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
     $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(rewriteLogContent)
     $(".Log").append(rewriteLogContent)
@@ -34,7 +34,7 @@ function genRewriteLog(uname, time, board, id) {
 // SemanticLogを追加
 function genSemanticLog(uname, time, board, semantic, rgba, id) {
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
+    let txt = $("<p>", {text: uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
@@ -44,7 +44,7 @@ function genSemanticLog(uname, time, board, semantic, rgba, id) {
 // RemovedLogを追加
 function genRemovedLog(uname, time, board, id) {
     let removedLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを削除しました"}).appendTo(removedLogContent)
+    let txt = $("<p>", {text: uname+"がChatを削除しました"}).appendTo(removedLogContent)
     $("<span>", {text: "▲  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time}).appendTo(removedLogContent)
     $(".Log").append(removedLogContent)

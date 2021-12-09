@@ -15,7 +15,7 @@ import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchi
 // 現在時刻を取得する
 export function getNow() {
     const date = new Date();
-    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
+    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2) + ":" + ("0"+date.getSeconds()).slice(-2);
 
     return now;
 }

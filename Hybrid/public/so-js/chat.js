@@ -34,7 +34,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     chat_info.append(uname_text);
 
     $("<p>", {class: 'Semantic'}).appendTo(chat_info);
-    $("<p>", {class: 'TimeStamp', text: time}).appendTo(chat_info);
+    $("<p>", {class: 'TimeStamp', text: time.slice(0,5)}).appendTo(chat_info);
 
     speech_balloon.append(chat_info);
 
