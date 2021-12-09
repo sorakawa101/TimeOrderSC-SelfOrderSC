@@ -47,7 +47,7 @@ $("#send-btn").on("click", function() {
     if (tinyMCE.get("text").getContent() === "") { return 0; }
 
     // ユーザーネームが設定されていない時アラートを表示
-    // if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
 
     setChatData();
 });
@@ -202,9 +202,9 @@ $(".BoardOpen").on("click", function(e) {
 
 
 // ユーザーネームが設定されていない時アラートを表示
-// $(".MainWrapper").on("click", function(e) {
-//     if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
-//     e.preventDefault();
-// })
+$(".MainWrapper").on("click", function(e) {
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
+    e.preventDefault();
+})
 
 // ----------------------------------------------------------------------------------------------------> board
