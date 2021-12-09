@@ -146,6 +146,13 @@ header {
     color: white;
 }
 
+
+#doc5-open {
+    pointer-events: none;
+}
+#doc6-open {
+    pointer-events: none;
+}
 /*  <---------------------------------------------------------------------------------------------------- Header */
 
 

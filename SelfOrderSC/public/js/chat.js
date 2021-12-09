@@ -156,7 +156,19 @@ onChildAdded(dbRefChat,function(data) {
     // 送信したら入力されたテキストを削除
     // let textForm = document.getElementById("uname");
     //     textForm.value = '';
-    tinyMCE.get("text").setContent('');
+    if (msg.text === tinyMCE.get("text").getContent()) {
+        tinyMCE.get("text").setContent('');
+    }
+
+    // ユーザー名"笹川"によって"テストスタート"が送信されたらテストのPDFをクリックできるようになる
+    if (msg.text === "テストスタート" && $("#set-username").val() === "笹川"){
+        $("#doc5-open").css('pointer-events','all')
+    }
+
+    // ユーザー名"笹川"によって"本番スタート"が送信されたら本番のPDFをクリックできるようになる
+    if (msg.text === "本番スタート" && $("#set-username").val() === "笹川"){
+        $("#doc6-open").css('pointer-events','all')
+    }
 
 
     // SpeechBalloonの初期設定

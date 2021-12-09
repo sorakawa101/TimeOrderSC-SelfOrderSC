@@ -502,6 +502,13 @@ footer {
     width: 350px;
 }
 
+#doc5-open {
+    pointer-events: none;
+}
+#doc6-open {
+    pointer-events: none;
+}
+
 /* <---------------------------------------------------------------------------------------------------- Footer : Set */
 
 
