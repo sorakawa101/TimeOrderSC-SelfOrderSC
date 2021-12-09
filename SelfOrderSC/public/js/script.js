@@ -60,7 +60,8 @@ $("#set-btn").on("click", function(e) {
     if ($("#set-board-name").val()) { setBoardData(); }
     if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
 
-    $(".HintUname").css('display', 'none');
+    $(".HintUname").css('display', 'none')
+    $(".SetURL").attr('readonly', true)
 
     e.preventDefault();
 
@@ -162,6 +163,12 @@ $(".DocOpen").on("click", function(e) {
     }
 
     // console.log(doc_id);
+})
+
+// URL指定欄はダブルクリックで編集可能
+$(".SetURL").on("dblclick", function(e) {
+    if($(this).attr('readonly', true)) { $(this).attr('readonly', false) }
+    e.preventDefault();
 })
 
 // ----------------------------------------------------------------------------------------------------> pdf
