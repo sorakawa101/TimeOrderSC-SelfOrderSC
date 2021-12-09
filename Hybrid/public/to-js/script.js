@@ -56,11 +56,12 @@ $("#send-btn").on("click", function() {
 // Setの送信ボタンが押された時に実行
 $("#set-btn").on("click", function(e) {
 
-    if ($("#set-username").val()) { setUsernameData(); }
-    if ($("#set-board-name").val()) { setBoardData(); }
-    if ($("#set-doc-name").val() || $("#set-doc-url").val()) { setDocData(); }
-
-    $(".HintUname").css('display', 'none');
+    if ($("#set-username").val() === "undefined") {;}
+    else if ($("#set-username").val()) {
+        setUsernameData();
+        $("#set-username").toggleClass('Inactive')
+        $(this).css('pointer-events','none')
+    }
 
     e.preventDefault();
 

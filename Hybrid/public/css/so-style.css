@@ -152,6 +152,17 @@ header {
     color: white;
 }
 
+#doc5-open {
+    pointer-events: none;
+}
+#doc6-open {
+    pointer-events: none;
+}
+
+#set-username {
+    margin: auto 10px;
+}
+
 /*  <---------------------------------------------------------------------------------------------------- Header */
 
 
@@ -500,13 +511,6 @@ footer {
 
 .SetURL {
     width: 350px;
-}
-
-#doc5-open {
-    pointer-events: none;
-}
-#doc6-open {
-    pointer-events: none;
 }
 
 /* <---------------------------------------------------------------------------------------------------- Footer : Set */

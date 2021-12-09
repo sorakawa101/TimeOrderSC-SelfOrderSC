@@ -16,7 +16,7 @@ function genChatLog(uname, time, board, id) {
     let chatLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: board+"で"+uname+"がChatを送信しました"}).appendTo(chatLogContent)
     $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(chatLogContent)
+    $("<p>", {text: time.slice(0,5)}).appendTo(chatLogContent)
     $(".Log").append(chatLogContent)
 }
 
@@ -26,7 +26,7 @@ function genRewriteLog(uname, time, board, id) {
     let rewriteLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: board+"で"+uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
     $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(rewriteLogContent)
+    $("<p>", {text: time.slice(0,5)}).appendTo(rewriteLogContent)
     $(".Log").append(rewriteLogContent)
 }
 
@@ -36,7 +36,7 @@ function genSemanticLog(uname, time, board, semantic, rgba, id) {
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: board+"で"+uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(semanticLogContent)
+    $("<p>", {text: time.slice(0,5)}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
 }
 
@@ -46,7 +46,7 @@ function genRemovedLog(uname, time, board, id) {
     let removedLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
     let txt = $("<p>", {text: board+"で"+uname+"がChatを削除しました"}).appendTo(removedLogContent)
     $("<span>", {text: "▲  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
-    $("<p>", {text: time}).appendTo(removedLogContent)
+    $("<p>", {text: time.slice(0,5)}).appendTo(removedLogContent)
     $(".Log").append(removedLogContent)
 }
 

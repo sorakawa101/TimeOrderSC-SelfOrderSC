@@ -25,7 +25,27 @@
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
                 <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
 
-                <button class="Btn MenuBtn SetMenuBtn">SET</button>
+
+                <select type="example" class="Set SetNum" id="set-username">
+                    <option value="undefined"></option>
+                    <option value="橋山">橋山</option>
+                    <option value="松原">松原</option>
+                    <option value="池田">池田</option>
+                    <option value="荻野">荻野</option>
+                    <option value="Ni">Ni</option>
+                    <option value="前本">前本</option>
+                    <option value="安岡">安岡</option>
+                    <option value="植田">植田</option>
+                    <option value="小林">小林</option>
+                    <option value="後藤">後藤</option>
+                    <option value="小川">小川</option>
+                    <option value="笹川">笹川</option>
+                    <option value="堤">堤</option>
+                    <option value="林">林</option>
+                    <option value="名執">名執</option>
+                </select>
+
+                <button class="Btn MenuBtn SetMenuBtn" id="set-btn">SET</button>
                 <button class="Btn MenuBtn pdfMenuBtn"> PDF
                     <ul class="DropDownMenu">
                         <li class="DocOpen" id="doc1-open"><a href="#">本日の流れ</a></li>
@@ -122,68 +142,6 @@
     </div>
 
     <footer>
-
-        <div class="SetWrapper Inactive">
-            <form id="set-form" class="SetForm" action="#" method="GET">
-
-                <div class="SetFormUpper SetFormStep" id="set-form-upper">
-                    <select type="example" class="Set SetNum" id="set-username">
-                        <option value="undefined"></option>
-                        <option value="橋山">橋山</option>
-                        <option value="松原">松原</option>
-                        <option value="池田">池田</option>
-                        <option value="荻野">荻野</option>
-                        <option value="Ni">Ni</option>
-                        <option value="前本">前本</option>
-                        <option value="安岡">安岡</option>
-                        <option value="植田">植田</option>
-                        <option value="小林">小林</option>
-                        <option value="後藤">後藤</option>
-                        <option value="小川">小川</option>
-                        <option value="笹川">笹川</option>
-                        <option value="堤">堤</option>
-                        <option value="林">林</option>
-                        <option value="名執">名執</option>
-                    </select>
-                    <span class="HintUname">←ここでユーザー名を設定してください</span>
-                </div>
-
-                <div class="SetFormMiddle SetFormStep" id="set-form-middle">
-                        <div class="SetFormLeft">
-                            <select name="example" class="Set SetNum" id="set-board-num">
-                                <option value="board1">Board1</option>
-                                <option value="board2">Board2</option>
-                                <option value="board3">Board3</option>
-                                <option value="board4">Board4</option>
-                                <option value="board5">Board5</option>
-                                <option value="board6">Board6</option>
-                            </select>
-                            <input type="text" class="Set SetName" id="set-board-name" autocomplete="off" placeholder="Boardの名前を設定してください">
-                        </div>
-
-                </div>
-
-                <div class="SetFormLower SetFormStep" id="set-form-lower">
-                    <div class="SetFormLeft">
-                        <select name="example" class="Set SetNum" id="set-doc-num">
-                            <option value="doc1">Doc1</option>
-                            <option value="doc2">Doc2</option>
-                            <option value="doc3">Doc3</option>
-                            <option value="doc4">Doc4</option>
-                            <option value="doc5">Doc5</option>
-                            <option value="doc6">Doc6</option>
-                        </select>
-                        <input type="text" class="Set SetName" id="set-doc-name" autocomplete="off" placeholder="Documentの名前を設定してください">
-                        <input type="text" class="Set SetURL" id="set-doc-url" autocomplete="off" placeholder="GM用です.触らないで下さい." readonly style="background-color: gainsboro;">
-                    </div>
-
-                    <div class="SetFormRight">
-                        <input type="submit" class="Btn SetBtn" id="set-btn" value="Set">
-                    </div>
-                </div>
-
-            </form>
-        </div>
 
         <div class="NotifyWrapper">
             <p class="WritingNotify Inactive">""が入力中です…</p>
