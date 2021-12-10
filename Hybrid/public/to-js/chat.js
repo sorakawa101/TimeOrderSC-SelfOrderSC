@@ -161,7 +161,7 @@ onChildAdded(dbRefChat,function(data) {
     }
 
     // ユーザー名"笹川"によって"テストスタート"が送信されたらテストのPDFをクリックできるようになる
-    if (msg.text === "テストスタート" && $("#set-username").val() === "笹川"){
+    if (msg.text === "練習スタート" && $("#set-username").val() === "笹川"){
         $("#doc5-open").css('pointer-events','all')
     }
 
