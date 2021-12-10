@@ -447,7 +447,7 @@ onChildAdded(dbRefInteract,function(data) {
                 $("#"+info.id+" .Semantic").text(" ");
                 $("#"+info.id).css('background-color', 'rgba(227,228,232,.6)');
                 break;
-            case "idea":
+            case "important":
                 $("#"+info.id+" .Semantic").text("<重要>");
                 $("#"+info.id).css('background-color', 'rgba(255,105,98,.6)');
                 break;
@@ -459,16 +459,16 @@ onChildAdded(dbRefInteract,function(data) {
                 $("#"+info.id+" .Semantic").text("<質疑>");
                 $("#"+info.id).css('background-color', 'rgba(255,175,104,.6)');
                 break;
-            case "answer":
+            case "response":
                 $("#"+info.id+" .Semantic").text("<応答>");
                 $("#"+info.id).css('background-color', 'rgba(192,231,197,.6)');
 
                 break;
-            case "comment":
-                $("#"+info.id+" .Semantic").text("<感想>");
+            case "note":
+                $("#"+info.id+" .Semantic").text("<メモ>");
                 $("#"+info.id).css('background-color', 'rgba(246,230,131,.6)');
                 break;
-            case "information":
+            case "answer":
                 $("#"+info.id+" .Semantic").text("<解答>");
                 $("#"+info.id).css('background-color', 'rgba(151,150,188,.6)');
                 break;

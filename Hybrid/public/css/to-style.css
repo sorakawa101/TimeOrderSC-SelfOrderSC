@@ -201,7 +201,7 @@ header {
 .SideWrapper {
     display: flex;
     flex-direction: column;
-    background-color: rgba(227,228,232,.4);
+    background-color: rgba(227,228,232,.8);
 }
 
 .LogWrapper {

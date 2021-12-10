@@ -34,7 +34,7 @@ function genRewriteLog(uname, time, board, id) {
 // SemanticLogを追加
 function genSemanticLog(uname, time, board, semantic, rgba, id) {
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: uname+"から"+semantic+"があります"}).appendTo(semanticLogContent)
+    let txt = $("<p>", {text: board+'で'+uname+'が"'+semantic+'"をタグ付けしました'}).appendTo(semanticLogContent)
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time.slice(0,5)}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
@@ -137,8 +137,8 @@ onChildAdded(dbRefLog,function(data) {
         switch (log.semantic) {
             case "none":
                 break;
-            case "idea":
-                genSemanticLog(log.uname, log.time, log.board, "提案", 'rgba(255,105,98,.8)', log.id);
+            case "important":
+                genSemanticLog(log.uname, log.time, log.board, "重要", 'rgba(255,105,98,.8)', log.id);
                 break;
             case "facilitation":
                 genSemanticLog(log.uname, log.time, log.board, "進行", 'rgba(136,196,228,.8)', log.id);
@@ -146,14 +146,14 @@ onChildAdded(dbRefLog,function(data) {
             case "question":
                 genSemanticLog(log.uname, log.time, log.board, "質疑", 'rgba(255,175,104,.8)', log.id);
                 break;
-            case "answer":
+            case "response":
                 genSemanticLog(log.uname, log.time, log.board, "応答", 'rgba(192,231,197,.8)', log.id);
                 break;
-            case "comment":
-                genSemanticLog(log.uname, log.time, log.board, "感想", 'rgba(246,230,131,.8)', log.id);
+            case "note":
+                genSemanticLog(log.uname, log.time, log.board, "メモ", 'rgba(246,230,131,.8)', log.id);
                 break;
-            case "information":
-                genSemanticLog(log.uname, log.time, log.board, "連絡", 'rgba(151,150,188,.8)', log.id);
+            case "answer":
+                genSemanticLog(log.uname, log.time, log.board, "解答", 'rgba(151,150,188,.8)', log.id);
                 break;
             default:
                 ;
