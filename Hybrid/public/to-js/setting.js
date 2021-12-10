@@ -71,6 +71,33 @@ export function setDocData() {
 }
 
 
+export function lockDoc() {
+
+    const lock = {
+        tag     : "lock",
+    }
+
+    const newPostRef = push(dbRefSetting); // ユニークキーを生成
+    // const newPostKey = newPostRef.key; // ユニークキーを取得
+
+    set(newPostRef, lock); // ユニークキーを使ってデータをセット
+}
+
+
+export function unlockDoc(doc) {
+
+    const unlock = {
+        tag     : "unlock",
+        doc     : doc
+    }
+
+    const newPostRef = push(dbRefSetting); // ユニークキーを生成
+    // const newPostKey = newPostRef.key; // ユニークキーを取得
+
+    set(newPostRef, unlock); // ユニークキーを使ってデータをセット
+}
+
+
 // RealTimeDatabase "doc" に要素が追加されたときに実行
 onChildAdded(dbRefSetting,function(data) {
     const info = data.val();
@@ -104,6 +131,18 @@ onChildAdded(dbRefSetting,function(data) {
         // 送信したら入力されたテキストを削除
         $("#set-doc-name").val("")
         $("#set-doc-url").val("")
+
+
+    } else if (info.tag === "lock") {
+
+        $("#doc5-open").css('pointer-events','none')
+        $("#doc6-open").css('pointer-events','none')
+
+
+    } else if (info.tag === "unlock") {
+
+        if (info.doc === "doc5") { $("#doc5-open").css('pointer-events','all') }
+        if (info.doc === "doc6") { $("#doc6-open").css('pointer-events','all') }
 
 
     } else {;}

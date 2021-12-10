@@ -5,6 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
+import { unlockDoc, lockDoc } from "./setting.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -160,14 +161,19 @@ onChildAdded(dbRefChat,function(data) {
         tinyMCE.get("text").setContent('');
     }
 
-    // ユーザー名"笹川"によって"テストスタート"が送信されたらテストのPDFをクリックできるようになる
-    if (msg.text === "練習スタート" && $("#set-username").val() === "笹川"){
-        $("#doc5-open").css('pointer-events','all')
+    // "練習スタート"が送信されたらテストのPDFをクリックできるようになる
+    if (msg.text === "練習スタート"){
+        unlockDoc("doc5");
     }
 
-    // ユーザー名"笹川"によって"本番スタート"が送信されたら本番のPDFをクリックできるようになる
-    if (msg.text === "本番スタート" && $("#set-username").val() === "笹川"){
-        $("#doc6-open").css('pointer-events','all')
+    // "本番スタート"が送信されたら本番のPDFをクリックできるようになる
+    if (msg.text === "本番スタート"){
+        unlockDoc("doc6");
+    }
+
+    // "lock"が送信されたらPDFをクリックできなくなる
+    if(msg.text === "lock") {
+        lockDoc();
     }
 
 
