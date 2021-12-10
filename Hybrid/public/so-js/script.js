@@ -134,7 +134,7 @@ $("#pdf-switch-btn").on("click", function(e) {
     let active_doc_num = active_doc_id.split("doc")[1]
     let next_doc_num = Number(active_doc_num)+1
 
-    if (active_doc_num === "6") {
+    if (active_doc_num === "4") {
         $("#doc"+active_doc_num).toggleClass("Active Inactive");
         $("#doc1").toggleClass("Active Inactive");
     } else {

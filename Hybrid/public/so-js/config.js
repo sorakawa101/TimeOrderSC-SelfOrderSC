@@ -21,9 +21,9 @@ export const firebaseConfig = {
 export const app = initializeApp(firebaseConfig); // Keyを使ってFirebaseに接続
 export const db = getDatabase(app); // RealTimeDatabaseに接続
 
-export const dbRefChat = ref(db, "so/chat");
-export const dbRefInteract = ref(db, "so/interact");
-export const dbRefLog = ref(db, "so/log");
-export const dbRefArchive = ref(db, "so/archive");
-export const dbRefSetting = ref(db, "so/setting");
-export const dbRefUser = ref(db, "so/user");
+export const dbRefChat = ref(db, "self-order/chat");
+export const dbRefInteract = ref(db, "self-order/interact");
+export const dbRefLog = ref(db, "self-order/log");
+export const dbRefArchive = ref(db, "self-order/archive");
+export const dbRefSetting = ref(db, "self-order/setting");
+export const dbRefUser = ref(db, "self-order/user");
