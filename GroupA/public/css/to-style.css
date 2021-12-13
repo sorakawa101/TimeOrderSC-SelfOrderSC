@@ -13,16 +13,10 @@
 body {
     margin: 0;
     font-family: "Hiragino Kaku Gothic ProN";
+    overflow: hidden;
 }
 a {
     text-decoration: none;
-}
-
-.container {
-    max-width: 1170px;
-    width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
 }
 
 .Inactive {
@@ -152,6 +146,7 @@ header {
     color: white;
 }
 
+
 #doc5-open {
     pointer-events: none;
 }
@@ -162,7 +157,6 @@ header {
 #set-username {
     margin: auto 10px;
 }
-
 /*  <---------------------------------------------------------------------------------------------------- Header */
 
 
@@ -172,19 +166,18 @@ header {
 
 /* Contents */
 .MainWrapper {
-    margin-top: 60px;
     width: 100vw;
     height: 100vw;
-    /* display: flex;
-    flex-direction: row; */
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .pdfWrapper {
     width: 550px;
-    width: 40%;
     height: 100%;
     /* margin-left: 10px; */
-    position: fixed;
+    /* position: fixed; */
     top: 60px;
     left: 0;
     z-index: var(--max-z-index);
@@ -192,15 +185,13 @@ header {
 }
 
 .MsgWrapper {
-    /* width: 900px; */
-    width: 100%;
-    height: 100%;
-    margin: 20px auto;
-    background-color: rgba(128,128,128,.1);
-    /* padding: 10px 10px; */
-    margin: 0 10px 0 10px;
+    width: 500px;
+    height: 720px;
+    margin: 20px auto 0 auto;
+    /* padding: ; */
+    /* border: 2px solid rgba(34, 49, 52, .8); */
     border-radius: 5px;
-    /* position: relative; */
+    overflow-y: auto;
 }
 
 .Msg {
@@ -208,22 +199,22 @@ header {
 }
 
 .SideWrapper {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
     display: flex;
     flex-direction: column;
     background-color: rgba(227,228,232,.8);
 }
 
 .LogWrapper {
-    width: 400px;
+    min-width: 330px;
     height: 380px;
     /* margin-right: 10px; */
+    /* position: fixed; */
+    top: 0;
+    bottom: 0;
+    right: 0;
     overflow-y: auto;
     z-index: var(--max-z-index)-1;
-    margin-top: 60px;
+    /* margin-top: 60px; */
     padding: 10px 10px 10px 10px;
 }
 
@@ -243,8 +234,8 @@ header {
     position: absolute;
     top: auto;
     left: auto;
-    width: 100%;
-    height: 100%;
+    width: 550px;
+    height: 95%;
 }
 
 #doc-switch-btn {
@@ -288,18 +279,11 @@ header {
 /* Main : Board ----------------------------------------------------------------------------------------------------> */
 
 .Board {
-    overflow: scroll scroll;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    /* border: .5px rgba(128,128,128,.4) solid; */
-}
-
-.board-wrapper {
-    width: 100%;
-    height: 900px;
-    margin-top: 40px;
-    background-color: #aaa;
+    /* position: relative; */
+    margin: 0 auto;
+    padding: 0 0 2px 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 /* <---------------------------------------------------------------------------------------------------- Main : Board */
@@ -310,9 +294,10 @@ header {
 /* Main : SpeechBalloon ----------------------------------------------------------------------------------------------------> */
 
 .SpeechBalloon {
+    width: 270px;
     border-radius: 8px;
     padding: 0 20px;
-    margin: 1rem;
+    margin: .5rem auto 0 auto;
     font-size: 20px;
     font-family: sans-serif;
     /* translate: (0, 0); */
@@ -322,6 +307,7 @@ header {
     box-sizing: border-box;
     /* overflow: hidden; */
     position: relative;
+    cursor: pointer;
 }
 
 .SpeechBalloon p {
@@ -341,7 +327,7 @@ header {
     height: 50px;
     position: absolute;
     top: -10px;
-    right: -60px;
+    right: -55px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -377,6 +363,7 @@ header {
     font-weight: bold;
     pointer-events: none;
 }
+
 .TimeStamp {
     font-size: 15px;
     font-weight: lighter;
@@ -384,9 +371,11 @@ header {
     padding: 5px 0 0 0;
     pointer-events: none;
 }
+
 .SpeechBalloon p {
     margin-top: 0;
 }
+
 .ColorSelector {
     position: absolute;
     top: 0px;
@@ -400,7 +389,7 @@ header {
 .SemanticSelector {
     position: absolute;
     top: -10px;
-    right: -120px;
+    right: -110px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -550,7 +539,7 @@ footer {
     padding: 0 10px;
     /* margin-bottom: 20px; */
     font-size: 1rem;
-    width: 120px;
+    width: 100px;
     height: 40px;
     margin: 10px 0;
     /* float: left; */
@@ -725,7 +714,7 @@ footer {
 .Hint {
     display: none;
     background-color: rgba(227,228,232,.6);
-    border-radius: 20%;
+    border-radius: 1px;
     width: 3rem;
 }
 
@@ -746,8 +735,9 @@ footer {
     font-family: "游ゴシック体", "YuGothic", "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
     width: 5rem;
     position: absolute;
-    top: 150%;
-    left: -50%;
+    top: 30%;
+    right: 130%;
+    padding: 2px;
 }
 
 
@@ -776,6 +766,7 @@ footer {
     position: absolute;
     top: -40px;
     left: 10px;
+    z-index: var(--max-z-index);
 }
 
 /* <---------------------------------------------------------------------------------------------------- Who */
