@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>TimeOrderSC</title>
+    <title>SelfOrderSC -Debug-</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
     integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/to-style.css">
+    <link rel="stylesheet" href="./css/so-style.css">
 </head>
 
 <body>
@@ -15,15 +15,15 @@
     <header>
         <!-- <div class="container"> -->
             <div class="header-left">
-                <a class="logo" href="so-index.html">TimeOrderSC</a>
-                <span class="now-user now">現在のユーザー："undefined"</span>
-                <!-- <span class="now-board now">現在のボード："BOARD1"</span> -->
+                <a class="logo" href="index.html">SelfOrderSC -Debug-</a>
+                <span class="now-user now">現在のユーザー："undefined""</span>
+                <span class="now-board now">現在のボード："BOARD1"</span>
             </div>
 
             <div class="header-right">
                 <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
-                <!-- <button class="CircleBtn MenuBtn SwitchBtn HintBtn" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button> -->
-                <button class="CircleBtn MenuBtn SwitchBtn HintBtn" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
 
 
                 <select type="example" class="Set SetNum" id="set-username">
@@ -49,14 +49,14 @@
                 <button class="Btn MenuBtn pdfMenuBtn"> PDF
                     <ul class="DropDownMenu">
                         <li class="DocOpen" id="doc1-open"><a href="#">本日の流れ</a></li>
-                        <li class="DocOpen" id="doc2-open"><a href="#">機能紹介</a></li>
+                        <li class="DocOpen" id="doc2-open"><a href="#">操作説明</a></li>
                         <li class="DocOpen" id="doc3-open"><a href="#">必須操作</a></li>
                         <li class="DocOpen" id="doc4-open"><a href="#">実験説明</a></li>
                         <li class="DocOpen" id="doc5-open"><a href="#">練習</a></li>
                         <li class="DocOpen" id="doc6-open"><a href="#">本番</a></li>
                     </ul>
                 </button>
-                <!-- <button class="Btn MenuBtn BoardMenuBtn"> BOARD
+                <button class="Btn MenuBtn BoardMenuBtn"> BOARD
                     <ul class="DropDownMenu">
                         <li class="BoardOpen" id="board1-open"><a href="#">BOARD1</a></li>
                         <li class="BoardOpen" id="board2-open"><a href="#">BOARD2</a></li>
@@ -66,25 +66,17 @@
                         <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
+                <button class="Btn MenuBtn SideMenuBtn">SIDE</button>
+                <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
-                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+                <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
             </div>
         <!-- </div> -->
     </header>
 
     <!-- コンテンツ表示画面 -->
     <div class="MainWrapper">
-
-        <div class="pdfWrapper">
-            <iframe class="Doc Inactive" id="doc1" src="./src/flow.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc2" src="./src/function.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc3" src="./src/operate.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc6" src="./src/question/q2.pdf" ></iframe>
-        </div>
 
         <div class="MsgWrapper">
             <div id="board1" class="Board Active"></div>
@@ -95,44 +87,57 @@
             <div id="board6" class="Board Inactive"></div>
         </div>
 
+    </div>
 
-        <div class="SideWrapper">
+    <div class="pdfWrapper Inactive">
+        <iframe class="Doc Inactive" id="doc1" src="./src/program.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc6" src="./src/question/q2.pdf" ></iframe>
 
-            <div class="LogWrapper">
-                <div class="Log" id="log"></div>
-            </div>
 
-            <div class="InputWrapper">
+    </div>
 
-                <form id="input-form" class="InputForm" action="#" method="GET">
+    <div class="Side Inactive">
 
-                    <div class="InputFormUpside">
+    <div class="SideWrapper">
 
-                        <div class="InputFormLeft">
-                            <select type="example" id="input-username">
-                                <option value="" id="yourname"></option>
-                                <option value="anonymous">匿名</option>
-                            </select>
-                            <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
-                        </div>
+        <div class="LogWrapper ">
+            <div class="Log" id="log"></div>
+        </div>
 
-                        <div class="InputFormRight">
-                            <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
-                            <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
-                        </div>
+        <div class="InputWrapper ">
 
+            <form id="input-form" class="InputForm" action="#" method="GET">
+
+                <div class="InputFormUpside">
+
+                    <div class="InputFormLeft">
+                        <select type="example" id="input-username">
+                            <option value="" id="yourname"></option>
+                            <option value="anonymous">匿名</option>
+                        </select>
+                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
                     </div>
 
-                    <div class="InputFormDownside">
-                        <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                    <div class="InputFormRight">
+                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+                <div class="InputFormDownside">
+                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                </div>
 
+            </form>
 
         </div>
+
+    </div>
 
     </div>
 
@@ -147,15 +152,15 @@
     <!-- javascript & Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
-    <script type="module" src="to-js/script.js"></script>
-    <script type="module" src="to-js/chat.js"></script>
-    <script type="module" src="to-js/interact.js"></script>
-    <script type="module" src="to-js/log.js"></script>
-    <script type="module" src="to-js/setting.js"></script>
-    <script type="module" src="to-js/voice-input.js"></script>
-    <script type="module" src="to-js/config.js"></script>
+    <script type="module" src="so-js/script.js"></script>
+    <script type="module" src="so-js/chat.js"></script>
+    <script type="module" src="so-js/interact.js"></script>
+    <script type="module" src="so-js/log.js"></script>
+    <script type="module" src="so-js/setting.js"></script>
+    <script type="module" src="so-js/voice-input.js"></script>
+    <script type="module" src="so-js/config.js"></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
-    <script type="module" src="to-js/init-tinymce.js"></script>
+    <script type="module" src="so-js/init-tinymce.js"></script>
 
 </body>
 </html>

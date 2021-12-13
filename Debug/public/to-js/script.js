@@ -47,7 +47,7 @@ $("#send-btn").on("click", function() {
     if (tinyMCE.get("text").getContent() === "") { return 0; }
 
     // ユーザーネームが設定されていない時アラートを表示
-    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
 
     setChatData();
 });
@@ -87,8 +87,12 @@ $(".SetMenuBtn").on("click", function() {
 
 });
 
-$(".SideMenuBtn").on("click", function() {
-    $(".Side").toggleClass("Inactive");
+$(".InputMenuBtn").on("click", function() {
+    $(".InputWrapper").toggleClass("Inactive");
+});
+
+$(".LogMenuBtn").on("click", function() {
+    $(".LogWrapper").toggleClass("Inactive");
 });
 
 $(".ResetMenuBtn").on("click", function() {
@@ -105,12 +109,6 @@ $(".ResetMenuBtn").on("click", function() {
 $(".MsgWrapper").on("click", function() {
     $(".SetWrapper").addClass('Inactive')
 });
-
-
-$(".SideWrapper").on("dblclick", function() {
-    $(".Side").addClass('Inactive')
-});
-
 
 // ----------------------------------------------------------------------------------------------------> Menu
 
@@ -166,12 +164,6 @@ $(".DocOpen").on("click", function(e) {
     // console.log(doc_id);
 })
 
-// URL指定欄はダブルクリックで編集可能
-$(".SetURL").on("dblclick", function(e) {
-    if($(this).attr('readonly', true)) { $(this).attr('readonly', false) }
-    e.preventDefault();
-})
-
 // ----------------------------------------------------------------------------------------------------> pdf
 
 
@@ -203,7 +195,7 @@ $(".BoardOpen").on("click", function(e) {
 
 // ユーザーネームが設定されていない時アラートを表示
 $(".MainWrapper").on("click", function(e) {
-    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"SETからユーザー名を設定してください"'); return 0; }
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい'); return 0; }
     e.preventDefault();
 })
 
