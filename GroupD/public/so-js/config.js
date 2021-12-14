@@ -7,12 +7,13 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyDOahI9VAZmBvdqNgkAc5sWcRNyj11ik1E",
-    authDomain: "groupa-51b27.firebaseapp.com",
-    projectId: "groupa-51b27",
-    storageBucket: "groupa-51b27.appspot.com",
-    messagingSenderId: "116645467169",
-    appId: "1:116645467169:web:013c385b68b5376f247f60"
+    apiKey: "AIzaSyDXkjrDcXdPtwmAPp9udSqrJaMhVsE7tzE",
+    authDomain: "groupd-fdd89.firebaseapp.com",
+    databaseURL: "https://groupd-fdd89-default-rtdb.firebaseio.com",
+    projectId: "groupd-fdd89",
+    storageBucket: "groupd-fdd89.appspot.com",
+    messagingSenderId: "59352714991",
+    appId: "1:59352714991:web:820bdf764acd425f1a551a"
 };
 
 
