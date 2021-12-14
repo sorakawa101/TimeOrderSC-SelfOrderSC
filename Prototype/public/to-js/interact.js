@@ -403,8 +403,10 @@ onChildAdded(dbRefInteract,function(data) {
     // SpeechBalloonをdrag/resizeしている時
     if (info.tag === "mousedown") {
 
-        $("#"+info.id+" .Who").text(info.who)
-        $("#"+info.id+" .Who").removeClass('Inactive')
+        if (info.user !== $("#set-username").val()) {
+            $("#"+info.id+" .Who").text(info.who)
+            $("#"+info.id+" .Who").removeClass('Inactive')
+        }
 
 
     // SpeechBalloonをdrag/resizeし終わって離した時
