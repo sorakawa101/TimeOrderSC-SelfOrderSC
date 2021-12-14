@@ -185,7 +185,7 @@ header {
 }
 
 .MsgWrapper {
-    width: 500px;
+    width: 600px;
     height: 720px;
     margin: 20px auto 0 auto;
     /* padding: ; */
@@ -763,10 +763,13 @@ footer {
     background-color: rgba(34, 49, 52, .8);
     border-radius: 5%;
     padding: 0 .5rem;
-    position: absolute;
-    top: -40px;
-    left: 10px;
     z-index: var(--max-z-index);
+}
+
+.WhoLeft {
+    position: absolute;
+    top: 20px;
+    left: -150px;
 }
 
 /* <---------------------------------------------------------------------------------------------------- Who */
