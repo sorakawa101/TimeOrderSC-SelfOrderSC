@@ -146,20 +146,13 @@ export function setChatData() {
 
 
 
-
 // RealTimeDatabase "log" に要素が追加されたときに実行
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key;
 
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-    }
-
-    const posX = getRandomInt(0, 400);
-    const posY = getRandomInt(0, 200);
+    const posX = Number(msg.time.slice(7))*80;
+    const posY = Number(msg.time.slice(7))%3*80;
 
 
     genSpeechBalloon(msg.uname, msg.time, msg.text, msg.board, key); // SpeechBalloonを生成
@@ -195,6 +188,8 @@ onChildAdded(dbRefChat,function(data) {
         'position'          : 'absolute',
         'top'               : posY,
         'left'              : posX,
+        // 'top'               : '10',
+        // 'left'              : '30'
     });
 
     if (!$(".pdfWrapper").hasClass('Inactive')) {

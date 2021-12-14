@@ -50,6 +50,7 @@ $("#send-btn").on("click", function() {
     if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
 
     setChatData();
+
 });
 
 
