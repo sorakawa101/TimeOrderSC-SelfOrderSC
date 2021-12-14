@@ -276,7 +276,7 @@ inertia: true
 
 // RealtimeDatabase "chat" のデータを更新 / "archive" に削除したデータをセット
 function updateChatData(id, text) {
-    const dbRefChatChild = ref(db, "chat/"+id);
+    const dbRefChatChild = ref(db, "self-order/chat/"+id);
 
     // archiveにデータをコピー
     get(dbRefChatChild).then((snapshot) => {
@@ -296,7 +296,7 @@ function updateChatData(id, text) {
 
 // RealtimeDatabase "chat" のデータを削除 / "archive" に削除したデータをセット
 function removeChatData(id) {
-    const dbRefChatChild = ref(db, "chat/"+id);
+    const dbRefChatChild = ref(db, "self-order/chat/"+id);
     // console.log(dbRefChatChild.data.uname);
 
      // archiveにデータをコピー
