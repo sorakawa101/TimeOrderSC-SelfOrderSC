@@ -151,8 +151,8 @@ onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key;
 
-    const posX = Number(msg.time.slice(7))*80;
-    const posY = Number(msg.time.slice(7))%3*80;
+    const posX = Number(msg.time.slice(7))*20;
+    const posY = Number(msg.time.slice(7))%4*40;
 
 
     genSpeechBalloon(msg.uname, msg.time, msg.text, msg.board, key); // SpeechBalloonを生成

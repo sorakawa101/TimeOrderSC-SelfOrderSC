@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>SelfOrderSC -Prototype-</title>
+    <title>SelfOrderSC -Origin-</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
     integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
@@ -15,7 +15,7 @@
     <header>
         <!-- <div class="container"> -->
             <div class="header-left">
-                <a class="logo" href="index.html">SelfOrderSC -Prototype-</a>
+                <a class="logo" href="index.html">SelfOrderSC -Origin-</a>
                 <span class="now-user now">現在のユーザー："undefined""</span>
                 <span class="now-board now">現在のボード："BOARD1"</span>
             </div>
@@ -70,13 +70,22 @@
                 <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
-                <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
+                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
             </div>
         <!-- </div> -->
     </header>
 
     <!-- コンテンツ表示画面 -->
     <div class="MainWrapper">
+
+        <div class="pdfWrapper Inactive">
+            <iframe class="Doc Inactive" id="doc1" src="./src/program.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc6" src="./src/question/q2.pdf" ></iframe>
+        </div>
 
         <div class="MsgWrapper">
             <div id="board1" class="Board Active"></div>
@@ -87,15 +96,6 @@
             <div id="board6" class="Board Inactive"></div>
         </div>
 
-    </div>
-
-    <div class="pdfWrapper Inactive">
-        <iframe class="Doc Inactive" id="doc1" src="./src/program.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc6" src="./src/question/q2.pdf" ></iframe>
     </div>
 
 

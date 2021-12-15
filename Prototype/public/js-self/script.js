@@ -47,7 +47,7 @@ $("#send-btn").on("click", function() {
     if (tinyMCE.get("text").getContent() === "") { return 0; }
 
     // ユーザーネームが設定されていない時アラートを表示
-    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
+    // if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
 
     setChatData();
 
@@ -125,6 +125,7 @@ $("#pdf-close-btn").on("click", function(e) {
     $(".pdfWrapper").toggleClass("Inactive");
     $("#pdf-close-btn").toggleClass("Inactive");
     $("#pdf-switch-btn").toggleClass("Inactive");
+    $(".MsgWrapper").css('width', '100%')
 })
 
 
@@ -162,6 +163,7 @@ $(".DocOpen").on("click", function(e) {
     } else {
         $(".pdfWrapper > .Active").toggleClass("Active Inactive")
         $("#"+doc_id).toggleClass("Active Inactive");
+        $(".MsgWrapper").css('width', '70%')
     }
 
     // console.log(doc_id);
@@ -203,9 +205,9 @@ $(".BoardOpen").on("click", function(e) {
 
 
 // ユーザーネームが設定されていない時アラートを表示
-$(".MainWrapper").on("click", function(e) {
-    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
-    e.preventDefault();
-})
+// $(".MainWrapper").on("click", function(e) {
+//     if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
+//     e.preventDefault();
+// })
 
 // ----------------------------------------------------------------------------------------------------> board

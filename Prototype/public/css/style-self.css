@@ -13,16 +13,10 @@
 body {
     margin: 0;
     font-family: "Hiragino Kaku Gothic ProN";
+    /* overflow-y: hidden; */
 }
 a {
     text-decoration: none;
-}
-
-.container {
-    max-width: 1170px;
-    width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
 }
 
 .Inactive {
@@ -170,21 +164,20 @@ header {
 
 /* Main : Wrapper ----------------------------------------------------------------------------------------------------> */
 
-/* Contents */
 .MainWrapper {
-    margin-top: 60px;
     width: 100vw;
-    height: 100vw;
-    /* display: flex;
-    flex-direction: row; */
+    height: 94vh;
+    margin-top: 60px;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
 }
 
 .pdfWrapper {
-    width: 550px;
-    width: 40%;
+    width: 30%;
     height: 100%;
     /* margin-left: 10px; */
-    position: fixed;
+    /* position: fixed; */
     top: 60px;
     left: 0;
     z-index: var(--max-z-index);
@@ -192,22 +185,21 @@ header {
 }
 
 .MsgWrapper {
-    /* width: 900px; */
     width: 100%;
     height: 100%;
-    margin: 20px auto;
-    background-color: rgba(128,128,128,.1);
-    /* padding: 10px 10px; */
-    margin: 0 10px 0 10px;
+    /* padding: ; */
+    /* border: 2px solid rgba(34, 49, 52, .8); */
     border-radius: 5px;
-    /* position: relative; */
+    padding: 10px;
+    /* overflow-y: auto; */
 }
-
 .Msg {
     pointer-events: none;
 }
 
 .SideWrapper {
+    width: 24vw;
+    height: 100vh;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -218,8 +210,9 @@ header {
 }
 
 .LogWrapper {
-    width: 400px;
-    height: 380px;
+    width: 100%;
+    height: 55%;
+
     /* margin-right: 10px; */
     overflow-y: auto;
     z-index: var(--max-z-index)-1;
@@ -228,7 +221,8 @@ header {
 }
 
 .InputWrapper {
-    width: 360px;
+    width: 90%;
+    height: 45%;
     margin: 0 20px;
 }
 
@@ -243,7 +237,7 @@ header {
     position: absolute;
     top: auto;
     left: auto;
-    width: 100%;
+    width: 30%;
     height: 100%;
 }
 
@@ -293,13 +287,6 @@ header {
     height: 100%;
     position: relative;
     /* border: .5px rgba(128,128,128,.4) solid; */
-}
-
-.board-wrapper {
-    width: 100%;
-    height: 900px;
-    margin-top: 40px;
-    background-color: #aaa;
 }
 
 /* <---------------------------------------------------------------------------------------------------- Main : Board */
