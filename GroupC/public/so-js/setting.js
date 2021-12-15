@@ -110,7 +110,7 @@ onChildAdded(dbRefSetting,function(data) {
         $("#yourname").text($("#set-username").val())
 
         // ユーザーの名前をheaderに表示
-        $(".now-user").text('現在のユーザー："'+$("#set-username").val()+'"')
+        $(".now-user").text('ユーザー："'+$("#set-username").val()+'"')
 
 
     } else if (info.tag === "board") {

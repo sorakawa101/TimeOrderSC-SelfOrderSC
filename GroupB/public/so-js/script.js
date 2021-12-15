@@ -195,7 +195,7 @@ $(".BoardOpen").on("click", function(e) {
     }
 
     // $(".now-board").text('"BOARD'+board_num+'"') // 現在開いているボードを表示
-    $(".now-board").text('現在のボード："'+$("#"+board_open_id).text()+'"') // 現在開いているボードを表示
+    $(".now-board").text('ボード："'+$("#"+board_open_id).text()+'"') // 現在開いているボードを表示
 
     // console.log(doc_id);
 })

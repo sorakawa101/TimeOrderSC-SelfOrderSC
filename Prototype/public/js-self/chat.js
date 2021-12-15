@@ -1,8 +1,8 @@
 // Import <----------------------------------------------------------------------------------------------------
 
-import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
+import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
+import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6 } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
@@ -110,46 +110,8 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
 }
 
-// ----------------------------------------------------------------------------------------------------> Method
 
-
-
-
-
-
-
-
-// Firebase <----------------------------------------------------------------------------------------------------
-
-// RealtimeDatabase "chat" にチャットデータをセット
-export function setChatData() {
-
-    const msg = {
-        tag     : "post",
-        uname   : getUsernameFromInput(),
-        user    : getUsernameFromSet(),
-        time    : getNow(),
-        // text : $("#text").val()
-        // text : tinyMCE.get("text").getContent({format: "text"})
-        text    : tinyMCE.get("text").getContent(),
-        board   : $(".Board.Active").attr('id')
-    }
-
-    const newPostRef = push(dbRefChat); // ユニークキーを生成
-    const newPostKey = newPostRef.key; // ユニークキーを取得
-
-    set(newPostRef, msg); // ユニークキーを使ってデータをセット
-
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
-
-}
-
-
-
-// RealTimeDatabase "log" に要素が追加されたときに実行
-onChildAdded(dbRefChat,function(data) {
-    const msg = data.val();
-    const key = data.key;
+function onChildAddedMethod(msg, key) {
 
     const posX = Number(msg.time.slice(7))*20;
     const posY = Number(msg.time.slice(7))%4*40;
@@ -196,6 +158,108 @@ onChildAdded(dbRefChat,function(data) {
         $("#"+ key).css('left', '580')
     }
 
+}
+
+// ----------------------------------------------------------------------------------------------------> Method
+
+
+
+
+
+
+
+
+// Firebase <----------------------------------------------------------------------------------------------------
+
+// RealtimeDatabase "chat" にチャットデータをセット
+export function setChatData() {
+
+    const msg = {
+        tag     : "post",
+        uname   : getUsernameFromInput(),
+        user    : getUsernameFromSet(),
+        time    : getNow(),
+        // text : $("#text").val()
+        // text : tinyMCE.get("text").getContent({format: "text"})
+        text    : tinyMCE.get("text").getContent(),
+        board   : $(".Board.Active").attr('id')
+    }
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/chat');
+
+    const newPostRef = push(dbRef); // ユニークキーを生成
+    const newPostKey = newPostRef.key; // ユニークキーを取得
+
+    set(newPostRef, msg); // ユニークキーを使ってデータをセット
+
+    setLogData(msg.tag, msg.uname, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+
+    setResultData(user);
+
+}
+
+
+export function setResultData(user) {
+
+    const dbRef = ref(db, user+'/self-order/result');
+
+    // archiveにデータをコピー
+    get(dbRef).then((snapshot) => {
+        const result = { chat    : snapshot.val().chat+1 }
+        update(dbRef, result);
+    });
+    console.log('update');
+}
+
+
+// RealTimeDatabase "log" に要素が追加されたときに実行
+onChildAdded(dbRefChat,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
 });
 
+onChildAdded(dbRefChat1,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat2,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat3,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat4,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat5,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat6,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
 // ----------------------------------------------------------------------------------------------------> FIrebase

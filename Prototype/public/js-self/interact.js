@@ -287,6 +287,7 @@ function updateChatData(id, text) {
     });
 
     const msg = {
+        tag  : "edited",
         time : getNow(),
         text : text,
     }
