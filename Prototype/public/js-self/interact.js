@@ -521,6 +521,7 @@ function setSemanticData(id, semantic) {
     const newPostRef = push(dbRef);
     set(newPostRef, info);
     setResultData(user, "semantic");
+    setResultData(user, semantic);
 
     if (info.uname === "") { info.uname = "匿名"; } else {;}
 

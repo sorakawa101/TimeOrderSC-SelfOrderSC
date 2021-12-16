@@ -51,17 +51,28 @@ export function initResultData() {
         if (snapshot.exists() === false) {
 
             const init_result = {
-                chat        : 0,
-                pos         : 0,
-                resize      : 0,
-                check       : 0,
-                delete      : 0,
-                edit        : 0,
-                semantic    : 0,
-                focusin     : 0,
-                focusout    : 0,
-                mousedown   : 0,
-                mouseup     : 0
+                chat                        : 0,
+
+                interact_check              : 0,
+                interact_delete             : 0,
+                interact_edit               : 0,
+
+                mouse_focusin               : 0,
+                mouse_focusout              : 0,
+                mouse_mousedown             : 0,
+                mouse_mouseup               : 0,
+
+                semantic                    : 0,
+                semantic1_none              : 0,
+                semantic2_important         : 0,
+                semantic3_facilitation      : 0,
+                semantic4_question          : 0,
+                semantic5_response          : 0,
+                semantic6_note              : 0,
+                semantic7_answer            : 0,
+
+                variation_pos               : 0,
+                variation_resize            : 0
             }
 
             set(dbRef, init_result);
@@ -83,46 +94,83 @@ export function updateResultData(dbRef, tag) {
                 const chat_result = { chat : snapshot.val().chat+1 }
                 update(dbRef, chat_result);
                 break;
-            case "pos":
-                const pos_result = { pos : snapshot.val().pos+1 }
-                update(dbRef, pos_result);
-                break;
-            case "resize":
-                const resize_result = { resize : snapshot.val().resize+1 }
-                update(dbRef, resize_result);
-                break;
+
+
             case "check":
-                const check_result = { check : snapshot.val().check+1 }
+                const check_result = { interact_check : snapshot.val().interact_check+1 }
                 update(dbRef, check_result);
                 break;
             case "delete":
-                const delete_result = { delete : snapshot.val().delete+1 }
+                const delete_result = { interact_delete : snapshot.val().interact_delete+1 }
                 update(dbRef, delete_result);
                 break;
             case "edit":
-                const edit_result = { edit : snapshot.val().edit+1 }
+                const edit_result = { interact_edit : snapshot.val().interact_edit+1 }
                 update(dbRef, edit_result);
                 break;
+
+
+            case "focusin":
+                const focusin_result = { mouse_focusin : snapshot.val().mouse_focusin+1 }
+                update(dbRef, focusin_result);
+                break;
+            case "focusout":
+                const focusout_result = { mouse_focusout : snapshot.val().mouse_focusout+1 }
+                update(dbRef, focusout_result);
+                break;
+            case "mousedown":
+                const mousedown_result = { mouse_mousedown : snapshot.val().mouse_mousedown+1 }
+                update(dbRef, mousedown_result);
+                break;
+            case "mouseup":
+                const mouseup_result = { mouse_mouseup : snapshot.val().mouse_mouseup+1 }
+                update(dbRef, mouseup_result);
+                break;
+
+
             case "semantic":
                 const semantic_result = { semantic : snapshot.val().semantic+1 }
                 update(dbRef, semantic_result);
                 break;
-            case "focusin":
-                const focusin_result = { focusin : snapshot.val().focusin+1 }
-                update(dbRef, focusin_result);
+            case "none":
+                const semantic_none_result = { semantic1_none : snapshot.val().semantic1_none+1 }
+                update(dbRef, semantic_none_result);
                 break;
-            case "focusout":
-                const focusout_result = { focusout : snapshot.val().focusout+1 }
-                update(dbRef, focusout_result);
+            case "important":
+                const semantic_important_result = { semantic2_important : snapshot.val().semantic2_important+1 }
+                update(dbRef, semantic_important_result);
                 break;
-            case "mousedown":
-                const mousedown_result = { mousedown : snapshot.val().mousedown+1 }
-                update(dbRef, mousedown_result);
+            case "facilitation":
+                const semantic_facilitation_result = { semantic3_facilitation : snapshot.val().semantic3_facilitation+1 }
+                update(dbRef, semantic_facilitation_result);
                 break;
-            case "mouseup":
-                const mouseup_result = { mouseup : snapshot.val().mouseup+1 }
-                update(dbRef, mouseup_result);
+            case "question":
+                const semantic_question_result = { semantic4_question : snapshot.val().semantic4_question+1 }
+                update(dbRef, semantic_question_result);
                 break;
+            case "response":
+                const semantic_response_result = { semantic5_response : snapshot.val().semantic5_response+1 }
+                update(dbRef, semantic_response_result);
+                break;
+            case "note":
+                const semantic_note_result = { semantic6_note : snapshot.val().semantic6_note+1 }
+                update(dbRef, semantic_note_result);
+                break;
+            case "answer":
+                const semantic_answer_result = { semantic7_answer : snapshot.val().semantic7_answer+1 }
+                update(dbRef, semantic_answer_result);
+                break;
+
+
+            case "pos":
+                const pos_result = { variation_pos : snapshot.val().variation_pos+1 }
+                update(dbRef, pos_result);
+                break;
+            case "resize":
+                const resize_result = { variation_resize : snapshot.val().variation_resize+1 }
+                update(dbRef, resize_result);
+                break;
+
             default:
                 ;
         }
