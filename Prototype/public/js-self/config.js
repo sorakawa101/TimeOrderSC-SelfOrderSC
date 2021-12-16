@@ -23,22 +23,6 @@ export const app = initializeApp(firebaseConfig); // Keyを使ってFirebaseに�
 export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
-// Resultの内容
-const result = {
-    chat        : 0,
-    pos         : 0,
-    resize      : 0,
-    check       : 0,
-    delete      : 0,
-    edit        : 0,
-    semantic    : 0,
-    focusin     : 0,
-    focusout    : 0,
-    mousedown   : 0,
-    mouseup     : 0
-}
-
-
 // undefinedのDB
 export const dbRefChat = ref(db, "undefined/self-order/chat");
 export const dbRefInteract = ref(db, "undefined/self-order/interact");
@@ -58,7 +42,6 @@ export const dbRefSetting1 = ref(db, member[0]+"/self-order/setting");
 export const dbRefUser1 = ref(db, member[0]+"/self-order/user");
 export const dbRefResult1 = ref(db, member[0]+"/self-order/result");
 
-set(dbRefResult1, result)
 
 
 // 2人目のDB
@@ -70,7 +53,6 @@ export const dbRefSetting2 = ref(db, member[1]+"/self-order/setting");
 export const dbRefUser2 = ref(db, member[1]+"/self-order/user");
 export const dbRefResult2 = ref(db, member[1]+"/self-order/result");
 
-set(dbRefResult2, result)
 
 
 // 3人目のDB
@@ -82,7 +64,6 @@ export const dbRefSetting3 = ref(db, member[2]+"/self-order/setting");
 export const dbRefUser3 = ref(db, member[2]+"/self-order/user");
 export const dbRefResult3 = ref(db, member[2]+"/self-order/result");
 
-set(dbRefResult3, result)
 
 
 // 4人目のDB

@@ -4,7 +4,7 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6 } from "./config.js";
 import { setLogData } from "./log.js";
-import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -195,22 +195,10 @@ export function setChatData() {
 
     setLogData(msg.tag, msg.uname, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
 
-    setResultData(user);
+    setResultData(user, "chat");
 
 }
 
-
-export function setResultData(user) {
-
-    const dbRef = ref(db, user+'/self-order/result');
-
-    // archiveにデータをコピー
-    get(dbRef).then((snapshot) => {
-        const result = { chat    : snapshot.val().chat+1 }
-        update(dbRef, result);
-    });
-    console.log('update');
-}
 
 
 // RealTimeDatabase "log" に要素が追加されたときに実行

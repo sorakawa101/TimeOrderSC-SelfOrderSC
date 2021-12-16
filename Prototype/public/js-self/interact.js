@@ -5,6 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
+
 // ----------------------------------------------------------------------------------------------------> Import
 
 
@@ -170,9 +171,9 @@ inertia: true
     let tap_closest_id = target.closest(".SpeechBalloon").getAttribute('id'); // タップした要素の親要素のSpeechBalloonのID
     let tap_class = target.getAttribute('class').split(' ')[0]; // タップした要素の１つ目のクラス
 
-    console.log(tap_id);
-    console.log(tap_closest_id);
-    console.log(tap_class);
+    // console.log(tap_id);
+    // console.log(tap_closest_id);
+    // console.log(tap_class);
 
     switch (tap_class) {
 
@@ -257,6 +258,7 @@ inertia: true
             setSemanticData(tap_closest_id, tap_id); // ここのtap_idはSemanticCircleのidを指す
             $("#"+tap_closest_id+" .SemanticCircle").toggleClass('Inactive')
             event.preventDefault();
+            break;
 
         default:
             event.preventDefault();

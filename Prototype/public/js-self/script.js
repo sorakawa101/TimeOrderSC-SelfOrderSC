@@ -1,6 +1,6 @@
 // Import <----------------------------------------------------------------------------------------------------
 
-import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
+import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { setChatData } from "./chat.js"
 import { setUsernameData, setBoardData, setDocData } from "./setting.js"
@@ -38,6 +38,112 @@ export function getUsernameFromInput() {
 
 
 
+// Firebase <----------------------------------------------------------------------------------------------------
+
+
+// RealtimeDatabase "result"のデータが空の時に初期設定を行う
+export function initResultData() {
+
+    const dbRef = ref(db, getUsernameFromSet()+'/self-order/result');
+
+    get(dbRef).then((snapshot) => {
+
+        if (snapshot.exists() === false) {
+
+            const init_result = {
+                chat        : 0,
+                pos         : 0,
+                resize      : 0,
+                check       : 0,
+                delete      : 0,
+                edit        : 0,
+                semantic    : 0,
+                focusin     : 0,
+                focusout    : 0,
+                mousedown   : 0,
+                mouseup     : 0
+            }
+
+            set(dbRef, init_result);
+            console.log('init');
+
+        }
+    });
+}
+
+
+// RealtimeDatabase "result"のデータを更新
+export function updateResultData(dbRef, tag) {
+
+    get(dbRef).then((snapshot) => {
+
+        switch (tag) {
+
+            case "chat":
+                const chat_result = { chat : snapshot.val().chat+1 }
+                update(dbRef, chat_result);
+                break;
+            case "pos":
+                const pos_result = { pos : snapshot.val().pos+1 }
+                update(dbRef, pos_result);
+                break;
+            case "resize":
+                const resize_result = { resize : snapshot.val().resize+1 }
+                update(dbRef, resize_result);
+                break;
+            case "check":
+                const check_result = { check : snapshot.val().check+1 }
+                update(dbRef, check_result);
+                break;
+            case "delete":
+                const delete_result = { delete : snapshot.val().delete+1 }
+                update(dbRef, delete_result);
+                break;
+            case "edit":
+                const edit_result = { edit : snapshot.val().edit+1 }
+                update(dbRef, edit_result);
+                break;
+            case "semantic":
+                const semantic_result = { semantic : snapshot.val().semantic+1 }
+                update(dbRef, semantic_result);
+                break;
+            case "focusin":
+                const focusin_result = { focusin : snapshot.val().focusin+1 }
+                update(dbRef, focusin_result);
+                break;
+            case "focusout":
+                const focusout_result = { focusout : snapshot.val().focusout+1 }
+                update(dbRef, focusout_result);
+                break;
+            case "mousedown":
+                const mousedown_result = { mousedown : snapshot.val().mousedown+1 }
+                update(dbRef, mousedown_result);
+                break;
+            case "mouseup":
+                const mouseup_result = { mouseup : snapshot.val().mouseup+1 }
+                update(dbRef, mouseup_result);
+                break;
+            default:
+                ;
+        }
+        console.log('update');
+    });
+}
+
+
+// RealtimeDatabase "result"にデータをセット（各操作でこの関数を呼び出す）
+export function setResultData(user, tag) {
+
+    const dbRef = ref(db, user+'/self-order/result');
+    updateResultData(dbRef,tag);
+
+}
+
+// ----------------------------------------------------------------------------------------------------> Firebase
+
+
+
+
 // Btn <----------------------------------------------------------------------------------------------------
 
 // Inputの送信ボタンが押された時に実行
@@ -62,6 +168,8 @@ $("#set-btn").on("click", function(e) {
         setUsernameData();
         $("#set-username").toggleClass('Inactive')
         $(this).css('pointer-events','none')
+
+        initResultData(); // "result"の初期設定
     }
 
     e.preventDefault();
@@ -93,11 +201,7 @@ $(".SideMenuBtn").on("click", function() {
 });
 
 $(".ResetMenuBtn").on("click", function() {
-    remove(dbRefChat);
-    remove(dbRefInteract);
-    remove(dbRefLog);
-    remove(dbRefArchive);
-    remove(dbRefSetting);
+    remove(ref(db));
 });
 
 
