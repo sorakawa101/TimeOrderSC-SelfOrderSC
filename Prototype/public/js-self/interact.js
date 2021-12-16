@@ -2,9 +2,9 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
+import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefArchive } from "./config.js";
 import { setLogData, } from "./log.js";
-import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -27,8 +27,13 @@ function dragMoveListener (event) {
         posX    : x,
         posY    : y,
     }
-    let newPostRef = push(dbRefInteract);
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/pos');
+
+    const newPostRef = push(dbRef);
     set(newPostRef, pos);
+    // setResultData(user, "pos");
 }
 
 
@@ -68,7 +73,14 @@ interact('.SpeechBalloon')
     ],
     autoScroll: true,
     // dragMoveListener from the dragging demo above
-    listeners: { move: dragMoveListener}
+    listeners: {
+        move: dragMoveListener,
+        // call this function on every dragend event
+        end (event) {
+            let distance = (Math.sqrt(Math.pow(event.pageX - event.x0, 2) + Math.pow(event.pageY - event.y0, 2) | 0)).toFixed(2);
+        }
+    }
+
 })
 
 
@@ -100,8 +112,13 @@ listeners: {
         posX    : x,
         posY    : y
     }
-    let newPostRef = push(dbRefInteract);
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/resize');
+
+    let newPostRef = push(dbRef);
     set(newPostRef, size);
+    setResultData(user, "resize");
     }
 },
 
@@ -135,8 +152,12 @@ inertia: true
             id      : tap_id
         }
 
-        let newPostRef = push(dbRefInteract);
+        const user = getUsernameFromSet();
+        const dbRef = ref(db, user+'/self-order/interact/mousedown');
+
+        const newPostRef = push(dbRef);
         set(newPostRef, mouse);
+        setResultData(user, "mousedown");
 
     }
 
@@ -157,8 +178,12 @@ inertia: true
             id      : tap_id
         }
 
-        let newPostRef = push(dbRefInteract);
+        const user = getUsernameFromSet();
+        const dbRef = ref(db, user+'/self-order/interact/mouseup');
+
+        const newPostRef = push(dbRef);
         set(newPostRef, mouse);
+        setResultData(user, "mouseup");
 
     }
 })
@@ -195,8 +220,9 @@ inertia: true
             break;
 
         case "TrashBtn":
+            let trash_user = getUsernameFromSet();
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
-            removeChatData(tap_id);
+            removeChatData(tap_id, trash_user);
             event.preventDefault();
             break;
 
@@ -204,6 +230,7 @@ inertia: true
             let html = $("#"+tap_id+" .Msg").html();
             let text = $("#"+tap_id+" .Msg").text();
             let rewrite_text = $("#"+tap_id+" .Msg").val();
+            let edit_user = getUsernameFromSet();
 
             if (html === text) {
 
@@ -222,7 +249,7 @@ inertia: true
                     $("#"+tap_id+" .EditBtn > .Hint").text("編集").css('width', '3rem')
                     $("#"+tap_id).css('pointer-events', 'all')
 
-                    updateChatData(tap_id, rewrite_text);
+                    updateChatData(tap_id, rewrite_text, edit_user);
                     setRewriteData(tap_id, rewrite_text);
 
                 // テキストが編集不可状態の時（テキスト部分のタグがpタグの時）
@@ -275,108 +302,9 @@ inertia: true
 
 
 
-// Firebase <----------------------------------------------------------------------------------------------------
+// Method <----------------------------------------------------------------------------------------------------
 
-// RealtimeDatabase "chat" のデータを更新 / "archive" に削除したデータをセット
-function updateChatData(id, text) {
-    const dbRefChatChild = ref(db, "self-order/chat/"+id);
-
-    // archiveにデータをコピー
-    get(dbRefChatChild).then((snapshot) => {
-        const newPostRef = push(dbRefArchive);
-        set(newPostRef, snapshot.val());
-        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
-    });
-
-    const msg = {
-        tag  : "edited",
-        time : getNow(),
-        text : text,
-    }
-
-    update(dbRefChatChild, msg); // "chat"のデータを更新
-}
-
-
-// RealtimeDatabase "chat" のデータを削除 / "archive" に削除したデータをセット
-function removeChatData(id) {
-    const dbRefChatChild = ref(db, "self-order/chat/"+id);
-    // console.log(dbRefChatChild.data.uname);
-
-     // archiveにデータをコピー
-    get(dbRefChatChild).then((snapshot) => {
-        const newPostRef = push(dbRefArchive);
-        set(newPostRef, snapshot.val());
-        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
-    });
-
-    let removed = {
-        tag     : "removed",
-        user    : getUsernameFromSet(),
-        id      : id
-    }
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, removed);
-
-    remove(dbRefChatChild); // "chat"の方のデータは削除
-}
-
-
-// RealtimeDatabase "interact" に編集されたチャットデータをセット
-function setRewriteData(id, text) {
-    const info = {
-        tag     : "rewrite",
-        user    : getUsernameFromSet(),
-        id      : id,
-        text    : text,
-    }
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, info);
-}
-
-
-// RealtimeDatabase "interact" にセマンティックデータをセット
-function setSemanticData(id, semantic) {
-    const date = new Date();
-    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
-
-    const info = {
-        tag         : "semantic",
-        id          : id,
-        semantic    : semantic,
-        uname       : getUsernameFromInput(),
-        user        : getUsernameFromSet(),
-        time        : getNow(),
-        board       : $(".Board.Active").attr('id')
-    }
-    let newPostRef = push(dbRefInteract); // ユニークキーを生成
-    set(newPostRef, info);
-
-    if (info.uname === "") { info.uname = "匿名"; } else {;}
-
-    setLogData(info.tag, info.uname, info.time, null, info.board, info.semantic, info.id); // Log
-}
-
-
-// RealtimeDatabase "interact" に既読データをセット
-function setCheckData(id) {
-    const info = {
-        tag     : "check",
-        user    : getUsernameFromSet(),
-        id      : id,
-    }
-    let newPostRef = push(dbRefInteract);
-    set(newPostRef, info);
-}
-
-
-
-
-// RealTimeDatabase "interact" に要素が追加されたときに実行
-onChildAdded(dbRefInteract,function(data) {
-    const info = data.val();
-    const key = data.key;
-
+function onChildAddedMethod(info) {
     // SpeechBalloonのDragした時
     if (info.tag === "pos") {
 
@@ -492,7 +420,228 @@ onChildAdded(dbRefInteract,function(data) {
         $("#"+info.id).css('border', 'solid 1px black');
 
     } else {;}
+}
 
+// ----------------------------------------------------------------------------------------------------> Method
+
+
+
+
+
+
+
+
+// Firebase <----------------------------------------------------------------------------------------------------
+
+// RealtimeDatabase "chat" のデータを更新 / "archive" に削除したデータをセット
+function updateChatData(id, text, user) {
+    const dbRefChatChild = ref(db, user+"/self-order/chat/"+id);
+
+    // archiveにデータをコピー
+    get(dbRefChatChild).then((snapshot) => {
+        const newPostRef = push(dbRefArchive);
+        set(newPostRef, snapshot.val());
+        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
+    });
+
+    const msg = {
+        tag  : "edited",
+        time : getNow(),
+        text : text,
+    }
+
+    update(dbRefChatChild, msg); // "chat"のデータを更新
+}
+
+
+// RealtimeDatabase "chat" のデータを削除 / "archive" に削除したデータをセット
+function removeChatData(id, user) {
+    const dbRefChatChild = ref(db, user+"/self-order/chat/"+id);
+    // console.log(dbRefChatChild.data.uname);
+
+     // archiveにデータをコピー
+    get(dbRefChatChild).then((snapshot) => {
+        const newPostRef = push(dbRefArchive);
+        set(newPostRef, snapshot.val());
+        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
+    });
+
+    let removed = {
+        tag     : "removed",
+        user    : getUsernameFromSet(),
+        id      : id
+    }
+
+    const dbRef = ref(db, user+'/self-order/interact/delete');
+
+    const newPostRef = push(dbRef);
+    set(newPostRef, removed);
+    setResultData(user, "delete");
+
+    remove(dbRefChatChild); // "chat"の方のデータは削除
+}
+
+
+// RealtimeDatabase "interact" に編集されたチャットデータをセット
+function setRewriteData(id, text) {
+    const info = {
+        tag     : "rewrite",
+        user    : getUsernameFromSet(),
+        id      : id,
+        text    : text,
+    }
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/edit');
+
+    const newPostRef = push(dbRef);
+    set(newPostRef, info);
+    setResultData(user, "edit");
+}
+
+
+// RealtimeDatabase "interact" にセマンティックデータをセット
+function setSemanticData(id, semantic) {
+    const date = new Date();
+    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
+
+    const info = {
+        tag         : "semantic",
+        id          : id,
+        semantic    : semantic,
+        uname       : getUsernameFromInput(),
+        user        : getUsernameFromSet(),
+        time        : getNow(),
+        board       : $(".Board.Active").attr('id')
+    }
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/semantic');
+
+    const newPostRef = push(dbRef);
+    set(newPostRef, info);
+    setResultData(user, "semantic");
+
+    if (info.uname === "") { info.uname = "匿名"; } else {;}
+
+    setLogData(info.tag, info.uname, info.time, null, info.board, info.semantic, info.id); // Log
+}
+
+
+// RealtimeDatabase "interact" に既読データをセット
+function setCheckData(id) {
+    const info = {
+        tag     : "check",
+        user    : getUsernameFromSet(),
+        id      : id,
+    }
+
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/check');
+
+    const newPostRef = push(dbRef);
+    set(newPostRef, info);
+    setResultData(user, "check");
+}
+
+
+function onChildChildAdded(dbRefInteractPath) {
+
+    onChildAdded(ref(db, dbRefInteractPath+'/pos'), function(data) {
+        const pos_info = data.val();
+        onChildAddedMethod(pos_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/resize'), function(data) {
+        const resize_info = data.val();
+        onChildAddedMethod(resize_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/check'), function(data) {
+        const check_info = data.val();
+        onChildAddedMethod(check_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/delete'), function(data) {
+        const delete_info = data.val();
+        onChildAddedMethod(delete_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/edit'), function(data) {
+        const edit_info = data.val();
+        onChildAddedMethod(edit_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/semantic'), function(data) {
+        const edit_info = data.val();
+        onChildAddedMethod(edit_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/focusin'), function(data) {
+        const focusin_info = data.val();
+        onChildAddedMethod(focusin_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/focusout'), function(data) {
+        const focusout_info = data.val();
+        onChildAddedMethod(focusout_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/mousedown'), function(data) {
+        const mousedown_info = data.val();
+        onChildAddedMethod(mousedown_info);
+    });
+
+    onChildAdded(ref(db, dbRefInteractPath+'/mouseup'), function(data) {
+        const mouseup_info = data.val();
+        onChildAddedMethod(mouseup_info);
+    });
+}
+
+
+
+
+// RealTimeDatabase "interact" に要素が追加されたときに実行
+
+onChildAdded(dbRefInteract,function() {
+    const dbRefInteractPath = 'undefined/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract1,function() {
+    const dbRefInteractPath = member[0]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract2,function() {
+    const dbRefInteractPath = member[1]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract3,function() {
+    const dbRefInteractPath = member[2]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract4,function() {
+    const dbRefInteractPath = member[3]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract5,function() {
+    const dbRefInteractPath = member[4]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract6,function() {
+    const dbRefInteractPath = member[5]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
 });
 
 // ----------------------------------------------------------------------------------------------------> Firebase

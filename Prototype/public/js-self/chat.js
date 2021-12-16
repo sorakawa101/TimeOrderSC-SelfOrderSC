@@ -201,7 +201,9 @@ export function setChatData() {
 
 
 
+
 // RealTimeDatabase "log" に要素が追加されたときに実行
+
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key;

@@ -3,7 +3,7 @@
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
-import { getUsernameFromInput } from "./script.js";
+import { getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -55,8 +55,12 @@ function setFocusIn() {
         who : getUsernameFromInput(),
     }
 
-    let newPostRef = push(dbRefInteract);
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/focusin');
+
+    const newPostRef = push(dbRef);
     set(newPostRef, mouse);
+    setResultData(user, "focusin");
     // console.log('setFocusIn');
 }
 
@@ -68,7 +72,11 @@ function setFocusOut() {
         who : getUsernameFromInput(),
     }
 
-    let newPostRef = push(dbRefInteract);
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/interact/focusout');
+
+    const newPostRef = push(dbRef);
     set(newPostRef, mouse);
+    setResultData(user, "focusout");
     // console.log('setFocusOut');
 }

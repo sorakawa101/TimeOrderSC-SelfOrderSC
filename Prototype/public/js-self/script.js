@@ -65,7 +65,7 @@ export function initResultData() {
             }
 
             set(dbRef, init_result);
-            console.log('init');
+            // console.log('init');
 
         }
     });
@@ -126,7 +126,7 @@ export function updateResultData(dbRef, tag) {
             default:
                 ;
         }
-        console.log('update');
+        // console.log('update');
     });
 }
 

@@ -5,7 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-const member = ['橋山', '小川','笹川', '堤', '林', '名執']
+export const member = ['橋山', '小川','笹川', '堤', '林', '名執']
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
