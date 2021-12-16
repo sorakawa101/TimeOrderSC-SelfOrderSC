@@ -192,6 +192,7 @@ header {
     /* border: 2px solid rgba(34, 49, 52, .8); */
     border-radius: 5px;
     overflow-y: auto;
+    pointer-events: none;
 }
 
 .Msg {
@@ -202,6 +203,7 @@ header {
     display: flex;
     flex-direction: column;
     background-color: rgba(227,228,232,.8);
+    pointer-events: none;
 }
 
 .LogWrapper {
