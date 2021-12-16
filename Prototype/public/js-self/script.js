@@ -84,7 +84,7 @@ export function initResultData() {
 
 
 // RealtimeDatabase "result"のデータを更新
-export function updateResultData(dbRef, tag) {
+export function updateResultData(dbRef, tag, v) {
 
     get(dbRef).then((snapshot) => {
 
@@ -163,11 +163,11 @@ export function updateResultData(dbRef, tag) {
 
 
             case "pos":
-                const pos_result = { variation_pos : snapshot.val().variation_pos+1 }
+                const pos_result = { variation_pos : snapshot.val().variation_pos+v }
                 update(dbRef, pos_result);
                 break;
             case "resize":
-                const resize_result = { variation_resize : snapshot.val().variation_resize+1 }
+                const resize_result = { variation_resize : snapshot.val().variation_resize+v }
                 update(dbRef, resize_result);
                 break;
 
@@ -180,10 +180,10 @@ export function updateResultData(dbRef, tag) {
 
 
 // RealtimeDatabase "result"にデータをセット（各操作でこの関数を呼び出す）
-export function setResultData(user, tag) {
+export function setResultData(user, tag, v) {
 
     const dbRef = ref(db, user+'/self-order/result');
-    updateResultData(dbRef,tag);
+    updateResultData(dbRef,tag, v);
 
 }
 
@@ -201,7 +201,7 @@ $("#send-btn").on("click", function() {
     if (tinyMCE.get("text").getContent() === "") { return 0; }
 
     // ユーザーネームが設定されていない時アラートを表示
-    // if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
 
     setChatData();
 
@@ -216,6 +216,8 @@ $("#set-btn").on("click", function(e) {
         setUsernameData();
         $("#set-username").toggleClass('Inactive')
         $(this).css('pointer-events','none')
+        $(".MsgWrapper").css('pointer-events','all')
+        $(".SideWrapper").css('pointer-events','all')
 
         initResultData(); // "result"の初期設定
     }
@@ -357,9 +359,9 @@ $(".BoardOpen").on("click", function(e) {
 
 
 // ユーザーネームが設定されていない時アラートを表示
-// $(".MainWrapper").on("click", function(e) {
-//     if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
-//     e.preventDefault();
-// })
+$(".MainWrapper").on("click", function(e) {
+    if ($("#set-username").val() === "undefined" || $("#input-username").val() === "undefined") { alert('"右上のプルダウンメニューから自分の名前を選択して右隣のSETボタンを押して下さい"'); return 0; }
+    e.preventDefault();
+})
 
 // ----------------------------------------------------------------------------------------------------> board

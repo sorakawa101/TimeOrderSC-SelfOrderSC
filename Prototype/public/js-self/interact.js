@@ -77,7 +77,10 @@ interact('.SpeechBalloon')
         move: dragMoveListener,
         // call this function on every dragend event
         end (event) {
-            let distance = (Math.sqrt(Math.pow(event.pageX - event.x0, 2) + Math.pow(event.pageY - event.y0, 2) | 0)).toFixed(2);
+            let variation = Math.floor(Math.sqrt(Math.pow(event.pageX - event.x0, 2) + Math.pow(event.pageY - event.y0, 2) | 0));
+            const user = getUsernameFromSet();
+            setResultData(user, "pos", variation);
+            // console.log(distance);
         }
     }
 
@@ -118,8 +121,10 @@ listeners: {
 
     let newPostRef = push(dbRef);
     set(newPostRef, size);
-    setResultData(user, "resize");
-    }
+
+    let variation = Math.floor(Math.round(event.rect.width) + Math.round(event.rect.height));
+    setResultData(user, "resize", variation);
+    },
 },
 
 modifiers: [
