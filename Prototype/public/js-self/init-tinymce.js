@@ -61,6 +61,7 @@ function setFocusIn() {
     const newPostRef = push(dbRef);
     set(newPostRef, mouse);
     setResultData(user, "focusin");
+    setResultData(user, "mouse");
     // console.log('setFocusIn');
 }
 
@@ -78,5 +79,6 @@ function setFocusOut() {
     const newPostRef = push(dbRef);
     set(newPostRef, mouse);
     setResultData(user, "focusout");
+    setResultData(user, "mouse");
     // console.log('setFocusOut');
 }

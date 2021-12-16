@@ -32,6 +32,10 @@ export const dbRefSetting = ref(db, "general/self-order/setting");
 export const dbRefUser = ref(db, "general/self-order/user");
 
 
+// Sum
+export const dbRefResultSum = ref(db, "全員/self-order/result");
+
+
 // undefinedのDB
 export const dbRefChat = ref(db, "undefined/self-order/chat");
 export const dbRefInteract = ref(db, "undefined/self-order/interact");

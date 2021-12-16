@@ -4,7 +4,7 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { setChatData } from "./chat.js"
 import { setUsernameData, setBoardData, setDocData } from "./setting.js"
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
+import { db, dbRefResultSum } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -46,40 +46,38 @@ export function initResultData() {
 
     const dbRef = ref(db, getUsernameFromSet()+'/self-order/result');
 
-    get(dbRef).then((snapshot) => {
+    const init_result = {
+        chat                        : 0,
 
-        if (snapshot.exists() === false) {
+        interact                    : 0,
+        interact_check              : 0,
+        interact_delete             : 0,
+        interact_edit               : 0,
 
-            const init_result = {
-                chat                        : 0,
+        mouse                       : 0,
+        mouse_focusin               : 0,
+        mouse_focusout              : 0,
+        mouse_mousedown             : 0,
+        mouse_mouseup               : 0,
 
-                interact_check              : 0,
-                interact_delete             : 0,
-                interact_edit               : 0,
+        semantic                    : 0,
+        semantic1_none              : 0,
+        semantic2_important         : 0,
+        semantic3_facilitation      : 0,
+        semantic4_question          : 0,
+        semantic5_response          : 0,
+        semantic6_note              : 0,
+        semantic7_answer            : 0,
 
-                mouse_focusin               : 0,
-                mouse_focusout              : 0,
-                mouse_mousedown             : 0,
-                mouse_mouseup               : 0,
+        variation                   : 0,
+        variation_pos               : 0,
+        variation_resize            : 0
+    }
 
-                semantic                    : 0,
-                semantic1_none              : 0,
-                semantic2_important         : 0,
-                semantic3_facilitation      : 0,
-                semantic4_question          : 0,
-                semantic5_response          : 0,
-                semantic6_note              : 0,
-                semantic7_answer            : 0,
+    get(dbRef).then((snapshot) => { if (snapshot.exists() === false) { set(dbRef, init_result); } });
 
-                variation_pos               : 0,
-                variation_resize            : 0
-            }
+    get(dbRefResultSum).then((snapshot) => { if (snapshot.exists() === false) { set(dbRefResultSum, init_result); } });
 
-            set(dbRef, init_result);
-            // console.log('init');
-
-        }
-    });
 }
 
 
@@ -96,6 +94,10 @@ export function updateResultData(dbRef, tag, v) {
                 break;
 
 
+            case "interact":
+                const interact_result = { interact : snapshot.val().interact+1 }
+                update(dbRef, interact_result);
+                break;
             case "check":
                 const check_result = { interact_check : snapshot.val().interact_check+1 }
                 update(dbRef, check_result);
@@ -110,6 +112,10 @@ export function updateResultData(dbRef, tag, v) {
                 break;
 
 
+            case "mouse":
+                const mouse_result = { mouse : snapshot.val().mouse+1 }
+                update(dbRef, mouse_result);
+                break;
             case "focusin":
                 const focusin_result = { mouse_focusin : snapshot.val().mouse_focusin+1 }
                 update(dbRef, focusin_result);
@@ -162,6 +168,10 @@ export function updateResultData(dbRef, tag, v) {
                 break;
 
 
+            case "variation":
+                const variation_result = { variation : snapshot.val().variation+v }
+                update(dbRef, variation_result);
+                break;
             case "pos":
                 const pos_result = { variation_pos : snapshot.val().variation_pos+v }
                 update(dbRef, pos_result);
@@ -184,6 +194,7 @@ export function setResultData(user, tag, v) {
 
     const dbRef = ref(db, user+'/self-order/result');
     updateResultData(dbRef,tag, v);
+    updateResultData(dbRefResultSum, tag, v);
 
 }
 

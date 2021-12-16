@@ -80,6 +80,7 @@ interact('.SpeechBalloon')
             let variation = Math.floor(Math.sqrt(Math.pow(event.pageX - event.x0, 2) + Math.pow(event.pageY - event.y0, 2) | 0));
             const user = getUsernameFromSet();
             setResultData(user, "pos", variation);
+            setResultData(user, "variation", variation);
             // console.log(distance);
         }
     }
@@ -124,6 +125,7 @@ listeners: {
 
     let variation = Math.floor(Math.round(event.rect.width) + Math.round(event.rect.height));
     setResultData(user, "resize", variation);
+    setResultData(user, "variation", variation);
     },
 },
 
@@ -163,6 +165,7 @@ inertia: true
         const newPostRef = push(dbRef);
         set(newPostRef, mouse);
         setResultData(user, "mousedown");
+        setResultData(user, "mouse");
 
     }
 
@@ -189,6 +192,7 @@ inertia: true
         const newPostRef = push(dbRef);
         set(newPostRef, mouse);
         setResultData(user, "mouseup");
+        setResultData(user, "mouse");
 
     }
 })
@@ -482,6 +486,7 @@ function removeChatData(id, user) {
     const newPostRef = push(dbRef);
     set(newPostRef, removed);
     setResultData(user, "delete");
+    setResultData(user, "interact");
 
     remove(dbRefChatChild); // "chat"の方のデータは削除
 }
@@ -502,6 +507,7 @@ function setRewriteData(id, text) {
     const newPostRef = push(dbRef);
     set(newPostRef, info);
     setResultData(user, "edit");
+    setResultData(user, "interact");
 }
 
 
@@ -548,6 +554,7 @@ function setCheckData(id) {
     const newPostRef = push(dbRef);
     set(newPostRef, info);
     setResultData(user, "check");
+    setResultData(user, "interact");
 }
 
 
