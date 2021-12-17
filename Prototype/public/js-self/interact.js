@@ -4,7 +4,7 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefArchive } from "./config.js";
 import { setLogData, } from "./log.js";
-import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, setResultData } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -240,6 +240,7 @@ inertia: true
             let text = $("#"+tap_id+" .Msg").text();
             let rewrite_text = $("#"+tap_id+" .Msg").val();
             let edit_user = getUsernameFromSet();
+            let edited_user = getUsernameFromSpeechBalloon(tap_id);
 
             if (html === text) {
 
@@ -258,7 +259,7 @@ inertia: true
                     $("#"+tap_id+" .EditBtn > .Hint").text("編集").css('width', '3rem')
                     $("#"+tap_id).css('pointer-events', 'all')
 
-                    updateChatData(tap_id, rewrite_text, edit_user);
+                    updateChatData(tap_id, rewrite_text, edit_user, edited_user);
                     setRewriteData(tap_id, rewrite_text);
 
                 // テキストが編集不可状態の時（テキスト部分のタグがpタグの時）
@@ -443,8 +444,8 @@ function onChildAddedMethod(info) {
 // Firebase <----------------------------------------------------------------------------------------------------
 
 // RealtimeDatabase "chat" のデータを更新 / "archive" に削除したデータをセット
-function updateChatData(id, text, user) {
-    const dbRefChatChild = ref(db, user+"/self-order/chat/"+id);
+function updateChatData(id, text, edit_user, edited_user) {
+    const dbRefChatChild = ref(db, edited_user+"/self-order/chat/"+id);
 
     // archiveにデータをコピー
     get(dbRefChatChild).then((snapshot) => {
@@ -457,6 +458,7 @@ function updateChatData(id, text, user) {
         tag  : "edited",
         time : getNow(),
         text : text,
+        user : edit_user
     }
 
     update(dbRefChatChild, msg); // "chat"のデータを更新

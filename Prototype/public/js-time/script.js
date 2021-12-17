@@ -33,6 +33,13 @@ export function getUsernameFromInput() {
     return username;
 }
 
+
+export function getUsernameFromSpeechBalloon(id) {
+    let username = $("#"+id+" .ChatInfo > .Name").text()
+    console.log(username);
+    return username;
+}
+
 // ----------------------------------------------------------------------------------------------------> Method
 
 

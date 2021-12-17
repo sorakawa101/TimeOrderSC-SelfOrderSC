@@ -174,7 +174,7 @@ header {
 }
 
 .pdfWrapper {
-    width: 650px;
+    width: 550px;
     height: 100%;
     /* margin-left: 10px; */
     /* position: fixed; */
@@ -236,7 +236,7 @@ header {
     position: absolute;
     top: auto;
     left: auto;
-    width: 650px;
+    width: 550px;
     height: 95%;
 }
 
