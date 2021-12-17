@@ -263,9 +263,6 @@ $(".SetMenuBtn").on("click", function() {
 
 });
 
-$(".SideMenuBtn").on("click", function() {
-    $(".Side").toggleClass("Inactive");
-});
 
 $(".ResetMenuBtn").on("click", function() {
     remove(ref(db));
@@ -347,6 +344,51 @@ $(".SetURL").on("dblclick", function(e) {
 })
 
 // ----------------------------------------------------------------------------------------------------> pdf
+
+
+
+
+
+
+
+
+// mini-pdf <----------------------------------------------------------------------------------------------------
+
+// 指定してsideを開く
+$(".SideOpen").on("click", function(e) {
+    let side_open_id = $(this).attr('id')
+
+    $(".Side").removeClass("Inactive");
+
+    switch (side_open_id) {
+        case "side1-open":
+            $(".LogWrapper").removeClass("Inactive");
+            $(".QuestionWrapper").addClass("Inactive");
+            $("#mini-doc-p").addClass("Inactive");
+            $("#mini-doc-q").addClass("Inactive");
+            break;
+        case "side2-open":
+            $(".LogWrapper").addClass("Inactive");
+            $(".QuestionWrapper").removeClass("Inactive");
+            $("#mini-doc-p").removeClass("Inactive");
+            $("#mini-doc-q").addClass("Inactive");
+            break;
+        case "side3-open":
+            $(".LogWrapper").addClass("Inactive");
+            $(".QuestionWrapper").removeClass("Inactive");
+            $("#mini-doc-p").addClass("Inactive");
+            $("#mini-doc-q").removeClass("Inactive");
+            break;
+        default: ;
+    }
+})
+
+
+// ----------------------------------------------------------------------------------------------------> mini-pdf
+
+
+
+
 
 
 

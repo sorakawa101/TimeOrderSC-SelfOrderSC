@@ -143,6 +143,8 @@ onChildAdded(dbRefSetting,function(data) {
 
         if (info.doc === "doc5") { $("#doc5-open").css('pointer-events','all') }
         if (info.doc === "doc6") { $("#doc6-open").css('pointer-events','all') }
+        if (info.doc === "mini-doc-p") { $("#side2-open").css('pointer-events','all') }
+        if (info.doc === "mini-doc-q") { $("#side3-open").css('pointer-events','all') }
 
 
     } else {;}

@@ -129,11 +129,13 @@ function onChildAddedMethod(msg, key) {
     // "練習スタート"が送信されたらテストのPDFをクリックできるようになる
     if (msg.text === "練習スタート"){
         unlockDoc("doc5");
+        unlockDoc("mini-doc-p");
     }
 
     // "本番スタート"が送信されたら本番のPDFをクリックできるようになる
     if (msg.text === "本番スタート"){
         unlockDoc("doc6");
+        unlockDoc("mini-doc-q");
     }
 
     // "lock"が送信されたらPDFをクリックできなくなる

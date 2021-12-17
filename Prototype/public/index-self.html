@@ -52,8 +52,8 @@
                         <li class="DocOpen" id="doc2-open"><a href="#">操作説明</a></li>
                         <li class="DocOpen" id="doc3-open"><a href="#">必須操作</a></li>
                         <li class="DocOpen" id="doc4-open"><a href="#">実験説明</a></li>
-                        <li class="DocOpen" id="doc5-open"><a href="#">練習</a></li>
-                        <li class="DocOpen" id="doc6-open"><a href="#">本番</a></li>
+                        <li class="DocOpen" id="doc5-open"><a href="#">練習課題</a></li>
+                        <li class="DocOpen" id="doc6-open"><a href="#">本番課題</a></li>
                     </ul>
                 </button>
                 <button class="Btn MenuBtn BoardMenuBtn"> BOARD
@@ -66,7 +66,13 @@
                         <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn SideMenuBtn">SIDE</button>
+                <button class="Btn MenuBtn SideMenuBtn">SIDE
+                    <ul class="DropDownMenu">
+                        <li class="SideOpen" id="side1-open"><a href="#">Log</a></li>
+                        <li class="SideOpen" id="side2-open"><a href="#">練習課題</a></li>
+                        <li class="SideOpen" id="side3-open"><a href="#">本番課題</a></li>
+                    </ul>
+                </button>
                 <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
@@ -103,11 +109,16 @@
 
     <div class="SideWrapper">
 
-        <div class="LogWrapper ">
+        <div class="LogWrapper Inactive" id="log-wrapper">
             <div class="Log" id="log"></div>
         </div>
 
-        <div class="InputWrapper ">
+        <div class="QuestionWrapper">
+            <iframe class="MiniDoc" id="mini-doc-p" src="./src/practice/p2.pdf#zoom=40&toolbar=0&navpanes=0"></iframe>
+            <iframe class="MiniDoc Inactive" id="mini-doc-q" src="./src/question/q2.pdf#zoom=40&toolbar=0&navpanes=0"></iframe>
+        </div>
+
+        <div class="InputWrapper">
 
             <form id="input-form" class="InputForm" action="#" method="GET">
 
