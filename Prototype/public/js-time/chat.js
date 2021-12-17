@@ -183,7 +183,7 @@ export function setChatData() {
 
     set(newPostRef, msg); // ユニークキーを使ってデータをセット
 
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
 
     setResultData(user, "chat");
 

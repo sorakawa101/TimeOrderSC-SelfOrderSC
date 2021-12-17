@@ -204,8 +204,10 @@ interact('.SpeechBalloon')
             break;
 
         case "TrashBtn":
+            let trash_user = getUsernameFromSet();
+            let trashed_user = getUsernameFromSpeechBalloon(tap_id);
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
-            removeChatData(tap_id);
+            removeChatData(tap_id, trash_user, trashed_user);
             event.preventDefault();
             break;
 
@@ -398,7 +400,7 @@ function updateChatData(id, text, edit_user, edited_user) {
     get(dbRefChatChild).then((snapshot) => {
         const newPostRef = push(dbRefArchive);
         set(newPostRef, snapshot.val());
-        setLogData("rewrite", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
+        setLogData("rewrite", edit_user, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
     });
 
     const msg = {
@@ -413,29 +415,29 @@ function updateChatData(id, text, edit_user, edited_user) {
 
 
 // RealtimeDatabase "chat" のデータを削除 / "archive" に削除したデータをセット
-function removeChatData(id, user) {
-    const dbRefChatChild = ref(db, user+"/time-order/chat/"+id);
+function removeChatData(id, remove_user, removed_user) {
+    const dbRefChatChild = ref(db, removed_user+"/time-order/chat/"+id);
     // console.log(dbRefChatChild.data.uname);
 
      // archiveにデータをコピー
     get(dbRefChatChild).then((snapshot) => {
         const newPostRef = push(dbRefArchive);
         set(newPostRef, snapshot.val());
-        setLogData("removed", snapshot.val().uname, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
+        setLogData("removed", remove_user, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
     });
 
     let removed = {
         tag     : "removed",
-        user    : getUsernameFromSet(),
+        user    : remove_user,
         id      : id
     }
 
-    const dbRef = ref(db, user+'/time-order/interact/delete');
+    const dbRef = ref(db, remove_user+'/time-order/interact/delete');
 
     const newPostRef = push(dbRef);
     set(newPostRef, removed);
-    setResultData(user, "delete");
-    setResultData(user, "interact");
+    setResultData(remove_user, "delete");
+    setResultData(remove_user, "interact");
 
     remove(dbRefChatChild); // "chat"の方のデータは削除
 }
@@ -485,7 +487,7 @@ function setSemanticData(id, semantic) {
 
     if (info.uname === "") { info.uname = "匿名"; } else {;}
 
-    setLogData(info.tag, info.uname, info.time, null, info.board, info.semantic, info.id); // Log
+    setLogData(info.tag, info.user, info.time, null, info.board, info.semantic, info.id); // Log
 }
 
 
