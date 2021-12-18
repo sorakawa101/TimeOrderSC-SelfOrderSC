@@ -137,6 +137,8 @@ onChildAdded(dbRefSetting,function(data) {
 
         $("#doc5-open").css('pointer-events','none')
         $("#doc6-open").css('pointer-events','none')
+        $("#side2-open").css('pointer-events','none')
+        $("#side3-open").css('pointer-events','none')
 
 
     } else if (info.tag === "unlock") {
