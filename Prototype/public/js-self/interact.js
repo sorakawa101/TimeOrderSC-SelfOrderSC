@@ -418,7 +418,7 @@ function onChildAddedMethod(info) {
                         break;
                     default:
                         $("#"+info.id+" .Semantic").text("<重要>");
-                        $("#"+info.id).css({'background-color': 'rgba(255,105,98,.6)', 'min-width': '210px'});
+                        $("#"+info.id).css({'background-color': 'rgba(255,105,98,.6)', 'min-width': '210px', 'border': 'none'});
                         break;
                 }
                 break;
@@ -562,7 +562,30 @@ function setSemanticData(id, semantic, pre_semantic) {
     const newPostRef = push(dbRef);
     set(newPostRef, info);
     setResultData(user, "semantic");
-    setResultData(user, semantic);
+
+    if (semantic === "important") {
+        switch (pre_semantic) {
+            case "<進行>":
+                setResultData(user, "important_facilitation");
+                break;
+            case "<質疑>":
+                setResultData(user, "important_question");
+                break;
+            case "<応答>":
+                setResultData(user, "important_response");
+                break;
+            case "<メモ>":
+                setResultData(user, "important_note");
+                break;
+            case "<解答>":
+                setResultData(user, "important_answer");
+                break;
+            default:
+                setResultData(user, "important");
+                break;
+        }
+    }
+    if (semantic !== "important") { setResultData(user, semantic); }
 
     if (info.uname === "") { info.uname = "匿名"; } else {;}
 

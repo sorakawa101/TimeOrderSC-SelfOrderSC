@@ -160,6 +160,8 @@ function onChildAddedMethod(msg, key) {
         $("#"+ key).css('left', '580')
     }
 
+    // setResultData(user, "chat");
+
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
