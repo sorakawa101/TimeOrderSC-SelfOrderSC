@@ -16,7 +16,7 @@ tinyMCE.init({
     // language_url: "../js/tinymce/langs/ja.js",
     plugins: " table lists advlist link wordcount emoticons image insertdatetime",
     menubar: false,
-    toolbar: ['undo redo | bold italic | forecolor backcolor | fontsizeselect | styleselect | numlist bullist | emoticons |  image | table | link | insertdatetime'],
+    toolbar: ['undo redo | bold italic | forecolor backcolor | emoticons | fontsizeselect | styleselect |'],
     fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 34px',
     width: 360,
     height: 280,
@@ -56,7 +56,7 @@ function setFocusIn() {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/focusin');
+    const dbRef = ref(db, user+'/time-order/interact/focusin');
 
     const newPostRef = push(dbRef);
     set(newPostRef, mouse);
@@ -74,7 +74,7 @@ function setFocusOut() {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/focusout');
+    const dbRef = ref(db, user+'/time-order/interact/focusout');
 
     const newPostRef = push(dbRef);
     set(newPostRef, mouse);

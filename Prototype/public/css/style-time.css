@@ -348,8 +348,9 @@ header {
 
 .FocusArrow {
     position: absolute;
-    top: -30px;
-    left: 10px;
+    bottom: 10px;
+    left: -30px;
+    z-index: var(--max-z-index);
 }
 
 
@@ -651,6 +652,9 @@ footer {
     /* border: 2px solid black; */
     margin: 10px 10px;
     background-color: white;
+}
+.CheckBtn {
+    display: none;
 }
 .CheckBtn:hover {
     background-color: rgba(192,231,197,.8);

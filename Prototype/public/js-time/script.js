@@ -52,31 +52,36 @@ export function initResultData() {
     const dbRef = ref(db, getUsernameFromSet()+'/time-order/result');
 
     const init_result = {
-        chat                        : 0,
+        chat                                : 0,
 
-        interact                    : 0,
-        interact_check              : 0,
-        interact_delete             : 0,
-        interact_edit               : 0,
+        interact                            : 0,
+        interact_check                      : 0,
+        interact_delete                     : 0,
+        interact_edit                       : 0,
 
-        mouse                       : 0,
-        mouse_focusin               : 0,
-        mouse_focusout              : 0,
-        mouse_mousedown             : 0,
-        mouse_mouseup               : 0,
+        mouse                               : 0,
+        mouse_focusin                       : 0,
+        mouse_focusout                      : 0,
+        mouse_mousedown                     : 0,
+        mouse_mouseup                       : 0,
 
-        semantic                    : 0,
-        semantic1_none              : 0,
-        semantic2_important         : 0,
-        semantic3_facilitation      : 0,
-        semantic4_question          : 0,
-        semantic5_response          : 0,
-        semantic6_note              : 0,
-        semantic7_answer            : 0,
+        semantic                            : 0,
+        semantic1_none                      : 0,
+        semantic2_important                 : 0,
+        semantic21_important_facilitation   : 0,
+        semantic22_important_question       : 0,
+        semantic23_important_response       : 0,
+        semantic24_important_note           : 0,
+        semantic25_important_answer         : 0,
+        semantic3_facilitation              : 0,
+        semantic4_question                  : 0,
+        semantic5_response                  : 0,
+        semantic6_note                      : 0,
+        semantic7_answer                    : 0,
 
-        // variation                   : 0,
-        // variation_pos               : 0,
-        // variation_resize            : 0
+        // variation                        : 0,
+        // variation_pos                    : 0,
+        // variation_resize                 : 0
     }
 
     get(dbRef).then((snapshot) => { if (snapshot.exists() === false) { set(dbRef, init_result); } });
@@ -150,6 +155,26 @@ export function updateResultData(dbRef, tag) {
             case "important":
                 const semantic_important_result = { semantic2_important : snapshot.val().semantic2_important+1 }
                 update(dbRef, semantic_important_result);
+                break;
+            case "important_facilitation":
+                const semantic_important_facilitation_result = { semantic21_important_facilitation : snapshot.val().semantic21_important_facilitation+1 }
+                update(dbRef, semantic_important_facilitation_result);
+                break;
+            case "important_question":
+                const semantic_important_question_result = { semantic22_important_question : snapshot.val().semantic22_important_question+1 }
+                update(dbRef, semantic_important_question_result);
+                break;
+            case "important_response":
+                const semantic_important_response_result = { semantic23_important_response : snapshot.val().semantic23_important_response+1 }
+                update(dbRef, semantic_important_response_result);
+                break;
+            case "important_note":
+                const semantic_important_note_result = { semantic24_important_note : snapshot.val().semantic24_important_note+1 }
+                update(dbRef, semantic_important_note_result);
+                break;
+            case "important_answer":
+                const semantic_important_answer_result = { semantic25_important_answer : snapshot.val().semantic25_important_answer+1 }
+                update(dbRef, semantic_important_answer_result);
                 break;
             case "facilitation":
                 const semantic_facilitation_result = { semantic3_facilitation : snapshot.val().semantic3_facilitation+1 }

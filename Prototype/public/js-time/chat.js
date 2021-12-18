@@ -42,7 +42,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     // Focus Arrow : LogがどのSpeechBalloonに対応しているかを表示
 
-    $("<span>", {class: 'FocusArrow fas fa-angle-double-down Inactive'}).appendTo(speech_balloon);
+    $("<span>", {class: 'FocusArrow fas fa-angle-double-right Inactive'}).appendTo(speech_balloon);
 
 
 
