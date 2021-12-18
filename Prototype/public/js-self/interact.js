@@ -204,6 +204,7 @@ inertia: true
     let tap_id = target.getAttribute('id'); // SpeechBalloonのID
     let tap_closest_id = target.closest(".SpeechBalloon").getAttribute('id'); // タップした要素の親要素のSpeechBalloonのID
     let tap_class = target.getAttribute('class').split(' ')[0]; // タップした要素の１つ目のクラス
+    let pre_semantic = $("#"+tap_closest_id+" .Semantic").text();
 
     // console.log(tap_id);
     // console.log(tap_closest_id);
@@ -293,8 +294,9 @@ inertia: true
             break;
 
         case "SemanticCircle":
-            setSemanticData(tap_closest_id, tap_id); // ここのtap_idはSemanticCircleのidを指す
+            setSemanticData(tap_closest_id, tap_id, pre_semantic); // ここのtap_idはSemanticCircleのidを指す
             $("#"+tap_closest_id+" .SemanticCircle").toggleClass('Inactive')
+            console.log(pre_semantic);
             event.preventDefault();
             break;
 
@@ -390,38 +392,62 @@ function onChildAddedMethod(info) {
         switch (info.semantic) {
             case "none":
                 $("#"+info.id+" .Semantic").text(" ");
-                $("#"+info.id).css('background-color', 'rgba(227,228,232,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(227,228,232,.6)', 'border': 'none'});
                 break;
             case "important":
-                $("#"+info.id+" .Semantic").text("<重要>");
-                $("#"+info.id).css('background-color', 'rgba(255,105,98,.6)');
+                switch (info.pre_semantic) {
+                    case "<進行>":
+                        $("#"+info.id+" .Semantic").text("<重要進行>");
+                        $("#"+info.id).css({'border': '5px solid rgba(255,105,98,.6)', 'min-width': '250px'});
+                        break;
+                    case "<質疑>":
+                        $("#"+info.id+" .Semantic").text("<重要質疑>");
+                        $("#"+info.id).css({'border': '5px solid rgba(255,105,98,.6)', 'min-width': '250px'});
+                        break;
+                    case "<応答>":
+                        $("#"+info.id+" .Semantic").text("<重要応答>");
+                        $("#"+info.id).css({'border': '5px solid rgba(255,105,98,.6)', 'min-width': '250px'});
+                        break;
+                    case "<メモ>":
+                        $("#"+info.id+" .Semantic").text("<重要メモ>");
+                        $("#"+info.id).css({'border': '5px solid rgba(255,105,98,.6)', 'min-width': '250px'});
+                        break;
+                    case "<解答>":
+                        $("#"+info.id+" .Semantic").text("<重要解答>");
+                        $("#"+info.id).css({'border': '5px solid rgba(255,105,98,.6)', 'min-width': '250px'});
+                        break;
+                    default:
+                        $("#"+info.id+" .Semantic").text("<重要>");
+                        $("#"+info.id).css({'background-color': 'rgba(255,105,98,.6)', 'min-width': '210px'});
+                        break;
+                }
                 break;
             case "facilitation":
                 $("#"+info.id+" .Semantic").text("<進行>");
-                $("#"+info.id).css('background-color', 'rgba(136,196,228,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(136,196,228,.6)', 'border': 'none'});
                 break;
             case "question":
                 $("#"+info.id+" .Semantic").text("<質疑>");
-                $("#"+info.id).css('background-color', 'rgba(255,175,104,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(255,175,104,.6)', 'border': 'none'});
                 break;
             case "response":
                 $("#"+info.id+" .Semantic").text("<応答>");
-                $("#"+info.id).css('background-color', 'rgba(192,231,197,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(192,231,197,.6)', 'border': 'none'});
 
                 break;
             case "note":
                 $("#"+info.id+" .Semantic").text("<メモ>");
-                $("#"+info.id).css('background-color', 'rgba(246,230,131,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(246,230,131,.6)', 'border': 'none'});
                 break;
             case "answer":
                 $("#"+info.id+" .Semantic").text("<解答>");
-                $("#"+info.id).css('background-color', 'rgba(151,150,188,.6)');
+                $("#"+info.id).css({'background-color': 'rgba(151,150,188,.6)', 'border': 'none'});
                 break;
             default:
                 ;
         }
 
-        $("#"+info.id).css('min-width', '210px');
+        if (info.semantic !== "important") { $("#"+info.id).css('min-width', '210px'); }
         // $("#"+info.id).css('border', 'none');
         // console.log("semantic");
 
@@ -515,18 +541,19 @@ function setRewriteData(id, text) {
 
 
 // RealtimeDatabase "interact" にセマンティックデータをセット
-function setSemanticData(id, semantic) {
+function setSemanticData(id, semantic, pre_semantic) {
     const date = new Date();
     const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
 
     const info = {
-        tag         : "semantic",
-        id          : id,
-        semantic    : semantic,
-        uname       : getUsernameFromInput(),
-        user        : getUsernameFromSet(),
-        time        : getNow(),
-        board       : $(".Board.Active").attr('id')
+        tag             : "semantic",
+        id              : id,
+        semantic        : semantic,
+        pre_semantic    : pre_semantic,
+        uname           : getUsernameFromInput(),
+        user            : getUsernameFromSet(),
+        time            : getNow(),
+        board           : $(".Board.Active").attr('id')
     }
 
     const user = getUsernameFromSet();
