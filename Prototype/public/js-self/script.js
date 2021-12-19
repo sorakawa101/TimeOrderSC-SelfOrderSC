@@ -391,18 +391,28 @@ $(".SideOpen").on("click", function(e) {
             $(".QuestionWrapper").addClass("Inactive");
             $("#mini-doc-p").addClass("Inactive");
             $("#mini-doc-q").addClass("Inactive");
+            $("#mini-doc-s").addClass("Inactive");
             break;
         case "side2-open":
             $(".LogWrapper").addClass("Inactive");
             $(".QuestionWrapper").removeClass("Inactive");
             $("#mini-doc-p").removeClass("Inactive");
             $("#mini-doc-q").addClass("Inactive");
+            $("#mini-doc-s").addClass("Inactive");
             break;
         case "side3-open":
             $(".LogWrapper").addClass("Inactive");
             $(".QuestionWrapper").removeClass("Inactive");
             $("#mini-doc-p").addClass("Inactive");
             $("#mini-doc-q").removeClass("Inactive");
+            $("#mini-doc-s").addClass("Inactive");
+            break;
+        case "side4-open":
+            $(".LogWrapper").addClass("Inactive");
+            $(".QuestionWrapper").removeClass("Inactive");
+            $("#mini-doc-p").addClass("Inactive");
+            $("#mini-doc-q").addClass("Inactive");
+            $("#mini-doc-s").removeClass("Inactive");
             break;
         default: ;
     }

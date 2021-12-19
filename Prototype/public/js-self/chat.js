@@ -138,6 +138,12 @@ function onChildAddedMethod(msg, key) {
         unlockDoc("mini-doc-q");
     }
 
+    // "予備スタート"が送信されたら予備のPDFをクリックできるようになる
+    if (msg.text === "予備スタート"){
+        unlockDoc("doc7");
+        unlockDoc("mini-doc-s");
+    }
+
     // "lock"が送信されたらPDFをクリックできなくなる
     if(msg.text === "lock") {
         lockDoc();
