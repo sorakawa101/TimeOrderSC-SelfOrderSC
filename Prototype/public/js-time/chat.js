@@ -60,7 +60,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     status_menu.append(check_btn, trash_btn);
 
 
-    // Selector Menu : 編集ボタン / セマンティックタグ選択ボタン
+    // Selector Menu : 編集ボタン / セマンティックタグ選択ボタン / 点数付けボタン
 
     let selector_menu = $("<div>", {class: 'SelectorMenu', id: key}).appendTo(speech_balloon);
 
@@ -70,8 +70,11 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
         $("<span>", {class: 'Hint HintRight', text: '意図'}).appendTo(semantic_selector_btn);
+    let point_selector_btn = $("<button>", {class: 'PointSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
+        $("<span>", {class: 'fab fa-product-hunt fa-2x'}).appendTo(point_selector_btn);
+        $("<span>", {class: 'Hint HintRight', text: '点数'}).appendTo(point_selector_btn);
 
-    selector_menu.append(edit_btn, semantic_selector_btn);
+    selector_menu.append(edit_btn, semantic_selector_btn, point_selector_btn);
 
 
     // Semantic : セマンティックタグの選択欄
@@ -85,6 +88,17 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     $("<button>", {class: 'SemanticCircle Inactive', id: 'response', text: "応答"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'note', text: "メモ"}).appendTo(semantic_selector);
     $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "解答"}).appendTo(semantic_selector);
+
+
+    // Point : チャットの有用性の得点
+
+    let point_selector = $("<div>", {class: 'PointSelector'}).appendTo(speech_balloon);
+
+    $("<button>", {class: 'PointCircle Inactive', id: 'point5', text: "5"}).appendTo(point_selector);
+    $("<button>", {class: 'PointCircle Inactive', id: 'point4', text: "4"}).appendTo(point_selector);
+    $("<button>", {class: 'PointCircle Inactive', id: 'point3', text: "3"}).appendTo(point_selector);
+    $("<button>", {class: 'PointCircle Inactive', id: 'point2', text: "2"}).appendTo(point_selector);
+    $("<button>", {class: 'PointCircle Inactive', id: 'point1', text: "1"}).appendTo(point_selector);
 
 
     // Who : 誰がそのSpeechBalloonを操作しているか

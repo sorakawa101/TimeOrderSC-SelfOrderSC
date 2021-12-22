@@ -440,6 +440,33 @@ header {
     background-color: rgba(151,150,188,.6);
 }
 
+
+.PointSelector {
+    position: absolute;
+    top: -10px;
+    right: -110px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* display: none; */
+}
+.PointCircle {
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    padding: 2px;
+    border: solid 1px #dedede;
+    color: black;
+    background-color: gainsboro;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10%;
+}
+.PointCircle:hover {
+    cursor: pointer;
+    opacity: .5;
+}
+
 /* <---------------------------------------------------------------------------------------------------- Main : SpeechBalloon */
 
 
@@ -700,6 +727,11 @@ footer {
     background-color: transparent;
 }
 .far {
+    text-align: center;
+    pointer-events: none;
+    background-color: transparent;
+}
+.fab {
     text-align: center;
     pointer-events: none;
     background-color: transparent;

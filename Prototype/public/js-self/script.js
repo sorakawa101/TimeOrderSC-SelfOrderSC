@@ -34,9 +34,17 @@ export function getUsernameFromInput() {
 }
 
 
+// ユーザーネームをSpeechBalloonから取得する
 export function getUsernameFromSpeechBalloon(id) {
     let username = $("#"+id+" .ChatInfo > .Name").text()
     return username;
+}
+
+
+// テキストをSpeechBalloonから取得する
+export function getChatTextFromSpeechBalloon(id) {
+    let txt = $("#"+id+" .Msg").text()
+    return txt;
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
