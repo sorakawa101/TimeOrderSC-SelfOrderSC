@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6 } from "./config.js";
+import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6, dbRefChat7, dbRefChat8 } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
@@ -273,6 +273,20 @@ onChildAdded(dbRefChat5,function(data) {
 });
 
 onChildAdded(dbRefChat6,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat7,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat8,function(data) {
     const msg = data.val();
     const key = data.key;
 

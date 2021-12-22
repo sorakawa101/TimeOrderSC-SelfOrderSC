@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefArchive, dbRefRecorderPointResult } from "./config.js";
+import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderPointResult } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, getChatTextFromSpeechBalloon, setResultData } from "./script.js";
 
@@ -311,7 +311,7 @@ inertia: true
             break;
 
         case "RecorderPointCircle":
-            setRecorderPointData(tap_closest_id, tap_id); // ここのtap_idはRecorderPointCircleのidを指す
+            setRecorderPointData(tap_closest_id, tap_id, getUsernameFromSet()); // ここのtap_idはRecorderPointCircleのidを指す
             setPointData(tap_closest_id, tap_id);
             $("#"+tap_closest_id+" .RecorderPointCircle").toggleClass('Inactive')
             // console.log(tap_id.split('recorder-point')[1]);
@@ -618,7 +618,7 @@ function setSemanticData(id, semantic, pre_semantic) {
 
 
 // RealtimeDatabase "recorder-point" にチャットの有用性を評価した得点をセット
-function setRecorderPointData(id, recorder_point) {
+function setRecorderPointData(id, recorder_point, user) {
 
     const info = {
         tag    : "point",
@@ -626,9 +626,13 @@ function setRecorderPointData(id, recorder_point) {
         id     : id
     }
 
-    const dbRef = ref(db, "Point/self-order/recorder-result/"+getChatTextFromSpeechBalloon(id)+'  '+id);
-
-    set(dbRef, info);
+    if (user === "Rater1" || user === "Rater2" || user === "Rater3" || user === "Rater4") {
+        const dbRef = ref(db, "Point/self-order/rater-result/"+user+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
+        set(dbRef, info);
+    } else {
+        const dbRef = ref(db, "Point/self-order/recorder-result/"+getChatTextFromSpeechBalloon(id)+'  '+id);
+        set(dbRef, info);
+    }
 }
 
 // RealtimeDatabase "interact" にポイントデータをセット
@@ -770,6 +774,18 @@ onChildAdded(dbRefInteract5,function() {
 
 onChildAdded(dbRefInteract6,function() {
     const dbRefInteractPath = member[5]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract7,function() {
+    const dbRefInteractPath = member[6]+'/self-order/interact';
+    onChildChildAdded(dbRefInteractPath);
+});
+
+
+onChildAdded(dbRefInteract8,function() {
+    const dbRefInteractPath = member[7]+'/self-order/interact';
     onChildChildAdded(dbRefInteractPath);
 });
 

@@ -5,7 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-export const member = ['橋山', '小川','笹川', '堤', '林', '名執']
+export const member = ['笹川', 'Recorder1','Recorder2', 'Recorder3', 'Rater1', 'Rater2', 'Rater3', 'Rater4']
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
@@ -88,6 +88,18 @@ export const dbRefResult5 = ref(db, member[4]+"/self-order/result");
 export const dbRefChat6 = ref(db, member[5]+"/self-order/chat");
 export const dbRefInteract6 = ref(db, member[5]+"/self-order/interact");
 export const dbRefResult6 = ref(db, member[5]+"/self-order/result");
+
+
+// 7人目のDB
+export const dbRefChat7 = ref(db, member[6]+"/self-order/chat");
+export const dbRefInteract7 = ref(db, member[6]+"/self-order/interact");
+export const dbRefResult7 = ref(db, member[6]+"/self-order/result");
+
+
+// 8人目のDB
+export const dbRefChat8 = ref(db, member[7]+"/self-order/chat");
+export const dbRefInteract8 = ref(db, member[7]+"/self-order/interact");
+export const dbRefResult8 = ref(db, member[7]+"/self-order/result");
 
 
 

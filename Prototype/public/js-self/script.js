@@ -4,7 +4,7 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { setChatData } from "./chat.js"
 import { setUsernameData, setBoardData, setDocData } from "./setting.js"
-import { db, dbRefResultSum } from "./config.js";
+import { db, dbRefResultSum, member } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -297,8 +297,19 @@ $(".SetMenuBtn").on("click", function() {
 });
 
 
-$(".ResetMenuBtn").on("click", function() {
+$("#all-reset").on("click", function() {
     remove(ref(db));
+});
+
+
+$("#point-reset").on("click", function() {
+    remove(ref(db, member[0]+"/self-order/interact/point"));
+    remove(ref(db, member[1]+"/self-order/interact/point"));
+    remove(ref(db, member[2]+"/self-order/interact/point"));
+    remove(ref(db, member[3]+"/self-order/interact/point"));
+    remove(ref(db, member[4]+"/self-order/interact/point"));
+    remove(ref(db, member[5]+"/self-order/interact/point"));
+    remove(ref(db, member[6]+"/self-order/interact/point"));
 });
 
 
