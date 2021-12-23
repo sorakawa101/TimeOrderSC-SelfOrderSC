@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6 } from "./config.js";
+import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6, dbRefChat7, dbRefChat8 } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
@@ -46,9 +46,11 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
 
 
-    // Status Menu : 既読ボタン / 削除ボタン
+    // Status Menu : 点数ボタン / 既読ボタン / 削除ボタン
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
+
+    let point_btn = $("<button>", {class: 'PointBtn SelectorBtn HalfCircleBtn HintBtn', id: key});
 
     let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
@@ -57,7 +59,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
         $("<span>", {class: 'Hint HintLeft', text: '削除'}).appendTo(trash_btn);
 
-    status_menu.append(check_btn, trash_btn);
+    status_menu.append(point_btn, check_btn, trash_btn);
 
 
     // Selector Menu : 編集ボタン / セマンティックタグ選択ボタン / 点数付けボタン
@@ -211,7 +213,7 @@ export function setChatData() {
 
 
 
-// RealTimeDatabase "log" に要素が追加されたときに実行
+// RealTimeDatabase "Chat" に要素が追加されたときに実行
 
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
@@ -256,6 +258,20 @@ onChildAdded(dbRefChat5,function(data) {
 });
 
 onChildAdded(dbRefChat6,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat7,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat8,function(data) {
     const msg = data.val();
     const key = data.key;
 

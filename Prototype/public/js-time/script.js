@@ -4,7 +4,7 @@ import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, 
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { setChatData } from "./chat.js"
 import { setUsernameData, setBoardData, setDocData } from "./setting.js"
-import { db, dbRefResultSum } from "./config.js";
+import { db, dbRefResultSum, member } from "./config.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -33,10 +33,17 @@ export function getUsernameFromInput() {
     return username;
 }
 
-
+// ユーザーネームをSpeechBalloonから取得する
 export function getUsernameFromSpeechBalloon(id) {
     let username = $("#"+id+" .ChatInfo > .Name").text()
     return username;
+}
+
+
+// テキストをSpeechBalloonから取得する
+export function getChatTextFromSpeechBalloon(id) {
+    let txt = $("#"+id+" .Msg").text()
+    return txt;
 }
 
 // ----------------------------------------------------------------------------------------------------> Method
@@ -296,9 +303,21 @@ $(".LogMenuBtn").on("click", function() {
 });
 
 
-$(".ResetMenuBtn").on("click", function() {
+$("#all-reset").on("click", function() {
     remove(ref(db));
 });
+
+
+$("#point-reset").on("click", function() {
+    remove(ref(db, member[0]+"/time-order/interact/point"));
+    remove(ref(db, member[1]+"/time-order/interact/point"));
+    remove(ref(db, member[2]+"/time-order/interact/point"));
+    remove(ref(db, member[3]+"/time-order/interact/point"));
+    remove(ref(db, member[4]+"/time-order/interact/point"));
+    remove(ref(db, member[5]+"/time-order/interact/point"));
+    remove(ref(db, member[6]+"/time-order/interact/point"));
+});
+
 
 
 // When Double Click, Close Menu

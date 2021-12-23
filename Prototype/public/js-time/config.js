@@ -5,7 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-export const member = ['橋山', '小川','笹川', '堤', '林', '名執']
+export const member = ['笹川', 'Recorder1','Recorder2', 'Recorder3', 'Rater1', 'Rater2', 'Rater3', 'Rater4']
 
 
 // Your web app's Firebase configuration
@@ -30,6 +30,14 @@ export const dbRefLog = ref(db, "general/time-order/log");
 export const dbRefArchive = ref(db, "general/time-order/archive");
 export const dbRefSetting = ref(db, "general/time-order/setting");
 export const dbRefUser = ref(db, "general/time-order/user");
+
+
+// RecorderPoint
+export const dbRefRecorderPointResult = ref(db, "Point/time-order/recorder-result");
+
+
+// RecorderPoint
+export const dbRefRaterPointResult = ref(db, "Point/time-order/rater-result");
 
 
 // Sum
@@ -80,3 +88,14 @@ export const dbRefResult5 = ref(db, member[4]+"/time-order/result");
 export const dbRefChat6 = ref(db, member[5]+"/time-order/chat");
 export const dbRefInteract6 = ref(db, member[5]+"/time-order/interact");
 export const dbRefResult6 = ref(db, member[5]+"/time-order/result");
+
+// 7人目のDB
+export const dbRefChat7 = ref(db, member[6]+"/time-order/chat");
+export const dbRefInteract7 = ref(db, member[6]+"/time-order/interact");
+export const dbRefResult7 = ref(db, member[6]+"/time-order/result");
+
+
+// 8人目のDB
+export const dbRefChat8 = ref(db, member[7]+"/time-order/chat");
+export const dbRefInteract8 = ref(db, member[7]+"/time-order/interact");
+export const dbRefResult8 = ref(db, member[7]+"/time-order/result");
