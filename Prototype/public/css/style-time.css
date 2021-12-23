@@ -203,7 +203,7 @@ header {
 .MsgWrapper {
     width: 600px;
     height: 720px;
-    margin: 20px auto 0 auto;
+    margin: 10px auto;
     /* padding: ; */
     /* border: 2px solid rgba(34, 49, 52, .8); */
     border-radius: 5px;
