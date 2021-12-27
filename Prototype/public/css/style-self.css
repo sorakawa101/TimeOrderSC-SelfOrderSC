@@ -214,7 +214,7 @@ header {
 
 .MsgWrapper {
     width: 100%;
-    height: 90%;
+    height: 100%;
     /* padding: ; */
     /* border: 2px solid rgba(34, 49, 52, .8); */
     border-radius: 5px;
@@ -362,7 +362,7 @@ header {
     border-radius: 8px;
     padding: 0 20px;
     margin: .5rem;
-    margin-left: 500px;
+    margin-left: 25%;
     font-size: 20px;
     font-family: sans-serif;
     /* translate: (0, 0); */
