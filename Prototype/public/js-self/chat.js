@@ -166,14 +166,14 @@ function onChildAddedMethod(msg, key) {
 
     // SpeechBalloonの初期設定
     $("#"+ key).css({
-        'min-width'         : '200px',
-        'min-height'        : '70px',
+        'width'         : '270px',
         'background-color'  : 'rgba(227,228,232,.6)',
-        'position'          : 'absolute',
-        'top'               : posY,
-        'left'              : posX,
-        // 'top'               : '10',
-        // 'left'              : '30'
+        'float'             : 'center'
+        // 'position'          : 'absolute',
+        // 'top'               : '10px',
+        // 'left'              : '300px'
+        // 'top'               : posY,
+        // 'left'              : posX,
     });
 
     if (!$(".pdfWrapper").hasClass('Inactive')) {
@@ -181,6 +181,8 @@ function onChildAddedMethod(msg, key) {
     }
 
     // setResultData(user, "chat");
+
+    $("Board").scrollTop(0)
 
 }
 

@@ -89,60 +89,60 @@ interact('.SpeechBalloon')
 
 
 // Resize
-.resizable({
+// .resizable({
 
-// resize from all edges and corners
-edges: { left: true, right: true, bottom: true, top: true },
+// // resize from all edges and corners
+// edges: { left: true, right: true, bottom: true, top: true },
 
-listeners: {
-    move (event) {
-    let target = event.target
-    let x = (parseFloat(target.getAttribute('data-x')) || 0)
-    let y = (parseFloat(target.getAttribute('data-y')) || 0)
-    let w = event.rect.width
-    let h = event.rect.height
-    let key = target.getAttribute('id')
+// listeners: {
+//     move (event) {
+//     let target = event.target
+//     let x = (parseFloat(target.getAttribute('data-x')) || 0)
+//     let y = (parseFloat(target.getAttribute('data-y')) || 0)
+//     let w = event.rect.width
+//     let h = event.rect.height
+//     let key = target.getAttribute('id')
 
-    // translate when resizing from top or left edges
-    x += event.deltaRect.left
-    y += event.deltaRect.top
+//     // translate when resizing from top or left edges
+//     x += event.deltaRect.left
+//     y += event.deltaRect.top
 
-    let size = {
-        tag     : "size",
-        user    : getUsernameFromSet(),
-        id      : key,
-        sizeW   : w,
-        sizeH   : h,
-        posX    : x,
-        posY    : y
-    }
+//     let size = {
+//         tag     : "size",
+//         user    : getUsernameFromSet(),
+//         id      : key,
+//         sizeW   : w,
+//         sizeH   : h,
+//         posX    : x,
+//         posY    : y
+//     }
 
-    const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/resize');
+//     const user = getUsernameFromSet();
+//     const dbRef = ref(db, user+'/self-order/interact/resize');
 
-    let newPostRef = push(dbRef);
-    set(newPostRef, size);
+//     let newPostRef = push(dbRef);
+//     set(newPostRef, size);
 
-    let variation = Math.floor(Math.round(event.rect.width) + Math.round(event.rect.height));
-    setResultData(user, "resize", variation);
-    setResultData(user, "variation", variation);
-    },
-},
+//     let variation = Math.floor(Math.round(event.rect.width) + Math.round(event.rect.height));
+//     setResultData(user, "resize", variation);
+//     setResultData(user, "variation", variation);
+//     },
+// },
 
-modifiers: [
-    // keep the edges inside the parent
-    interact.modifiers.restrictEdges({
-    outer: 'parent'
-    }),
+// modifiers: [
+//     // keep the edges inside the parent
+//     interact.modifiers.restrictEdges({
+//     outer: 'parent'
+//     }),
 
-    // minimum size
-    interact.modifiers.restrictSize({
-    min: { width: 100, height: 50 }
-    })
-],
+//     // minimum size
+//     interact.modifiers.restrictSize({
+//     min: { width: 100, height: 50 }
+//     })
+// ],
 
-inertia: true
-})
+// inertia: true
+// })
 
 
 // MouseDown
@@ -293,7 +293,7 @@ inertia: true
         case "SemanticSelectorBtn":
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
             $("#"+tap_id+" .SemanticCircle").toggleClass('Inactive')
-            console.log(tap_id);
+            // console.log(tap_id);
             event.preventDefault();
             break;
 
