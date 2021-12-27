@@ -453,8 +453,7 @@ header {
     background-color: rgba(151,150,188,.6);
 }
 
-
-.PointSelector {
+.EvalSelector {
     position: absolute;
     top: -10px;
     right: -110px;
@@ -463,7 +462,7 @@ header {
     flex-wrap: wrap;
     /* display: none; */
 }
-.PointCircle {
+.EvalCircle {
     width: 100px;
     height: 30px;
     margin: 5px;
@@ -475,10 +474,18 @@ header {
     font-weight: bold;
     border-radius: 10%;
 }
-.PointCircle:hover {
+.EvalCircle:hover {
     cursor: pointer;
     opacity: .5;
 }
+
+#useful {
+    background-color: rgba(246,230,131,.6);
+}
+#useless {
+    background-color: rgba(151,150,188,.6);
+}
+
 
 /* <---------------------------------------------------------------------------------------------------- Main : SpeechBalloon */
 
@@ -695,6 +702,10 @@ footer {
     /* border: 2px solid black; */
     margin: 10px 10px;
     background-color: white;
+}
+
+.EvalBtn {
+    display: none;
 }
 .CheckBtn {
     display: none;

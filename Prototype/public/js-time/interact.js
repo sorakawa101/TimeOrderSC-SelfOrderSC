@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderPointResult } from "./config.js";
+import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderEvalResult, dbRefRaterEvalResult } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, getChatTextFromSpeechBalloon, setResultData } from "./script.js";
 // ----------------------------------------------------------------------------------------------------> Import
@@ -193,8 +193,8 @@ interact('.SpeechBalloon')
                 $("#"+tap_id+" .SemanticCircle").toggleClass('Inactive')
             }
 
-            if (!$("#"+tap_id+" .PointCircle").hasClass('Inactive')) {
-                $("#"+tap_id+" .PointCircle").toggleClass('Inactive')
+            if (!$("#"+tap_id+" .EvalCircle").hasClass('Inactive')) {
+                $("#"+tap_id+" .EvalCircle").toggleClass('Inactive')
             }
 
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
@@ -279,16 +279,16 @@ interact('.SpeechBalloon')
             event.preventDefault();
             break;
 
-        case "PointSelectorBtn":
+        case "EvalSelectorBtn":
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
-            $("#"+tap_id+" .PointCircle").toggleClass('Inactive')
+            $("#"+tap_id+" .EvalCircle").toggleClass('Inactive')
             event.preventDefault();
             break;
 
-        case "PointCircle":
-            setPointData(tap_closest_id, tap_id); // ここのtap_idはPointCircleのidを指す
-            setInteractPointData(tap_closest_id, tap_id, getUsernameFromSet());
-            $("#"+tap_closest_id+" .PointCircle").toggleClass('Inactive')
+        case "EvalCircle":
+                setEvalForChatData(tap_closest_id, tap_id, getUsernameFromSet()); // ここのtap_idはEvalCircleのidを指す
+                setEvalData(tap_closest_id, tap_id);
+                $("#"+tap_closest_id+" .EvalCircle").toggleClass('Inactive')
             // console.log(tap_id.split('-point')[1]);
             event.preventDefault();
             break;
@@ -424,9 +424,22 @@ function onChildAddedMethod(info) {
         $("#"+info.id).css('border', 'solid 1px black');
 
     // SpeechBalloonに点数を付けた時
-    } else if (info.tag === "point") {
-        $("#"+info.id+" .PointBtn").html(info.point)
-        $("#"+info.id+" .PointBtn").css('display', 'inline')
+    } else if (info.tag === "eval") {
+
+        if (info.user === getUsernameFromSet()) {
+            // $("#"+info.id+" .EvalBtn").html(info.eval)
+            $("#"+info.id+" .EvalBtn").css('display', 'inline')
+
+            switch (info.eval) {
+                case "useful":
+                    $("#"+info.id+" .EvalBtn").css('background-color', 'rgba(246,230,131,.6)')
+                    break;
+                case "useless":
+                    $("#"+info.id+" .EvalBtn").css('background-color', 'rgba(151,150,188,.6)')
+                    break;
+                default:;
+            }
+        }
 
     } else {;}
 }
@@ -564,29 +577,32 @@ function setSemanticData(id, semantic, pre_semantic) {
 
 
 // RealtimeDatabase "recorder-point" にチャットの有用性を評価した得点をセット
-function setPointData(id, point, user) {
+function setEvalForChatData(id, eval_result, user) {
 
     const info = {
-        tag    : "point",
-        point  : point.split('point')[1],
+        tag    : "eval",
+        eval   : eval_result,
         id     : id
     }
 
-    if (user === "Rater1" || user === "Rater2" || user === "Rater3" || user === "Rater4") {
-        const dbRef = ref(db, "Point/time-order/rater-result/"+user+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
+    if (user === "Recorder1" || user === "Recorder2" || user === "Recorder3" || user === "笹川") {
+        remove(ref(db, "Eval/time-order/Recorder/"+user+'/useful/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+        remove(ref(db, "Eval/time-order/Recorder/"+user+'/useless/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+
+        const dbRef = ref(db, "Eval/time-order/Recorder/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef, info);
-    } else {
-        const dbRef = ref(db, "Point/time-order/recorder-result/"+getChatTextFromSpeechBalloon(id)+'  '+id);
+    } else if (user === "Rater1" || user === "Rater2" || user === "Rater3" || user === "Rater4") {
+        const dbRef = ref(db, "Eval/time-order/Rater/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef, info);
     }
 }
 
 // RealtimeDatabase "interact" にポイントデータをセット
-function setInteractPointData(id, point) {
+function setEvalData(id, eval_result) {
     const info = {
-        tag             : "point",
+        tag             : "eval",
         id              : id,
-        point           : point.split('point')[1],
+        eval            : eval_result,
         uname           : getUsernameFromInput(),
         user            : getUsernameFromSet(),
         time            : getNow(),
@@ -594,7 +610,7 @@ function setInteractPointData(id, point) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/time-order/interact/point');
+    const dbRef = ref(db, user+'/time-order/interact/eval');
 
     const newPostRef = push(dbRef);
     set(newPostRef, info);
@@ -661,9 +677,9 @@ function onChildChildAdded(dbRefInteractPath) {
         onChildAddedMethod(mouseup_info);
     });
 
-    onChildAdded(ref(db, dbRefInteractPath+'/point'), function(data) {
-        const point_info = data.val();
-        onChildAddedMethod(point_info);
+    onChildAdded(ref(db, dbRefInteractPath+'/eval'), function(data) {
+        const eval_info = data.val();
+        onChildAddedMethod(eval_info);
     });
 }
 

@@ -168,7 +168,7 @@ function onChildAddedMethod(msg, key) {
     $("#"+ key).css({
         'width'         : '270px',
         'background-color'  : 'rgba(227,228,232,.6)',
-        'float'             : 'center'
+        // 'float'             : 'center'
         // 'position'          : 'absolute',
         // 'top'               : '10px',
         // 'left'              : '300px'
