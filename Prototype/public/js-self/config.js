@@ -32,12 +32,12 @@ export const dbRefSetting = ref(db, "general/self-order/setting");
 export const dbRefUser = ref(db, "general/self-order/user");
 
 
-// RecorderPoint
-export const dbRefRecorderPointResult = ref(db, "Point/self-order/recorder-result");
+// RecorderEval
+export const dbRefRecorderEvalResult = ref(db, "Eval/self-order/Recorder");
 
 
-// RecorderPoint
-export const dbRefRaterPointResult = ref(db, "Point/self-order/rater-result");
+// RecorderEval
+export const dbRefRaterEvalResult = ref(db, "Eval/self-order/Rater");
 
 
 // Sum

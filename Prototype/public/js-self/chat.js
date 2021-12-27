@@ -50,7 +50,8 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
 
-    let point_btn = $("<button>", {class: 'PointBtn SelectorBtn HalfCircleBtn HintBtn', id: key});
+    let eval_btn = $("<button>", {class: 'EvalBtn SelectorBtn HalfCircleBtn HintBtn', id: key});
+        $("<span>", {class: 'fas fa-check'}).appendTo(eval_btn);
 
     let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
@@ -59,7 +60,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
         $("<span>", {class: 'Hint HintLeft', text: '削除'}).appendTo(trash_btn);
 
-    status_menu.append(point_btn, check_btn, trash_btn);
+    status_menu.append(eval_btn, check_btn, trash_btn);
 
 
     // Selector Menu : 編集ボタン / セマンティックタグ選択ボタン
@@ -72,11 +73,11 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
         $("<span>", {class: 'Hint HintRight', text: '意図'}).appendTo(semantic_selector_btn);
-    let recorder_point_selector_btn = $("<button>", {class: 'RecorderPointSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
-        $("<span>", {class: 'fab fa-product-hunt fa-2x'}).appendTo(recorder_point_selector_btn);
-        $("<span>", {class: 'Hint HintRight', text: '点数'}).appendTo(recorder_point_selector_btn);
+    let eval_selector_btn = $("<button>", {class: 'EvalSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
+        $("<span>", {class: 'fab fa-product-hunt fa-2x'}).appendTo(eval_selector_btn);
+        $("<span>", {class: 'Hint HintRight', text: '評価'}).appendTo(eval_selector_btn);
 
-    selector_menu.append(edit_btn, semantic_selector_btn, recorder_point_selector_btn);
+    selector_menu.append(edit_btn, semantic_selector_btn, eval_selector_btn);
 
 
     // Semantic : セマンティックタグの選択欄
@@ -92,15 +93,12 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "解答"}).appendTo(semantic_selector);
 
 
-    // RecorderPoint : チャットの有用性の得点
+    // Eval : チャットの有用性
 
-    let recorder_point_selector = $("<div>", {class: 'RecorderPointSelector'}).appendTo(speech_balloon);
+    let eval_selector = $("<div>", {class: 'EvalSelector'}).appendTo(speech_balloon);
 
-    $("<button>", {class: 'RecorderPointCircle Inactive', id: 'recorder-point5', text: "5"}).appendTo(recorder_point_selector);
-    $("<button>", {class: 'RecorderPointCircle Inactive', id: 'recorder-point4', text: "4"}).appendTo(recorder_point_selector);
-    $("<button>", {class: 'RecorderPointCircle Inactive', id: 'recorder-point3', text: "3"}).appendTo(recorder_point_selector);
-    $("<button>", {class: 'RecorderPointCircle Inactive', id: 'recorder-point2', text: "2"}).appendTo(recorder_point_selector);
-    $("<button>", {class: 'RecorderPointCircle Inactive', id: 'recorder-point1', text: "1"}).appendTo(recorder_point_selector);
+    $("<button>", {class: 'EvalCircle Inactive', id: 'useful', text: "有用"}).appendTo(eval_selector);
+    $("<button>", {class: 'EvalCircle Inactive', id: 'useless', text: "無用"}).appendTo(eval_selector);
 
 
     // Who : 誰がそのSpeechBalloonを操作しているか

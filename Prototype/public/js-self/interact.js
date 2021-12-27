@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderPointResult } from "./config.js";
+import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderEvalResult } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, getChatTextFromSpeechBalloon, setResultData } from "./script.js";
 
@@ -217,8 +217,8 @@ inertia: true
             if (!$("#"+tap_id+" .SemanticCircle").hasClass('Inactive')) {
                 $("#"+tap_id+" .SemanticCircle").toggleClass('Inactive')
             }
-            if (!$("#"+tap_id+" .RecorderPointCircle").hasClass('Inactive')) {
-                $("#"+tap_id+" .RecorderPointCircle").toggleClass('Inactive')
+            if (!$("#"+tap_id+" .EvalCircle").hasClass('Inactive')) {
+                $("#"+tap_id+" .EvalCircle").toggleClass('Inactive')
             }
 
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
@@ -304,16 +304,16 @@ inertia: true
             event.preventDefault();
             break;
 
-        case "RecorderPointSelectorBtn":
+        case "EvalSelectorBtn":
             $("#"+tap_id+" .SelectorBtn").toggleClass('Inactive')
-            $("#"+tap_id+" .RecorderPointCircle").toggleClass('Inactive')
+            $("#"+tap_id+" .EvalCircle").toggleClass('Inactive')
             event.preventDefault();
             break;
 
-        case "RecorderPointCircle":
-            setRecorderPointData(tap_closest_id, tap_id, getUsernameFromSet()); // ここのtap_idはRecorderPointCircleのidを指す
-            setPointData(tap_closest_id, tap_id);
-            $("#"+tap_closest_id+" .RecorderPointCircle").toggleClass('Inactive')
+        case "EvalCircle":
+            setEvalForChatData(tap_closest_id, tap_id, getUsernameFromSet()); // ここのtap_idはEvalCircleのidを指す
+            setEvalData(tap_closest_id, tap_id);
+            $("#"+tap_closest_id+" .EvalCircle").toggleClass('Inactive')
             // console.log(tap_id.split('recorder-point')[1]);
             event.preventDefault();
             break;
@@ -476,9 +476,22 @@ function onChildAddedMethod(info) {
 
 
     // SpeechBalloonに点数を付けた時
-    } else if (info.tag === "point") {
-        $("#"+info.id+" .PointBtn").html(info.point)
-        $("#"+info.id+" .PointBtn").css('display', 'inline')
+    } else if (info.tag === "eval") {
+
+        if (info.user === getUsernameFromSet()) {
+        // $("#"+info.id+" .EvalBtn").html(info.eval)
+        $("#"+info.id+" .EvalBtn").css('display', 'inline')
+
+        switch (info.eval) {
+            case "useful":
+                $("#"+info.id+" .EvalBtn").css('background-color', 'rgba(246,230,131,.6)')
+                break;
+            case "useless":
+                $("#"+info.id+" .EvalBtn").css('background-color', 'rgba(151,150,188,.6)')
+                break;
+            default:;
+        }
+        }
 
     } else {;}
 }
@@ -618,29 +631,32 @@ function setSemanticData(id, semantic, pre_semantic) {
 
 
 // RealtimeDatabase "recorder-point" にチャットの有用性を評価した得点をセット
-function setRecorderPointData(id, recorder_point, user) {
+function setEvalForChatData(id, eval_result, user) {
 
     const info = {
-        tag    : "point",
-        point  : recorder_point.split('point')[1],
+        tag    : "eval",
+        eval   : eval_result,
         id     : id
     }
 
-    if (user === "Rater1" || user === "Rater2" || user === "Rater3" || user === "Rater4") {
-        const dbRef = ref(db, "Point/self-order/rater-result/"+user+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
+    if (user === "Recorder1" || user === "Recorder2" || user === "Recorder3" || user === "笹川") {
+        remove(ref(db, "Eval/self-order/Recorder/"+user+'/useful/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+        remove(ref(db, "Eval/self-order/Recorder/"+user+'/useless/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+
+        const dbRef = ref(db, "Eval/self-order/Recorder/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef, info);
-    } else {
-        const dbRef = ref(db, "Point/self-order/recorder-result/"+getChatTextFromSpeechBalloon(id)+'  '+id);
+    } else if (user === "Rater1" || user === "Rater2" || user === "Rater3" || user === "Rater4") {
+        const dbRef = ref(db, "Eval/self-order/Rater/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef, info);
     }
 }
 
 // RealtimeDatabase "interact" にポイントデータをセット
-function setPointData(id, point) {
+function setEvalData(id, point) {
     const info = {
-        tag             : "point",
+        tag             : "eval",
         id              : id,
-        point           : point.split('point')[1],
+        eval            : point,
         uname           : getUsernameFromInput(),
         user            : getUsernameFromSet(),
         time            : getNow(),
@@ -648,7 +664,7 @@ function setPointData(id, point) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/point');
+    const dbRef = ref(db, user+'/self-order/interact/eval');
 
     const newPostRef = push(dbRef);
     set(newPostRef, info);
@@ -725,9 +741,9 @@ function onChildChildAdded(dbRefInteractPath) {
         onChildAddedMethod(mouseup_info);
     });
 
-    onChildAdded(ref(db, dbRefInteractPath+'/point'), function(data) {
-        const point_info = data.val();
-        onChildAddedMethod(point_info);
+    onChildAdded(ref(db, dbRefInteractPath+'/eval'), function(data) {
+        const eval_info = data.val();
+        onChildAddedMethod(eval_info);
     });
 }
 
