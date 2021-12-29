@@ -212,17 +212,19 @@ export function setChatData() {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/chat');
+    const dbRef_general = dbRefChat;
+    const dbRef_user = ref(db, user+'/self-order/chat');
 
-    const newPostRef = push(dbRef); // ユニークキーを生成
-    const newPostKey = newPostRef.key; // ユニークキーを取得
+    const newPostRef_general = push(dbRef_general); // ユニークキーを生成
+    const newPostKey_general = newPostRef_general.key; // ユニークキーを取得
+    const newPostRef_user = push(dbRef_user);
 
-    set(newPostRef, msg); // ユニークキーを使ってデータをセット
+    set(newPostRef_general, msg); // ユニークキーを使ってデータをセット
+    set(newPostRef_user, msg);
 
-    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey_general); // RealtimeDatabase "log" にチャットデータをセット
 
     setResultData(user, "chat");
-
 }
 
 
@@ -237,59 +239,4 @@ onChildAdded(dbRefChat,function(data) {
     onChildAddedMethod(msg, key);
 });
 
-onChildAdded(dbRefChat1,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat2,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat3,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat4,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat5,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat6,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat7,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat8,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
 // ----------------------------------------------------------------------------------------------------> FIrebase
