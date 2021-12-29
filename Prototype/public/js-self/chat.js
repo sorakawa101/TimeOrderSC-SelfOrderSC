@@ -213,14 +213,14 @@ export function setChatData() {
 
     const user = getUsernameFromSet();
     const dbRef_general = dbRefChat;
-    const dbRef_user = ref(db, user+'/self-order/chat');
 
     const newPostRef_general = push(dbRef_general); // ユニークキーを生成
     const newPostKey_general = newPostRef_general.key; // ユニークキーを取得
-    const newPostRef_user = push(dbRef_user);
+
+    const dbRef_user = ref(db, user+'/self-order/chat/'+msg.text+'  '+newPostKey_general);
 
     set(newPostRef_general, msg); // ユニークキーを使ってデータをセット
-    set(newPostRef_user, msg);
+    set(dbRef_user, msg);
 
     setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey_general); // RealtimeDatabase "log" にチャットデータをセット
 
