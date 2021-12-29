@@ -170,7 +170,7 @@ function onChildAddedMethod(msg, key) {
         'background-color'  : 'rgba(227,228,232,.6)',
         // 'float'             : 'center'
         // 'position'          : 'absolute',
-        // 'top'               : '10px',
+        // 'top'               : '100px',
         // 'left'              : '300px'
         // 'top'               : posY,
         // 'left'              : posX,

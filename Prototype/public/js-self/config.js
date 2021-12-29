@@ -11,10 +11,11 @@ export const member = ['笹川', 'Recorder1','Recorder2', 'Recorder3', 'Rater1',
 export const firebaseConfig = {
     apiKey: "AIzaSyCDNnO-91JzJRKOjXLZGGKOuwip2Op3p70",
     authDomain: "prototype-96226.firebaseapp.com",
+    databaseURL: "https://prototype-96226-default-rtdb.firebaseio.com",
     projectId: "prototype-96226",
     storageBucket: "prototype-96226.appspot.com",
     messagingSenderId: "690970283986",
-    appId: "1:690970283986:web:dadf1cb10b32b56db6420b"
+    appId: "1:690970283986:web:fcff03b66d8768a5b6420b"
 };
 
 
