@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
     integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/to-style.css">
+    <link rel="stylesheet" href="./css/style-time.css">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     <header>
         <!-- <div class="container"> -->
             <div class="header-left">
-                <a class="logo" href="so-index.html">TimeOrderSC -GroupD-</a>
+                <a class="logo" href="index-self.html">TimeOrderSC -GroupD-</a>
                 <span class="now-user now">ユーザー："undefined"</span>
                 <!-- <span class="now-board now">現在のボード："BOARD1"</span> -->
             </div>
@@ -28,21 +28,29 @@
 
                 <select type="example" class="Set SetNum" id="set-username">
                     <option value="undefined"></option>
-                    <!-- <option value="橋山">橋山</option> -->
-                    <!-- <option value="松原">松原</option> -->
-                    <option value="池田">池田</option>
-                    <!-- <option value="荻野">荻野</option> -->
-                    <option value="Ni">Ni</option>
-                    <!-- <option value="前本">前本</option> -->
-                    <!-- <option value="安岡">安岡</option> -->
-                    <!-- <option value="植田">植田</option> -->
-                    <option value="小林">小林</option>
-                    <!-- <option value="後藤">後藤</option> -->
-                    <!-- <option value="小川">小川</option> -->
                     <option value="笹川">笹川</option>
-                    <!-- <option value="堤">堤</option> -->
-                    <!-- <option value="林">林</option> -->
-                    <!-- <option value="名執">名執</option> -->
+                    <option value="前本">前本</option>
+                    <option value="後藤">後藤</option>
+                    <option value="堤">堤</option>
+                    <option value="出口">出口</option>
+                    <option value="永井">永井</option>
+                    <option value="名執">名執</option>
+                    <option value="東川">東川</option>
+                    <!-- <option value="橋山">橋山</option>
+                    <option value="池田">池田</option>
+                    <option value="池田">池田</option>
+                    <option value="荻野">荻野</option>
+                    <option value="荻野">荻野</option>
+                    <option value="前本">前本</option>
+                    <option value="安岡">安岡</option>
+                    <option value="植田">植田</option>
+                    <option value="小植田">小植田</option>
+                    <option value="後藤">後藤</option>
+                    <option value="小川">小川</option>
+                    <option value="笹川">笹川</option>
+                    <option value="堤">堤</option>
+                    <option value="植田">植田</option>
+                    <option value="名執">名執</option> -->
                 </select>
 
                 <button class="Btn MenuBtn SetMenuBtn" id="set-btn">SET</button>
@@ -52,8 +60,9 @@
                         <li class="DocOpen" id="doc2-open"><a href="#">操作説明</a></li>
                         <li class="DocOpen" id="doc3-open"><a href="#">必須操作</a></li>
                         <li class="DocOpen" id="doc4-open"><a href="#">実験説明</a></li>
-                        <li class="DocOpen" id="doc5-open"><a href="#">練習</a></li>
-                        <li class="DocOpen" id="doc6-open"><a href="#">本番</a></li>
+                        <li class="DocOpen" id="doc5-open"><a href="#">練習課題</a></li>
+                        <li class="DocOpen" id="doc6-open"><a href="#">本番課題</a></li>
+                        <li class="DocOpen" id="doc7-open"><a href="#">予備課題</a></li>
                     </ul>
                 </button>
                 <!-- <button class="Btn MenuBtn BoardMenuBtn"> BOARD
@@ -69,7 +78,12 @@
                 <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
-                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET
+                    <ul class="DropDownMenu">
+                        <li class="ResetOpen" id="all-reset"><a href="#">全DB</a></li>
+                        <li class="ResetOpen" id="point-reset"><a href="#">評価DB</a></li>
+                    </ul>
+                </button> -->
             </div>
         <!-- </div> -->
     </header>
@@ -82,8 +96,9 @@
             <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
             <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
             <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc5" src="./src/practice/p1.pdf" ></iframe>
-            <iframe class="Doc Inactive" id="doc6" src="./src/question/q3.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc6" src="./src/question/q8.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc7" src="./src/spare/s2.pdf" ></iframe>
         </div>
 
         <div class="MsgWrapper">
@@ -147,15 +162,15 @@
     <!-- javascript & Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
-    <script type="module" src="to-js/script.js"></script>
-    <script type="module" src="to-js/chat.js"></script>
-    <script type="module" src="to-js/interact.js"></script>
-    <script type="module" src="to-js/log.js"></script>
-    <script type="module" src="to-js/setting.js"></script>
-    <script type="module" src="to-js/voice-input.js"></script>
-    <script type="module" src="to-js/config.js"></script>
+    <script type="module" src="js-time/script.js"></script>
+    <script type="module" src="js-time/chat.js"></script>
+    <script type="module" src="js-time/interact.js"></script>
+    <script type="module" src="js-time/log.js"></script>
+    <script type="module" src="js-time/setting.js"></script>
+    <script type="module" src="js-time/voice-input.js"></script>
+    <script type="module" src="js-time/config.js"></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
-    <script type="module" src="to-js/init-tinymce.js"></script>
+    <script type="module" src="js-time/init-tinymce.js"></script>
 
 </body>
 </html>

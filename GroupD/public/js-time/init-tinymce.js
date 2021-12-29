@@ -3,7 +3,7 @@
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting } from "./config.js";
-import { getUsernameFromInput } from "./script.js";
+import { getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
 
@@ -16,7 +16,7 @@ tinyMCE.init({
     // language_url: "../js/tinymce/langs/ja.js",
     plugins: " table lists advlist link wordcount emoticons image insertdatetime",
     menubar: false,
-    toolbar: ['undo redo | bold italic | forecolor backcolor | fontsizeselect | styleselect | numlist bullist | emoticons |  image | table | link | insertdatetime'],
+    toolbar: ['undo redo | bold italic | forecolor backcolor | emoticons | fontsizeselect | styleselect |'],
     fontsize_formats: '10px 12px 14px 16px 18px 20px 24px 34px',
     width: 360,
     height: 280,
@@ -55,8 +55,13 @@ function setFocusIn() {
         who : getUsernameFromInput(),
     }
 
-    let newPostRef = push(dbRefInteract);
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/time-order/interact/focusin');
+
+    const newPostRef = push(dbRef);
     set(newPostRef, mouse);
+    setResultData(user, "focusin");
+    setResultData(user, "mouse");
     // console.log('setFocusIn');
 }
 
@@ -68,7 +73,12 @@ function setFocusOut() {
         who : getUsernameFromInput(),
     }
 
-    let newPostRef = push(dbRefInteract);
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/time-order/interact/focusout');
+
+    const newPostRef = push(dbRef);
     set(newPostRef, mouse);
+    setResultData(user, "focusout");
+    setResultData(user, "mouse");
     // console.log('setFocusOut');
 }
