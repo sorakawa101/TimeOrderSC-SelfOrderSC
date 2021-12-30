@@ -12,9 +12,9 @@ import {firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchiv
 // Method <----------------------------------------------------------------------------------------------------
 
 // ChatLogを追加
-function genChatLog(uname, time, board, id) {
+function genChatLog(user, time, board, id) {
     let chatLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを送信しました"}).appendTo(chatLogContent)
+    let txt = $("<p>", {text: board+"で"+user+"がChatを送信しました"}).appendTo(chatLogContent)
     $("<span>", {text: "●  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time.slice(0,5)}).appendTo(chatLogContent)
     $(".Log").append(chatLogContent)
@@ -22,9 +22,9 @@ function genChatLog(uname, time, board, id) {
 
 
 // RewriteLogを追加
-function genRewriteLog(uname, time, board, id) {
+function genRewriteLog(user, time, board, id) {
     let rewriteLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを編集しました"}).appendTo(rewriteLogContent)
+    let txt = $("<p>", {text: board+"で"+user+"がChatを編集しました"}).appendTo(rewriteLogContent)
     $("<span>", {text: "○  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time.slice(0,5)}).appendTo(rewriteLogContent)
     $(".Log").append(rewriteLogContent)
@@ -32,9 +32,9 @@ function genRewriteLog(uname, time, board, id) {
 
 
 // SemanticLogを追加
-function genSemanticLog(uname, time, board, semantic, rgba, id) {
+function genSemanticLog(user, time, board, semantic, rgba, id) {
     let semanticLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+'で'+uname+'が"'+semantic+'"をタグ付けしました'}).appendTo(semanticLogContent)
+    let txt = $("<p>", {text: board+'で'+user+'が"'+semantic+'"をタグ付けしました'}).appendTo(semanticLogContent)
     $("<span>", {text: "●  "}).css({'color':rgba, 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time.slice(0,5)}).appendTo(semanticLogContent)
     $(".Log").append(semanticLogContent)
@@ -42,9 +42,9 @@ function genSemanticLog(uname, time, board, semantic, rgba, id) {
 
 
 // RemovedLogを追加
-function genRemovedLog(uname, time, board, id) {
+function genRemovedLog(user, time, board, id) {
     let removedLogContent = $("<div>", {class: 'LogContent'}).addClass('LogContent'+id)
-    let txt = $("<p>", {text: board+"で"+uname+"がChatを削除しました"}).appendTo(removedLogContent)
+    let txt = $("<p>", {text: board+"で"+user+"がChatを削除しました"}).appendTo(removedLogContent)
     $("<span>", {text: "▲  "}).css({'color':'rgba(0,0,0,.8)', 'font-size':'.8rem'}).prependTo(txt)
     $("<p>", {text: time.slice(0,5)}).appendTo(removedLogContent)
     $(".Log").append(removedLogContent)
@@ -62,13 +62,13 @@ function genRemovedLog(uname, time, board, id) {
 // Firebase <----------------------------------------------------------------------------------------------------
 
 // RealtimeDatabase "log" にデータをセット
-export function setLogData(tag, uname, time, text, board, semantic, id) {
+export function setLogData(tag, user, time, text, board, semantic, id) {
 
     if (tag === "post") {
 
         const post_log = {
             tag     : "post_log",
-            uname   : uname,
+            user    : user,
             time    : time,
             text    : text,
             board   : board,
@@ -82,7 +82,7 @@ export function setLogData(tag, uname, time, text, board, semantic, id) {
 
         const rewrite_log = {
             tag     : "rewrite_log",
-            uname   : uname,
+            user    : user,
             time    : time,
             text    : text,
             board   : board,
@@ -96,7 +96,7 @@ export function setLogData(tag, uname, time, text, board, semantic, id) {
 
         const semantic_log = {
             tag         : "semantic_log",
-            uname       : uname,
+            user       : user,
             time        : time,
             semantic    : semantic,
             board       : board,
@@ -109,7 +109,7 @@ export function setLogData(tag, uname, time, text, board, semantic, id) {
     } else if (tag === "removed") {
         const removed_log = {
             tag     : "removed_log",
-            uname   : uname,
+            user    : user,
             time    : time,
             text    : text,
             board   : board,
@@ -128,9 +128,9 @@ onChildAdded(dbRefLog,function(data) {
     const log = data.val();
     const key = data.key; // ユニークキーを取得
 
-    if (log.tag === "post_log") { genChatLog(log.uname, log.time, log.board, log.id); }
+    if (log.tag === "post_log") { genChatLog(log.user, log.time, log.board, log.id); }
 
-    else if (log.tag === "rewrite_log") { genRewriteLog(log.uname, log.time, log.board, log.id); }
+    else if (log.tag === "rewrite_log") { genRewriteLog(log.user, log.time, log.board, log.id); }
 
     else if (log.tag === "semantic_log") {
 
@@ -138,29 +138,29 @@ onChildAdded(dbRefLog,function(data) {
             case "none":
                 break;
             case "important":
-                genSemanticLog(log.uname, log.time, log.board, "重要", 'rgba(255,105,98,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "重要", 'rgba(255,105,98,.8)', log.id);
                 break;
             case "facilitation":
-                genSemanticLog(log.uname, log.time, log.board, "進行", 'rgba(136,196,228,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "進行", 'rgba(136,196,228,.8)', log.id);
                 break;
             case "question":
-                genSemanticLog(log.uname, log.time, log.board, "質疑", 'rgba(255,175,104,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "質疑", 'rgba(255,175,104,.8)', log.id);
                 break;
             case "response":
-                genSemanticLog(log.uname, log.time, log.board, "応答", 'rgba(192,231,197,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "応答", 'rgba(192,231,197,.8)', log.id);
                 break;
             case "note":
-                genSemanticLog(log.uname, log.time, log.board, "メモ", 'rgba(246,230,131,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "メモ", 'rgba(246,230,131,.8)', log.id);
                 break;
             case "answer":
-                genSemanticLog(log.uname, log.time, log.board, "解答", 'rgba(151,150,188,.8)', log.id);
+                genSemanticLog(log.user, log.time, log.board, "解答", 'rgba(151,150,188,.8)', log.id);
                 break;
             default:
                 ;
         }
     }
 
-    else if (log.tag === "removed_log") { genRemovedLog(log.uname, log.time, log.board, log.id); }
+    else if (log.tag === "removed_log") { genRemovedLog(log.user, log.time, log.board, log.id); }
 
     else {;}
 });

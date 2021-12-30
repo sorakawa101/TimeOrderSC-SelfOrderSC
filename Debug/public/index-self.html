@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>SelfOrderSC -Debug-</title>
+    <title>SelfOrderSC -GroupA-</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
     integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/so-style.css">
+    <link rel="stylesheet" href="./css/style-self.css">
 </head>
 
 <body>
@@ -15,9 +15,9 @@
     <header>
         <!-- <div class="container"> -->
             <div class="header-left">
-                <a class="logo" href="index.html">SelfOrderSC -Debug-</a>
-                <span class="now-user now">現在のユーザー："undefined""</span>
-                <span class="now-board now">現在のボード："BOARD1"</span>
+                <a class="logo" href="index.html">SelfOrderSC -GroupA-</a>
+                <span class="now-user now">ユーザー："undefined""</span>
+                <span class="now-board now">ボード："BOARD1"</span>
             </div>
 
             <div class="header-right">
@@ -28,21 +28,30 @@
 
                 <select type="example" class="Set SetNum" id="set-username">
                     <option value="undefined"></option>
-                    <option value="橋山">橋山</option>
+                    <option value="笹川">笹川</option>
                     <option value="松原">松原</option>
-                    <option value="池田">池田</option>
-                    <option value="荻野">荻野</option>
                     <option value="Ni">Ni</option>
+                    <option value="林">林</option>
+                    <option value="出口">出口</option>
+                    <option value="永井">永井</option>
+                    <option value="名執">名執</option>
+                    <option value="東川">東川</option>
+
+                    <!-- <option value="橋山">橋山</option>
+                    <option value="池田">池田</option>
+                    <option value="池田">池田</option>
+                    <option value="ni">ni</option>
+                    <option value="ni">ni</option>
                     <option value="前本">前本</option>
                     <option value="安岡">安岡</option>
                     <option value="植田">植田</option>
-                    <option value="小林">小林</option>
+                    <option value="小植田">小植田</option>
                     <option value="後藤">後藤</option>
                     <option value="小川">小川</option>
                     <option value="笹川">笹川</option>
                     <option value="堤">堤</option>
-                    <option value="林">林</option>
-                    <option value="名執">名執</option>
+                    <option value="植田">植田</option>
+                    <option value="名執">名執</option> -->
                 </select>
 
                 <button class="Btn MenuBtn SetMenuBtn" id="set-btn">SET</button>
@@ -52,8 +61,9 @@
                         <li class="DocOpen" id="doc2-open"><a href="#">操作説明</a></li>
                         <li class="DocOpen" id="doc3-open"><a href="#">必須操作</a></li>
                         <li class="DocOpen" id="doc4-open"><a href="#">実験説明</a></li>
-                        <li class="DocOpen" id="doc5-open"><a href="#">練習</a></li>
-                        <li class="DocOpen" id="doc6-open"><a href="#">本番</a></li>
+                        <li class="DocOpen" id="doc5-open"><a href="#">練習課題</a></li>
+                        <li class="DocOpen" id="doc6-open"><a href="#">本番課題</a></li>
+                        <li class="DocOpen" id="doc7-open"><a href="#">予備課題</a></li>
                     </ul>
                 </button>
                 <button class="Btn MenuBtn BoardMenuBtn"> BOARD
@@ -66,17 +76,39 @@
                         <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
                     </ul>
                 </button>
-                <button class="Btn MenuBtn SideMenuBtn">SIDE</button>
+                <button class="Btn MenuBtn SideMenuBtn">SIDE
+                    <ul class="DropDownMenu">
+                        <li class="SideOpen" id="side1-open"><a href="#">Log</a></li>
+                        <li class="SideOpen" id="side2-open"><a href="#">練習課題</a></li>
+                        <li class="SideOpen" id="side3-open"><a href="#">本番課題</a></li>
+                        <li class="SideOpen" id="side4-open"><a href="#">予備課題</a></li>
+                    </ul>
+                </button>
                 <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
                 <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
                 <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
-                <button class="Btn MenuBtn ResetMenuBtn">RESET</button>
+                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET
+                    <ul class="DropDownMenu">
+                        <li class="ResetOpen" id="all-reset"><a href="#">全DB</a></li>
+                        <li class="ResetOpen" id="point-reset"><a href="#">評価DB</a></li>
+                    </ul>
+                </button> -->
             </div>
         <!-- </div> -->
     </header>
 
     <!-- コンテンツ表示画面 -->
     <div class="MainWrapper">
+
+        <div class="pdfWrapper Inactive">
+            <iframe class="Doc Inactive" id="doc1" src="./src/program.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc6" src="./src/question/q2.pdf" ></iframe>
+            <iframe class="Doc Inactive" id="doc7" src="./src/spare/s1.pdf" ></iframe>
+        </div>
 
         <div class="MsgWrapper">
             <div id="board1" class="Board Active"></div>
@@ -89,25 +121,22 @@
 
     </div>
 
-    <div class="pdfWrapper Inactive">
-        <iframe class="Doc Inactive" id="doc1" src="./src/program.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc2" src="./src/manual.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc3" src="./src/operation.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc5" src="./src/practice/p2.pdf" ></iframe>
-        <iframe class="Doc Inactive" id="doc6" src="./src/question/q4.pdf" ></iframe>
-    </div>
-
 
     <div class="Side Inactive">
 
     <div class="SideWrapper">
 
-        <div class="LogWrapper ">
+        <div class="LogWrapper Inactive" id="log-wrapper">
             <div class="Log" id="log"></div>
         </div>
 
-        <div class="InputWrapper ">
+        <div class="QuestionWrapper">
+            <iframe class="MiniDoc" id="mini-doc-p" src="./src/practice/p2.pdf#zoom=40&toolbar=0&navpanes=0"></iframe>
+            <iframe class="MiniDoc Inactive" id="mini-doc-q" src="./src/question/q2.pdf#zoom=40&toolbar=0&navpanes=0"></iframe>
+            <iframe class="MiniDoc Inactive" id="mini-doc-s" src="./src/spare/s1.pdf#zoom=40&toolbar=0&navpanes=0"></iframe>
+        </div>
+
+        <div class="InputWrapper">
 
             <form id="input-form" class="InputForm" action="#" method="GET">
 
@@ -151,15 +180,15 @@
     <!-- javascript & Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
-    <script type="module" src="so-js/script.js"></script>
-    <script type="module" src="so-js/chat.js"></script>
-    <script type="module" src="so-js/interact.js"></script>
-    <script type="module" src="so-js/log.js"></script>
-    <script type="module" src="so-js/setting.js"></script>
-    <script type="module" src="so-js/voice-input.js"></script>
-    <script type="module" src="so-js/config.js"></script>
+    <script type="module" src="js-self/script.js"></script>
+    <script type="module" src="js-self/chat.js"></script>
+    <script type="module" src="js-self/interact.js"></script>
+    <script type="module" src="js-self/log.js"></script>
+    <script type="module" src="js-self/setting.js"></script>
+    <script type="module" src="js-self/voice-input.js"></script>
+    <script type="module" src="js-self/config.js"></script>
     <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
-    <script type="module" src="so-js/init-tinymce.js"></script>
+    <script type="module" src="js-self/init-tinymce.js"></script>
 
 </body>
 </html>

@@ -1,10 +1,10 @@
 // Import <----------------------------------------------------------------------------------------------------
 
-import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
+import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { firebaseConfig, app, db, dbRefChat, dbRefInteract, dbRefLog, dbRefArchive, dbRefSetting, dbRefUser } from "./config.js";
+import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6, dbRefChat7, dbRefChat8 } from "./config.js";
 import { setLogData } from "./log.js";
-import { getNow, getUsernameFromInput, getUsernameFromSet } from "./script.js";
+import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
 
 // ----------------------------------------------------------------------------------------------------> Import
@@ -46,9 +46,12 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
 
 
-    // Status Menu : 既読ボタン / 削除ボタン
+    // Status Menu : 点数ボタン / 既読ボタン / 削除ボタン
 
     let status_menu = $("<div>", {class: 'StatusMenu', id: key}).appendTo(speech_balloon);
+
+    let eval_btn = $("<button>", {class: 'EvalBtn SelectorBtn HalfCircleBtn HintBtn', id: key});
+        $("<span>", {class: 'fas fa-check'}).appendTo(eval_btn);
 
     let check_btn = $("<button>", {class: 'CheckBtn SelectorBtn HalfCircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'fas fa-check'}).appendTo(check_btn);
@@ -57,7 +60,7 @@ function genSpeechBalloon(uname, time, txt, board, key) {
         $("<span>", {class: 'fas fa-times'}).appendTo(trash_btn);
         $("<span>", {class: 'Hint HintLeft', text: '削除'}).appendTo(trash_btn);
 
-    status_menu.append(check_btn, trash_btn);
+    status_menu.append(eval_btn, check_btn, trash_btn);
 
 
     // Selector Menu : 編集ボタン / セマンティックタグ選択ボタン
@@ -70,8 +73,11 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     let semantic_selector_btn = $("<button>", {class: 'SemanticSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
         $("<span>", {class: 'far fa-comment-dots fa-2x'}).appendTo(semantic_selector_btn);
         $("<span>", {class: 'Hint HintRight', text: '意図'}).appendTo(semantic_selector_btn);
+    let eval_selector_btn = $("<button>", {class: 'EvalSelectorBtn SelectorBtn CircleBtn HintBtn Inactive', id: key});
+        $("<span>", {class: 'fab fa-product-hunt fa-2x'}).appendTo(eval_selector_btn);
+        $("<span>", {class: 'Hint HintRight', text: '評価'}).appendTo(eval_selector_btn);
 
-    selector_menu.append(edit_btn, semantic_selector_btn);
+    selector_menu.append(edit_btn, semantic_selector_btn, eval_selector_btn);
 
 
     // Semantic : セマンティックタグの選択欄
@@ -87,9 +93,17 @@ function genSpeechBalloon(uname, time, txt, board, key) {
     $("<button>", {class: 'SemanticCircle Inactive', id: 'answer', text: "解答"}).appendTo(semantic_selector);
 
 
+    // Eval : チャットの有用性
+
+    let eval_selector = $("<div>", {class: 'EvalSelector'}).appendTo(speech_balloon);
+
+    $("<button>", {class: 'EvalCircle Inactive', id: 'useful', text: "有用"}).appendTo(eval_selector);
+    $("<button>", {class: 'EvalCircle Inactive', id: 'useless', text: "無用"}).appendTo(eval_selector);
+
+
     // Who : 誰がそのSpeechBalloonを操作しているか
 
-    $("<span>", {class: 'Who Inactive', text: '匿名'}).appendTo(speech_balloon);
+    $("<span>", {class: 'Who WhoTop Inactive', text: '匿名'}).appendTo(speech_balloon);
 
     // Text : 送信したメッセージ
 
@@ -107,6 +121,68 @@ function genSpeechBalloon(uname, time, txt, board, key) {
 
     // $(".Board.Active").append(speech_balloon);
     $("#"+board).append(speech_balloon);
+
+}
+
+
+function onChildAddedMethod(msg, key) {
+
+    const posX = Number(msg.time.slice(7))*20;
+    const posY = Number(msg.time.slice(7))%4*40;
+
+
+    genSpeechBalloon(msg.uname, msg.time, msg.text, msg.board, key); // SpeechBalloonを生成
+
+    // 送信したら入力されたテキストを削除
+    // let textForm = document.getElementById("uname");
+    //     textForm.value = '';
+    if (msg.text === tinyMCE.get("text").getContent()) {
+        tinyMCE.get("text").setContent('');
+    }
+
+    // "練習スタート"が送信されたらテストのPDFをクリックできるようになる
+    if (msg.text === "練習スタート"){
+        unlockDoc("doc5");
+        unlockDoc("mini-doc-p");
+    }
+
+    // "本番スタート"が送信されたら本番のPDFをクリックできるようになる
+    if (msg.text === "本番スタート"){
+        unlockDoc("doc6");
+        unlockDoc("mini-doc-q");
+    }
+
+    // "予備スタート"が送信されたら予備のPDFをクリックできるようになる
+    if (msg.text === "予備スタート"){
+        unlockDoc("doc7");
+        unlockDoc("mini-doc-s");
+    }
+
+    // "lock"が送信されたらPDFをクリックできなくなる
+    if(msg.text === "lock") {
+        lockDoc();
+    }
+
+
+    // SpeechBalloonの初期設定
+    $("#"+ key).css({
+        'width'         : '270px',
+        'background-color'  : 'rgba(227,228,232,.6)',
+        // 'float'             : 'center'
+        // 'position'          : 'absolute',
+        // 'top'               : '10px',
+        // 'left'              : '300px'
+        // 'top'               : posY,
+        // 'left'              : posX,
+    });
+
+    if (!$(".pdfWrapper").hasClass('Inactive')) {
+        $("#"+ key).css('left', '580')
+    }
+
+    // setResultData(user, "chat");
+
+    $("Board").scrollTop(0)
 
 }
 
@@ -135,62 +211,85 @@ export function setChatData() {
         board   : $(".Board.Active").attr('id')
     }
 
-    const newPostRef = push(dbRefChat); // ユニークキーを生成
+    const user = getUsernameFromSet();
+    const dbRef = ref(db, user+'/self-order/chat');
+
+    const newPostRef = push(dbRef); // ユニークキーを生成
     const newPostKey = newPostRef.key; // ユニークキーを取得
 
     set(newPostRef, msg); // ユニークキーを使ってデータをセット
 
-    setLogData(msg.tag, msg.uname, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+
+    setResultData(user, "chat");
 
 }
 
 
 
 
-// RealTimeDatabase "log" に要素が追加されたときに実行
+// RealTimeDatabase "Chat" に要素が追加されたときに実行
+
 onChildAdded(dbRefChat,function(data) {
     const msg = data.val();
     const key = data.key;
 
-    genSpeechBalloon(msg.uname, msg.time, msg.text, msg.board, key); // SpeechBalloonを生成
-
-    // 送信したら入力されたテキストを削除
-    // let textForm = document.getElementById("uname");
-    //     textForm.value = '';
-    if (msg.text === tinyMCE.get("text").getContent()) {
-        tinyMCE.get("text").setContent('');
-    }
-
-    // "練習スタート"が送信されたらテストのPDFをクリックできるようになる
-    if (msg.text === "練習スタート"){
-        unlockDoc("doc5");
-    }
-
-    // "本番スタート"が送信されたら本番のPDFをクリックできるようになる
-    if (msg.text === "本番スタート"){
-        unlockDoc("doc6");
-    }
-
-    // "lock"が送信されたらPDFをクリックできなくなる
-    if(msg.text === "lock") {
-        lockDoc();
-    }
-
-
-    // SpeechBalloonの初期設定
-    $("#"+ key).css({
-        'min-width'         : '200px',
-        'min-height'        : '70px',
-        'background-color'  : 'rgba(227,228,232,.6)',
-        'position'          : 'absolute',
-        'top'               : 10,
-        'left'              : 30,
-    });
-
-    if (!$(".pdfWrapper").hasClass('Inactive')) {
-        $("#"+ key).css('left', '580')
-    }
-
+    onChildAddedMethod(msg, key);
 });
 
+onChildAdded(dbRefChat1,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat2,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat3,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat4,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat5,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat6,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat7,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
+
+onChildAdded(dbRefChat8,function(data) {
+    const msg = data.val();
+    const key = data.key;
+
+    onChildAddedMethod(msg, key);
+});
 // ----------------------------------------------------------------------------------------------------> FIrebase

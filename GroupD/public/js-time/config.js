@@ -5,7 +5,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-export const member = ['笹川', '前本', '後藤', '堤', '出口', '永井', '名執', '東川']
+export const member = ['笹川', '前本','後藤', '堤', '出口', '永井', '名執', '東川']
 
 
 // Your web app's Firebase configuration
@@ -20,7 +20,6 @@ export const firebaseConfig = {
 };
 
 
-
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig); // Keyを使ってFirebaseに接続
 export const db = getDatabase(app); // RealTimeDatabaseに接続
@@ -28,6 +27,8 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
 // General
+export const dbRefChat = ref(db, "general/time-order/chat");
+export const dbRefInteract = ref(db, "general/time-order/interact");
 export const dbRefLog = ref(db, "general/time-order/log");
 export const dbRefArchive = ref(db, "general/time-order/archive");
 export const dbRefSetting = ref(db, "general/time-order/setting");
@@ -47,9 +48,9 @@ export const dbRefResultSum = ref(db, "全員/time-order/result");
 
 
 // undefinedのDB
-export const dbRefChat = ref(db, "undefined/time-order/chat");
-export const dbRefInteract = ref(db, "undefined/time-order/interact");
-export const dbRefResult = ref(db, "undefined/time-order/result");
+export const dbRefChat0 = ref(db, "undefined/time-order/chat");
+export const dbRefInteract0 = ref(db, "undefined/time-order/interact");
+export const dbRefResult0 = ref(db, "undefined/time-order/result");
 
 
 

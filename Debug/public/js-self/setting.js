@@ -110,7 +110,7 @@ onChildAdded(dbRefSetting,function(data) {
         $("#yourname").text($("#set-username").val())
 
         // ユーザーの名前をheaderに表示
-        $(".now-user").text('現在のユーザー："'+$("#set-username").val()+'"')
+        $(".now-user").text('ユーザー："'+$("#set-username").val()+'"')
 
 
     } else if (info.tag === "board") {
@@ -137,12 +137,20 @@ onChildAdded(dbRefSetting,function(data) {
 
         $("#doc5-open").css('pointer-events','none')
         $("#doc6-open").css('pointer-events','none')
+        $("#doc7-open").css('pointer-events','none')
+        $("#side2-open").css('pointer-events','none')
+        $("#side3-open").css('pointer-events','none')
+        $("#side4-open").css('pointer-events','none')
 
 
     } else if (info.tag === "unlock") {
 
         if (info.doc === "doc5") { $("#doc5-open").css('pointer-events','all') }
         if (info.doc === "doc6") { $("#doc6-open").css('pointer-events','all') }
+        if (info.doc === "doc7") { $("#doc7-open").css('pointer-events','all') }
+        if (info.doc === "mini-doc-p") { $("#side2-open").css('pointer-events','all') }
+        if (info.doc === "mini-doc-q") { $("#side3-open").css('pointer-events','all') }
+        if (info.doc === "mini-doc-s") { $("#side4-open").css('pointer-events','all') }
 
 
     } else {;}

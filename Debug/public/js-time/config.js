@@ -10,14 +10,15 @@ export const member = ['笹川', '池田','荻野', '植田', '出口', '永井'
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyCRYiRlgS9ddTILqy7o0yzwUIOcb34sUrw",
-    authDomain: "groupb-c4c38.firebaseapp.com",
-    databaseURL: "https://groupb-c4c38-default-rtdb.firebaseio.com",
-    projectId: "groupb-c4c38",
-    storageBucket: "groupb-c4c38.appspot.com",
-    messagingSenderId: "519656629270",
-    appId: "1:519656629270:web:855d5224c250eaa573c137"
+    apiKey: "AIzaSyBmu_4N4-3bvPwTK6yj6us9c2dP6Gh9rnw",
+    authDomain: "debug-a2265.firebaseapp.com",
+    databaseURL: "https://debug-a2265-default-rtdb.firebaseio.com",
+    projectId: "debug-a2265",
+    storageBucket: "debug-a2265.appspot.com",
+    messagingSenderId: "410903637684",
+    appId: "1:410903637684:web:dc333a259991b53834f1e1"
 };
+
 
 
 // Initialize Firebase
@@ -27,8 +28,6 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
 // General
-export const dbRefChat = ref(db, "general/time-order/chat");
-export const dbRefInteract = ref(db, "general/time-order/interact");
 export const dbRefLog = ref(db, "general/time-order/log");
 export const dbRefArchive = ref(db, "general/time-order/archive");
 export const dbRefSetting = ref(db, "general/time-order/setting");
@@ -48,9 +47,9 @@ export const dbRefResultSum = ref(db, "全員/time-order/result");
 
 
 // undefinedのDB
-export const dbRefChat0 = ref(db, "undefined/time-order/chat");
-export const dbRefInteract0 = ref(db, "undefined/time-order/interact");
-export const dbRefResult0 = ref(db, "undefined/time-order/result");
+export const dbRefChat = ref(db, "undefined/time-order/chat");
+export const dbRefInteract = ref(db, "undefined/time-order/interact");
+export const dbRefResult = ref(db, "undefined/time-order/result");
 
 
 

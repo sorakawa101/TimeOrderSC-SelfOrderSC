@@ -7,6 +7,7 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 
 export const member = ['笹川', '池田','荻野', '植田', '出口', '永井', '名執', '東川']
 
+
 // Your web app's Firebase configuration
 export const firebaseConfig = {
     apiKey: "AIzaSyCRYiRlgS9ddTILqy7o0yzwUIOcb34sUrw",
@@ -27,6 +28,8 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
 // General
+export const dbRefChat = ref(db, "general/self-order/chat");
+export const dbRefInteract = ref(db, "general/self-order/interact");
 export const dbRefLog = ref(db, "general/self-order/log");
 export const dbRefArchive = ref(db, "general/self-order/archive");
 export const dbRefSetting = ref(db, "general/self-order/setting");
@@ -46,9 +49,9 @@ export const dbRefResultSum = ref(db, "全員/self-order/result");
 
 
 // undefinedのDB
-export const dbRefChat = ref(db, "undefined/self-order/chat");
-export const dbRefInteract = ref(db, "undefined/self-order/interact");
-export const dbRefResult = ref(db, "undefined/self-order/result");
+export const dbRefChat0 = ref(db, "undefined/self-order/chat");
+export const dbRefInteract0 = ref(db, "undefined/self-order/interact");
+export const dbRefResult0 = ref(db, "undefined/self-order/result");
 
 
 

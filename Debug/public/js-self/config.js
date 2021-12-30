@@ -5,17 +5,17 @@ from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-export const member = ['笹川', '前本','後藤', '堤', '出口', '永井', '名執', '東川']
+export const member = ['笹川', '池田','荻野', '植田', '出口', '永井', '名執', '東川']
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyDXkjrDcXdPtwmAPp9udSqrJaMhVsE7tzE",
-    authDomain: "groupd-fdd89.firebaseapp.com",
-    databaseURL: "https://groupd-fdd89-default-rtdb.firebaseio.com",
-    projectId: "groupd-fdd89",
-    storageBucket: "groupd-fdd89.appspot.com",
-    messagingSenderId: "59352714991",
-    appId: "1:59352714991:web:86517a3cbfc35aa01a551a"
+    apiKey: "AIzaSyBmu_4N4-3bvPwTK6yj6us9c2dP6Gh9rnw",
+    authDomain: "debug-a2265.firebaseapp.com",
+    databaseURL: "https://debug-a2265-default-rtdb.firebaseio.com",
+    projectId: "debug-a2265",
+    storageBucket: "debug-a2265.appspot.com",
+    messagingSenderId: "410903637684",
+    appId: "1:410903637684:web:6873e07a235deadd34f1e1"
 };
 
 
@@ -27,8 +27,6 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
 // General
-export const dbRefChat = ref(db, "general/self-order/chat");
-export const dbRefInteract = ref(db, "general/self-order/interact");
 export const dbRefLog = ref(db, "general/self-order/log");
 export const dbRefArchive = ref(db, "general/self-order/archive");
 export const dbRefSetting = ref(db, "general/self-order/setting");
@@ -48,9 +46,9 @@ export const dbRefResultSum = ref(db, "全員/self-order/result");
 
 
 // undefinedのDB
-export const dbRefChat0 = ref(db, "undefined/self-order/chat");
-export const dbRefInteract0 = ref(db, "undefined/self-order/interact");
-export const dbRefResult0 = ref(db, "undefined/self-order/result");
+export const dbRefChat = ref(db, "undefined/self-order/chat");
+export const dbRefInteract = ref(db, "undefined/self-order/interact");
+export const dbRefResult = ref(db, "undefined/self-order/result");
 
 
 

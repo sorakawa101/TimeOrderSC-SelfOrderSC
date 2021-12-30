@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, dbRefChat, dbRefChat1, dbRefChat2, dbRefChat3, dbRefChat4, dbRefChat5, dbRefChat6, dbRefChat7, dbRefChat8 } from "./config.js";
+import { db, dbRefChat } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";
 import { unlockDoc, lockDoc } from "./setting.js";
@@ -170,7 +170,7 @@ function onChildAddedMethod(msg, key) {
         'background-color'  : 'rgba(227,228,232,.6)',
         // 'float'             : 'center'
         // 'position'          : 'absolute',
-        // 'top'               : '10px',
+        // 'top'               : '100px',
         // 'left'              : '300px'
         // 'top'               : posY,
         // 'left'              : posX,
@@ -212,17 +212,19 @@ export function setChatData() {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/chat');
+    const dbRef_general = dbRefChat;
 
-    const newPostRef = push(dbRef); // ユニークキーを生成
-    const newPostKey = newPostRef.key; // ユニークキーを取得
+    const newPostRef_general = push(dbRef_general); // ユニークキーを生成
+    const newPostKey_general = newPostRef_general.key; // ユニークキーを取得
 
-    set(newPostRef, msg); // ユニークキーを使ってデータをセット
+    const dbRef_user = ref(db, user+'/self-order/chat/'+msg.text+'  '+newPostKey_general);
 
-    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey); // RealtimeDatabase "log" にチャットデータをセット
+    set(newPostRef_general, msg); // ユニークキーを使ってデータをセット
+    set(dbRef_user, msg);
+
+    setLogData(msg.tag, msg.user, msg.time, msg.text, msg.board, null, newPostKey_general); // RealtimeDatabase "log" にチャットデータをセット
 
     setResultData(user, "chat");
-
 }
 
 
@@ -237,59 +239,4 @@ onChildAdded(dbRefChat,function(data) {
     onChildAddedMethod(msg, key);
 });
 
-onChildAdded(dbRefChat1,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat2,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat3,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat4,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat5,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat6,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat7,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
-
-onChildAdded(dbRefChat8,function(data) {
-    const msg = data.val();
-    const key = data.key;
-
-    onChildAddedMethod(msg, key);
-});
 // ----------------------------------------------------------------------------------------------------> FIrebase

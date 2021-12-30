@@ -2,7 +2,7 @@
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
 from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
-import { db, member, dbRefInteract, dbRefInteract1, dbRefInteract2, dbRefInteract3, dbRefInteract4, dbRefInteract5, dbRefInteract6, dbRefInteract7, dbRefInteract8, dbRefArchive, dbRefRecorderEvalResult } from "./config.js";
+import { db, member,  dbRefArchive, dbRefRecorderEvalResult, dbRefInteract } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, getChatTextFromSpeechBalloon, setResultData } from "./script.js";
 
@@ -29,10 +29,13 @@ function dragMoveListener (event) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/pos');
+    const dbRef_general = dbRefInteract;
+    const dbRef_user = ref(db, user+'/self-order/interact/pos');
 
-    const newPostRef = push(dbRef);
-    set(newPostRef, pos);
+    const newPostRef_general = push(dbRef_general);
+    const newPostRef_user = push(dbRef_user);
+    set(newPostRef_general, pos);
+    set(newPostRef_user, pos);
     // setResultData(user, "pos");
 }
 
@@ -118,10 +121,10 @@ interact('.SpeechBalloon')
 //     }
 
 //     const user = getUsernameFromSet();
-//     const dbRef = ref(db, user+'/self-order/interact/resize');
+//     const dbRef_user = ref(db, user+'/self-order/interact/resize');
 
-//     let newPostRef = push(dbRef);
-//     set(newPostRef, size);
+//     let newPostRef_user = push(dbRef_user);
+//     set(newPostRef_user, size);
 
 //     let variation = Math.floor(Math.round(event.rect.width) + Math.round(event.rect.height));
 //     setResultData(user, "resize", variation);
@@ -160,10 +163,13 @@ interact('.SpeechBalloon')
         }
 
         const user = getUsernameFromSet();
-        const dbRef = ref(db, user+'/self-order/interact/mousedown');
+        const dbRef_general = dbRefInteract;
+        const dbRef_user = ref(db, user+'/self-order/interact/mousedown');
 
-        const newPostRef = push(dbRef);
-        set(newPostRef, mouse);
+        const newPostRef_general = push(dbRef_general);
+        const newPostRef_user = push(dbRef_user);
+        set(newPostRef_general, mouse);
+        set(newPostRef_user, mouse);
         setResultData(user, "mousedown");
         setResultData(user, "mouse");
 
@@ -187,10 +193,13 @@ interact('.SpeechBalloon')
         }
 
         const user = getUsernameFromSet();
-        const dbRef = ref(db, user+'/self-order/interact/mouseup');
+        const dbRef_general = dbRefInteract;
+        const dbRef_user = ref(db, user+'/self-order/interact/mouseup');
 
-        const newPostRef = push(dbRef);
-        set(newPostRef, mouse);
+        const newPostRef_general = push(dbRef_general);
+        const newPostRef_user = push(dbRef_user);
+        set(newPostRef_general, mouse);
+        set(newPostRef_user, mouse);
         setResultData(user, "mouseup");
         setResultData(user, "mouse");
 
@@ -509,13 +518,25 @@ function onChildAddedMethod(info) {
 
 // RealtimeDatabase "chat" のデータを更新 / "archive" に削除したデータをセット
 function updateChatData(id, text, edit_user, edited_user) {
-    const dbRefChatChild = ref(db, edited_user+"/self-order/chat/"+id);
+    const dbRef_generalChatChild = ref(db, "general/self-order/chat/"+id);
 
     // archiveにデータをコピー
-    get(dbRefChatChild).then((snapshot) => {
-        const newPostRef = push(dbRefArchive);
-        set(newPostRef, snapshot.val());
+    get(dbRef_generalChatChild).then((snapshot) => {
+        const newPostRef_general = push(dbRefArchive);
+        set(newPostRef_general, snapshot.val());
         setLogData("rewrite", edit_user, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に編集データをセット
+
+        const dbRef_userChatChild = ref(db, edited_user+"/self-order/chat/"+text+'  '+id);
+        const msg = {
+            tag     : "edited",
+            uname   : snapshot.val().uname,
+            user    : edit_user,
+            time    : getNow(),
+            text    : text,
+            board   : snapshot.val().board
+        }
+        set(dbRef_userChatChild, msg);
+        remove(ref(db, edited_user+"/self-order/chat/"+snapshot.val().text+'  '+id))
     });
 
     const msg = {
@@ -525,20 +546,23 @@ function updateChatData(id, text, edit_user, edited_user) {
         user : edit_user
     }
 
-    update(dbRefChatChild, msg); // "chat"のデータを更新
+    // "chat"のデータを更新
+    update(dbRef_generalChatChild, msg);
 }
 
 
 // RealtimeDatabase "chat" のデータを削除 / "archive" に削除したデータをセット
 function removeChatData(id, remove_user, removed_user) {
-    const dbRefChatChild = ref(db, removed_user+"/self-order/chat/"+id);
-    // console.log(dbRefChatChild.data.uname);
+    const dbRef_generalChatChild = ref(db, "general/self-order/chat/"+id);
 
      // archiveにデータをコピー
-    get(dbRefChatChild).then((snapshot) => {
-        const newPostRef = push(dbRefArchive);
-        set(newPostRef, snapshot.val());
+    get(dbRef_generalChatChild).then((snapshot) => {
+        const newPostRef_general = push(dbRefArchive);
+        set(newPostRef_general, snapshot.val());
         setLogData("removed", remove_user, snapshot.val().time, snapshot.val().text, snapshot.val().board, null, id); // RealtimeDatabase "log" に削除データをセット
+
+        const dbRef_userChatChild = ref(db, removed_user+"/self-order/chat/"+snapshot.val().text+'  '+id);
+        remove(dbRef_userChatChild); // "chat"の方のデータは削除
     });
 
     let removed = {
@@ -547,14 +571,12 @@ function removeChatData(id, remove_user, removed_user) {
         id      : id
     }
 
-    const dbRef = ref(db, remove_user+'/self-order/interact/delete');
-
-    const newPostRef = push(dbRef);
+    const newPostRef = push(dbRefInteract);
     set(newPostRef, removed);
     setResultData(remove_user, "delete");
     setResultData(remove_user, "interact");
 
-    remove(dbRefChatChild); // "chat"の方のデータは削除
+    remove(dbRef_generalChatChild); // "chat"の方のデータは削除
 }
 
 
@@ -568,10 +590,13 @@ function setRewriteData(id, text) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/edit');
+    const dbRef_general = dbRefInteract;
+    const dbRef_user = ref(db, user+'/self-order/interact/edit');
 
-    const newPostRef = push(dbRef);
-    set(newPostRef, info);
+    const newPostRef_general = push(dbRef_general);
+    const newPostRef_user = push(dbRef_user);
+    set(newPostRef_general, info);
+    set(newPostRef_user, info);
     setResultData(user, "edit");
     setResultData(user, "interact");
 }
@@ -579,9 +604,6 @@ function setRewriteData(id, text) {
 
 // RealtimeDatabase "interact" にセマンティックデータをセット
 function setSemanticData(id, semantic, pre_semantic) {
-    const date = new Date();
-    const now = ("0"+date.getHours()).slice(-2) + ":" + ("0"+date.getMinutes()).slice(-2);
-
     const info = {
         tag             : "semantic",
         id              : id,
@@ -594,10 +616,13 @@ function setSemanticData(id, semantic, pre_semantic) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/semantic');
+    const dbRef_general = dbRefInteract;
+    const dbRef_user = ref(db, user+'/self-order/interact/semantic');
 
-    const newPostRef = push(dbRef);
-    set(newPostRef, info);
+    const newPostRef_general = push(dbRef_general);
+    const newPostRef_user = push(dbRef_user);
+    set(newPostRef_general, info);
+    set(newPostRef_user, info);
     setResultData(user, "semantic");
 
     if (semantic === "important") {
@@ -643,11 +668,14 @@ function setEvalForChatData(id, eval_result, user) {
         remove(ref(db, "Eval/self-order/Recorder/"+user+'/useful/'+getChatTextFromSpeechBalloon(id)+'  '+id));
         remove(ref(db, "Eval/self-order/Recorder/"+user+'/useless/'+getChatTextFromSpeechBalloon(id)+'  '+id));
 
-        const dbRef = ref(db, "Eval/self-order/Recorder/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
-        set(dbRef, info);
+        const dbRef_user = ref(db, "Eval/self-order/Recorder/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
+        set(dbRef_user, info);
     } else if (user === "出口" || user === "永井" || user === "名執" || user === "東川") {
-        const dbRef = ref(db, "Eval/self-order/Rater/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
-        set(dbRef, info);
+        remove(ref(db, "Eval/self-order/Rater/"+user+'/useful/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+        remove(ref(db, "Eval/self-order/Rater/"+user+'/useless/'+getChatTextFromSpeechBalloon(id)+'  '+id));
+
+        const dbRef_user = ref(db, "Eval/self-order/Rater/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
+        set(dbRef_user, info);
     }
 }
 
@@ -664,10 +692,13 @@ function setEvalData(id, point) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/eval');
+    const dbRef_general = dbRefInteract;
+    const dbRef_user = ref(db, user+'/self-order/interact/eval');
 
-    const newPostRef = push(dbRef);
-    set(newPostRef, info);
+    const newPostRef_general = push(dbRef_general);
+    const newPostRef_user = push(dbRef_user);
+    set(newPostRef_general, info);
+    set(newPostRef_user, info);
 }
 
 
@@ -680,71 +711,15 @@ function setCheckData(id) {
     }
 
     const user = getUsernameFromSet();
-    const dbRef = ref(db, user+'/self-order/interact/check');
+    const dbRef_general = dbRefInteract;
+    const dbRef_user = ref(db, user+'/self-order/interact/check');
 
-    const newPostRef = push(dbRef);
-    set(newPostRef, info);
+    const newPostRef_general = push(dbRef_general);
+    const newPostRef_user = push(dbRef_user);
+    set(newPostRef_general, info);
+    set(newPostRef_user, info);
     setResultData(user, "check");
     setResultData(user, "interact");
-}
-
-
-function onChildChildAdded(dbRefInteractPath) {
-
-    onChildAdded(ref(db, dbRefInteractPath+'/pos'), function(data) {
-        const pos_info = data.val();
-        onChildAddedMethod(pos_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/resize'), function(data) {
-        const resize_info = data.val();
-        onChildAddedMethod(resize_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/check'), function(data) {
-        const check_info = data.val();
-        onChildAddedMethod(check_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/delete'), function(data) {
-        const delete_info = data.val();
-        onChildAddedMethod(delete_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/edit'), function(data) {
-        const edit_info = data.val();
-        onChildAddedMethod(edit_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/semantic'), function(data) {
-        const edit_info = data.val();
-        onChildAddedMethod(edit_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/focusin'), function(data) {
-        const focusin_info = data.val();
-        onChildAddedMethod(focusin_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/focusout'), function(data) {
-        const focusout_info = data.val();
-        onChildAddedMethod(focusout_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/mousedown'), function(data) {
-        const mousedown_info = data.val();
-        onChildAddedMethod(mousedown_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/mouseup'), function(data) {
-        const mouseup_info = data.val();
-        onChildAddedMethod(mouseup_info);
-    });
-
-    onChildAdded(ref(db, dbRefInteractPath+'/eval'), function(data) {
-        const eval_info = data.val();
-        onChildAddedMethod(eval_info);
-    });
 }
 
 
@@ -752,57 +727,9 @@ function onChildChildAdded(dbRefInteractPath) {
 
 // RealTimeDatabase "interact" に要素が追加されたときに実行
 
-onChildAdded(dbRefInteract,function() {
-    const dbRefInteractPath = 'undefined/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract1,function() {
-    const dbRefInteractPath = member[0]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract2,function() {
-    const dbRefInteractPath = member[1]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract3,function() {
-    const dbRefInteractPath = member[2]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract4,function() {
-    const dbRefInteractPath = member[3]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract5,function() {
-    const dbRefInteractPath = member[4]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract6,function() {
-    const dbRefInteractPath = member[5]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract7,function() {
-    const dbRefInteractPath = member[6]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
-});
-
-
-onChildAdded(dbRefInteract8,function() {
-    const dbRefInteractPath = member[7]+'/self-order/interact';
-    onChildChildAdded(dbRefInteractPath);
+onChildAdded(dbRefInteract,function(data) {
+    const info = data.val();
+    onChildAddedMethod(info);
 });
 
 // ----------------------------------------------------------------------------------------------------> Firebase
