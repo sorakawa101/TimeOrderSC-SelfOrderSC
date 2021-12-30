@@ -16,7 +16,7 @@ export const firebaseConfig = {
     projectId: "groupa-51b27",
     storageBucket: "groupa-51b27.appspot.com",
     messagingSenderId: "116645467169",
-    appId: "1:116645467169:web:013c385b68b5376f247f60"
+    appId: "1:116645467169:web:d641825973cce7ca247f60"
 };
 
 
@@ -27,6 +27,8 @@ export const db = getDatabase(app); // RealTimeDatabaseに接続
 
 
 // General
+export const dbRefChat = ref(db, "general/time-order/chat");
+export const dbRefInteract = ref(db, "general/time-order/interact");
 export const dbRefLog = ref(db, "general/time-order/log");
 export const dbRefArchive = ref(db, "general/time-order/archive");
 export const dbRefSetting = ref(db, "general/time-order/setting");
@@ -46,9 +48,9 @@ export const dbRefResultSum = ref(db, "全員/time-order/result");
 
 
 // undefinedのDB
-export const dbRefChat = ref(db, "undefined/time-order/chat");
-export const dbRefInteract = ref(db, "undefined/time-order/interact");
-export const dbRefResult = ref(db, "undefined/time-order/result");
+export const dbRefChat0 = ref(db, "undefined/time-order/chat");
+export const dbRefInteract0 = ref(db, "undefined/time-order/interact");
+export const dbRefResult0 = ref(db, "undefined/time-order/result");
 
 
 
