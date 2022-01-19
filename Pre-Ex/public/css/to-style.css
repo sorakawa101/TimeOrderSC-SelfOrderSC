@@ -1,0 +1,772 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Mukta");
+
+/* All ----------------------------------------------------------------------------------------------------> */
+
+:root {
+    --max-z-index: 2100000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN";
+    overflow: hidden;
+}
+a {
+    text-decoration: none;
+}
+
+.Inactive {
+    display: none;
+}
+
+.Foreground {
+    z-index: --max-z-index;
+}
+
+/*  <---------------------------------------------------------------------------------------------------- All */
+
+
+
+
+/* Header ----------------------------------------------------------------------------------------------------> */
+
+
+/* Header */
+header {
+    /* height: 60px; */
+    width: 100%;
+    background-color: rgba(34, 49, 52, 0.9);
+    position :fixed;
+    top: 0;
+    z-index: var(--max-z-index);
+    height: 60px;
+    /* display: flex;
+    justify-content: space-between;
+    flex-direction: row; */
+}
+
+
+.header-left {
+    float: left;
+    margin: 10px;
+}
+
+.logo {
+    line-height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 20px;
+    color: #fff;
+}
+
+.now {
+    line-height: 40px;
+    font-size: 1.0rem;
+    font-weight: bold;
+    margin-left: 20px;
+    color: #fff;
+}
+
+
+.header-right {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    float: right;
+}
+
+.header-right .Btn {
+    height: 60px;
+    margin: 0;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-left: 1px solid rgba(0,0,0,.3);
+    position: relative;
+}
+
+.header-right .Btn:hover {
+    background-color: rgba(34, 49, 52, .5);
+}
+
+.DropDownMenu {
+    display: none;
+    z-index: var(--max-z-index)-1;
+}
+
+.pdfMenuBtn:hover .DropDownMenu {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+}
+
+.BoardMenuBtn:hover .DropDownMenu {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+}
+
+.DropDownMenu ul {
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.DropDownMenu li{
+    width: 100px;
+    height: 40px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+.DropDownMenu li:hover {
+    background-color: rgba(34, 49, 52, .3);
+}
+
+.DropDownMenu a {
+    color: white;
+}
+
+
+#doc5-open {
+    pointer-events: none;
+}
+#doc6-open {
+    pointer-events: none;
+}
+
+#set-username {
+    margin: auto 10px;
+}
+/*  <---------------------------------------------------------------------------------------------------- Header */
+
+
+
+
+/* Main : Wrapper ----------------------------------------------------------------------------------------------------> */
+
+/* Contents */
+.MainWrapper {
+    width: 100vw;
+    height: 100vw;
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pdfWrapper {
+    width: 550px;
+    height: 100%;
+    /* margin-left: 10px; */
+    /* position: fixed; */
+    top: 60px;
+    left: 0;
+    z-index: var(--max-z-index);
+    background-color: rgba(227,228,232,.8);
+}
+
+.MsgWrapper {
+    width: 500px;
+    height: 720px;
+    margin: 20px auto 0 auto;
+    /* padding: ; */
+    /* border: 2px solid rgba(34, 49, 52, .8); */
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.Msg {
+    pointer-events: none;
+}
+
+.SideWrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(227,228,232,.8);
+}
+
+.LogWrapper {
+    min-width: 330px;
+    height: 380px;
+    /* margin-right: 10px; */
+    /* position: fixed; */
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    z-index: var(--max-z-index)-1;
+    /* margin-top: 60px; */
+    padding: 10px 10px 10px 10px;
+}
+
+.InputWrapper {
+    width: 360px;
+    margin: 0 20px;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Main : Wrapper */
+
+
+
+
+/* Main : Doc ----------------------------------------------------------------------------------------------------> */
+
+.Doc {
+    position: absolute;
+    top: auto;
+    left: auto;
+    width: 550px;
+    height: 95%;
+}
+
+#doc-switch-btn {
+    z-index: 999;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Main : Doc */
+
+
+
+
+/* Main : Log ----------------------------------------------------------------------------------------------------> */
+
+.Log {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.LogContent {
+    display: flex;
+    justify-content: space-between;
+    height: 25px;
+    cursor: pointer;
+}
+
+.Log p {
+    font-size: small;
+    margin: 5px 0;
+    pointer-events: none;
+}
+
+.LogContent:hover {
+    opacity: .5;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Main : Log */
+
+
+
+
+/* Main : Board ----------------------------------------------------------------------------------------------------> */
+
+.Board {
+    /* position: relative; */
+    margin: 0 auto;
+    padding: 0 0 2px 0;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Main : Board */
+
+
+
+
+/* Main : SpeechBalloon ----------------------------------------------------------------------------------------------------> */
+
+.SpeechBalloon {
+    width: 270px;
+    border-radius: 8px;
+    padding: 0 20px;
+    margin: .5rem auto 0 auto;
+    font-size: 20px;
+    font-family: sans-serif;
+    /* translate: (0, 0); */
+    touch-action: none;
+
+    /* This makes things *much* easier */
+    box-sizing: border-box;
+    /* overflow: hidden; */
+    position: relative;
+    cursor: pointer;
+}
+
+.SpeechBalloon p {
+    overflow-wrap: break-word;
+    margin: 0 0 10px 0;
+    /* padding: 10px 0; */
+}
+
+.SpeechBalloon textarea {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.SpeechBalloon .SelectorMenu {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: -10px;
+    right: -55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.SpeechBalloon .StatusMenu {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -5px;
+    left: -40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.FocusArrow {
+    position: absolute;
+    top: -30px;
+    left: 10px;
+}
+
+
+.ChatInfo {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.Name {
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.TimeStamp {
+    font-size: 15px;
+    font-weight: lighter;
+    color: rgba(0,0,0,.5);
+    padding: 5px 0 0 0;
+    pointer-events: none;
+}
+
+.SpeechBalloon p {
+    margin-top: 0;
+}
+
+.ColorSelector {
+    position: absolute;
+    top: 0px;
+    right: -40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* display: none; */
+}
+
+.SemanticSelector {
+    position: absolute;
+    top: -10px;
+    right: -110px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /* display: none; */
+}
+.SemanticCircle {
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    padding: 2px;
+    border: solid 1px #dedede;
+    color: black;
+    background-color: gainsboro;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 10%;
+}
+.SemanticCircle:hover {
+    cursor: pointer;
+    opacity: .5;
+}
+#none {
+    background-color: rgba(227,228,232,.6);
+}
+#important {
+    background-color: rgba(255,105,98,.6);
+}
+
+#facilitation {
+    background-color: rgba(136,196,228,.6);
+}
+#question {
+    background-color: rgba(255,175,104,.6);
+}
+#response {
+    background-color: rgba(192,231,197,.8);
+}
+#note {
+    background-color: rgba(246,230,131,.6);
+}
+#answer {
+    background-color: rgba(151,150,188,.6);
+}
+
+/* <---------------------------------------------------------------------------------------------------- Main : SpeechBalloon */
+
+
+
+
+/* Footer ----------------------------------------------------------------------------------------------------> */
+
+footer {
+    width: 100%;
+    position :fixed;
+    bottom: 0;
+    z-index: var(--max-z-index);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(227,228,232,.8);
+}
+
+/* <---------------------------------------------------------------------------------------------------- Footer */
+
+
+
+
+/* Footer : Set ----------------------------------------------------------------------------------------------------> */
+
+.SetWrapper {
+    width: 900px;
+    /* width: 100%; */
+    margin: 0 auto;
+}
+
+.SetForm {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 0 0;
+}
+
+.Set {
+    border: 1px #000 solid;
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-left: 5px;
+    font-size: 1rem;
+    height: 40px;
+}
+
+.SetFormStep {
+    margin-bottom: 10px;
+}
+
+.SetFormLower {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.SetNum {
+    width: 100px;
+}
+
+.SetName {
+    width: 300px;
+}
+
+.SetURL {
+    width: 350px;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Footer : Set */
+
+
+
+
+
+/* Footer : Input ----------------------------------------------------------------------------------------------------> */
+
+.InputForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.InputFormUpside {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 10px 0 0 5px;
+    float: right;
+}
+
+.InputFormDownside {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#input-username {
+    border: 1px #000 solid;
+    border-radius: 5px;
+    padding: 0 10px;
+    /* margin-bottom: 20px; */
+    font-size: 1rem;
+    width: 100px;
+    height: 40px;
+    margin: 10px 0;
+    /* float: left; */
+}
+
+/* <---------------------------------------------------------------------------------------------------- Footer : Input */
+
+
+
+
+/* Footer : Notify ----------------------------------------------------------------------------------------------------> */
+
+.NotifyWrapper {
+    font-size: .8rem;
+    color: white;
+    background-color: rgba(34, 49, 52, 0.9);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.NotifyWrapper .WritingNotify {
+    margin: 5px;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Footer : Notify */
+
+
+
+
+/* Btn ----------------------------------------------------------------------------------------------------> */
+
+.Btn {
+    align-self: center;
+    width: 100px;
+    height: 40px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: white;
+    font-weight: bold;
+    margin: 0 10px;
+    /* box-shadow: 5px 5px black; */
+}
+
+.Btn:hover {
+    background-color: gainsboro;
+}
+
+
+.HalfBtn {
+    align-self: center;
+    width: 50px;
+    height: 40px;
+    border: 2px solid black;
+    cursor: pointer;
+    background-color: white;
+    font-weight: bold;
+    margin: 0 10px;
+    /* box-shadow: 5px 5px black; */
+}
+
+.HalfBtn:hover {
+    background-color: gainsboro;
+    opacity: 1;
+}
+
+.Tools {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    /* margin-top: 15px; */
+}
+
+
+.CircleBtn {
+    height: 40px;
+    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 5px;
+    border: solid 1px #ababab;
+    cursor: pointer;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    border-radius: 50%;
+    /* border: 2px solid black; */
+    margin: 10px 10px;
+    background-color: white;
+}
+/* #voice-rec-btn:hover { */
+.CircleBtn:hover {
+    background-color: gainsboro;
+    opacity: 1;
+}
+
+.HalfCircleBtn {
+    height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    padding: 2.5px;
+    border: solid 1px #ababab;
+    cursor: pointer;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    border-radius: 50%;
+    /* border: 2px solid black; */
+    margin: 10px 10px;
+    background-color: white;
+}
+.CheckBtn:hover {
+    background-color: rgba(192,231,197,.8);
+    opacity: 1;
+}
+.TrashBtn:hover {
+    background-color: rgba(255,105,98,.8);
+    opacity: 1;
+}
+
+
+.SelectorMenu .CircleBtn {
+    margin: 5px 5px;
+}
+
+.MiniCircleBtn {
+    height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    padding: 1px;
+    border: solid 1px #ababab;
+    cursor: pointer;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    border-radius: 50%;
+    /* border: 2px solid black; */
+    margin: 20px 20px;
+    background-color: white;
+}
+
+.fa {
+    text-align: center;
+    pointer-events: none;
+    background-color: transparent;
+}
+.fas {
+    text-align: center;
+    pointer-events: none;
+    background-color: transparent;
+}
+.far {
+    text-align: center;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Btn */
+
+
+
+
+/* Hint ----------------------------------------------------------------------------------------------------> */
+
+.HintBtn {
+    position: relative;
+}
+
+.HintBtn:hover .Hint {
+    display: inline;
+}
+
+.Hint {
+    display: none;
+    background-color: rgba(227,228,232,.6);
+    border-radius: 1px;
+    width: 3rem;
+}
+
+.HintLeft {
+    position: absolute;
+    top: -10%;
+    right: 150%;
+}
+
+.HintRight {
+    position: absolute;
+    top: 15%;
+    left: 120%;
+}
+
+.HintBottom {
+    font-size: 12px;
+    font-family: "游ゴシック体", "YuGothic", "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;
+    width: 5rem;
+    position: absolute;
+    top: 30%;
+    right: 130%;
+    padding: 2px;
+}
+
+
+.HintUname {
+    display: none;
+    font-size: .8rem;
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+/* <---------------------------------------------------------------------------------------------------- Hint */
+
+
+
+
+/* Who ----------------------------------------------------------------------------------------------------> */
+
+.Who {
+    /* display: none; */
+    color: white;
+    background-color: rgba(34, 49, 52, .8);
+    border-radius: 5%;
+    padding: 0 .5rem;
+    position: absolute;
+    top: -40px;
+    left: 10px;
+    z-index: var(--max-z-index);
+}
+
+/* <---------------------------------------------------------------------------------------------------- Who */
