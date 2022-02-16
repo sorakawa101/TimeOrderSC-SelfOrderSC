@@ -1,7 +1,7 @@
 // Import <----------------------------------------------------------------------------------------------------
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
-from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 import { db, member, dbRefInteract, dbRefArchive, dbRefRecorderEvalResult, dbRefRaterEvalResult } from "./config.js";
 import { setLogData, } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, getUsernameFromSpeechBalloon, getChatTextFromSpeechBalloon, setResultData } from "./script.js";
@@ -611,13 +611,13 @@ function setEvalForChatData(id, eval_result, user) {
         id     : id
     }
 
-    if (user === "前本" || user === "後藤" || user === "堤" || user === "笹川") {
+    if (user === "A" || user === "B" || user === "C" || user === "D") {
         remove(ref(db, "Eval/time-order/Recorder/"+user+'/useful/'+getChatTextFromSpeechBalloon(id)+'  '+id));
         remove(ref(db, "Eval/time-order/Recorder/"+user+'/useless/'+getChatTextFromSpeechBalloon(id)+'  '+id));
 
         const dbRef_user = ref(db, "Eval/self-order/Recorder/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef_user, info);
-    } else if (user === "出口" || user === "永井" || user === "名執" || user === "東川") {
+    } else if (user === "E" || user === "F" || user === "G" || user === "H") {
         const dbRef = ref(db, "Eval/time-order/Rater/"+user+'/'+eval_result+'/'+getChatTextFromSpeechBalloon(id)+'  '+id);
         set(dbRef, info);
 

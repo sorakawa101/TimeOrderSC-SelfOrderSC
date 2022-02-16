@@ -1,7 +1,7 @@
 // Import <----------------------------------------------------------------------------------------------------
 
 import { getDatabase, ref, push, get, set, child, onChildAdded, onChildChanged, remove, onChildRemoved, update }
-from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 import { db, dbRefChat } from "./config.js";
 import { setLogData } from "./log.js";
 import { getNow, getUsernameFromInput, getUsernameFromSet, setResultData } from "./script.js";

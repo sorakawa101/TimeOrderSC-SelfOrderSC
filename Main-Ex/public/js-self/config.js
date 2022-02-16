@@ -1,20 +1,20 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getDatabase, ref, push, set, onChildAdded, onChildChanged, remove, onChildRemoved }
-from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-export const member = ['笹川', '前本','後藤', '堤', '出口', '永井', '名執', '東川']
+export const member = ['A', 'B','C', 'D', 'E', 'F', 'G', 'H']
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
-    apiKey: "AIzaSyBSfnOsYRKPXDrA-J_izG3BdEMliKeeb7Q",
-    authDomain: "fir-741f1.firebaseapp.com",
-    projectId: "fir-741f1",
-    storageBucket: "fir-741f1.appspot.com",
-    messagingSenderId: "535400324359",
-    appId: "1:535400324359:web:2263a97854fc3440ef79a2"
+    apiKey: "AIzaSyAxFB0SqKh9bYgDaszFL9KIOinzEqgOvhE",
+    authDomain: "fir-ced05.firebaseapp.com",
+    projectId: "fir-ced05",
+    storageBucket: "fir-ced05.appspot.com",
+    messagingSenderId: "451623661063",
+    appId: "1:451623661063:web:7353c2296883990a1cc4a2"
 };
 
 
