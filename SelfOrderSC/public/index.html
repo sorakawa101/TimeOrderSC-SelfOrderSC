@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>SelfOrderSC</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <!-- <div class="container"> -->
+            <div class="header-left">
+                <a class="logo" href="../../TimeOrderSC/public/index.html">SelfOrderSC</a>
+                <span class="now-user now">現在のユーザー："undefined""</span>
+                <span class="now-board now">現在のボード："BOARD1"</span>
+            </div>
+
+            <div class="header-right">
+                <!-- <div class="fa fa-bars menu-icon" href="#"></div> -->
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-close-btn"><span class="fas fa-times fa-2x"><span class="Hint HintBottom">PDF閉じる</span></span></button>
+                <button class="CircleBtn MenuBtn SwitchBtn HintBtn Inactive" id="pdf-switch-btn"><span class="fas fa-sync fa-2x"><span class="Hint HintBottom">PDF切り替え</span></span></button>
+
+                <button class="Btn MenuBtn SetMenuBtn">SET</button>
+                <button class="Btn MenuBtn pdfMenuBtn"> PDF
+                    <ul class="DropDownMenu">
+                        <li class="DocOpen" id="doc1-open"><a href="#">本日の流れ</a></li>
+                        <li class="DocOpen" id="doc2-open"><a href="#">機能紹介</a></li>
+                        <li class="DocOpen" id="doc3-open"><a href="#">必須操作</a></li>
+                        <li class="DocOpen" id="doc4-open"><a href="#">実験説明</a></li>
+                        <li class="DocOpen" id="doc5-open"><a href="#">テスト</a></li>
+                        <li class="DocOpen" id="doc6-open"><a href="#">本番</a></li>
+                    </ul>
+                </button>
+                <button class="Btn MenuBtn BoardMenuBtn"> BOARD
+                    <ul class="DropDownMenu">
+                        <li class="BoardOpen" id="board1-open"><a href="#">BOARD1</a></li>
+                        <li class="BoardOpen" id="board2-open"><a href="#">BOARD2</a></li>
+                        <li class="BoardOpen" id="board3-open"><a href="#">BOARD3</a></li>
+                        <li class="BoardOpen" id="board4-open"><a href="#">BOARD4</a></li>
+                        <li class="BoardOpen" id="board5-open"><a href="#">BOARD5</a></li>
+                        <li class="BoardOpen" id="board6-open"><a href="#">BOARD6</a></li>
+                    </ul>
+                </button>
+                <button class="Btn MenuBtn SideMenuBtn">SIDE</button>
+                <!-- <button class="Btn MenuBtn InputMenuBtn">INPUT</button> -->
+                <!-- <button class="Btn MenuBtn FacilitateMenuBtn">FACILITATE</button> -->
+                <!-- <button class="Btn MenuBtn LogMenuBtn">LOG</button> -->
+                <!-- <button class="Btn MenuBtn ResetMenuBtn">RESET</button> -->
+            </div>
+        <!-- </div> -->
+    </header>
+
+    <!-- コンテンツ表示画面 -->
+    <div class="MainWrapper">
+
+        <div class="MsgWrapper">
+            <div id="board1" class="Board Active"></div>
+            <div id="board2" class="Board Inactive"></div>
+            <div id="board3" class="Board Inactive"></div>
+            <div id="board4" class="Board Inactive"></div>
+            <div id="board5" class="Board Inactive"></div>
+            <div id="board6" class="Board Inactive"></div>
+        </div>
+
+    </div>
+
+    <div class="pdfWrapper Inactive">
+        <iframe class="Doc Inactive" id="doc1" src="./src/flow.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc2" src="./src/function.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc3" src="./src/operate.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc4" src="./src/explanation.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc5" src="./src/test/test1.pdf" ></iframe>
+        <iframe class="Doc Inactive" id="doc6" src="./src/question/q1.pdf" ></iframe>
+
+
+    </div>
+
+    <div class="Side Inactive">
+
+    <div class="SideWrapper">
+
+        <div class="LogWrapper ">
+            <div class="Log" id="log"></div>
+        </div>
+
+        <div class="InputWrapper ">
+
+            <form id="input-form" class="InputForm" action="#" method="GET">
+
+                <div class="InputFormUpside">
+
+                    <div class="InputFormLeft">
+                        <select type="example" id="input-username">
+                            <option value="" id="yourname"></option>
+                            <option value="anonymous">匿名</option>
+                        </select>
+                        <!-- <span class="HintUname">修正する場合はダブルクリックしてください</span> -->
+                    </div>
+
+                    <div class="InputFormRight">
+                        <button id="voice-rec-btn" class="CircleBtn"><span class="fa fa-microphone fa-2x" ></span></button>
+                        <input type="submit" class="Btn SendBtn" id="send-btn" value="Post">
+                    </div>
+
+                </div>
+
+                <div class="InputFormDownside">
+                    <textarea class="tinymce" id="text" placeholder="入力してください."></textarea>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <footer>
+
+        <div class="SetWrapper Inactive">
+            <form id="set-form" class="SetForm" action="#" method="GET">
+
+                <div class="SetFormUpper SetFormStep" id="set-form-upper">
+                    <select type="example" class="Set SetNum" id="set-username">
+                        <option value="undefined"></option>
+                        <option value="橋山">橋山</option>
+                        <option value="松原">松原</option>
+                        <option value="池田">池田</option>
+                        <option value="荻野">荻野</option>
+                        <option value="Ni">Ni</option>
+                        <option value="前本">前本</option>
+                        <option value="安岡">安岡</option>
+                        <option value="植田">植田</option>
+                        <option value="小林">小林</option>
+                        <option value="後藤">後藤</option>
+                        <option value="小川">小川</option>
+                        <option value="笹川">笹川</option>
+                        <option value="堤">堤</option>
+                        <option value="林">林</option>
+                        <option value="名執">名執</option>
+                    </select>
+                    <span class="HintUname">←ここでユーザー名を設定してください</span>
+                </div>
+
+                <div class="SetFormMiddle SetFormStep" id="set-form-middle">
+                        <div class="SetFormLeft">
+                            <select name="example" class="Set SetNum" id="set-board-num">
+                                <option value="board1">Board1</option>
+                                <option value="board2">Board2</option>
+                                <option value="board3">Board3</option>
+                                <option value="board4">Board4</option>
+                                <option value="board5">Board5</option>
+                                <option value="board6">Board6</option>
+                            </select>
+                            <input type="text" class="Set SetName" id="set-board-name" autocomplete="off" placeholder="Boardの名前を設定してください">
+                        </div>
+
+                </div>
+
+                <div class="SetFormLower SetFormStep" id="set-form-lower">
+                    <div class="SetFormLeft">
+                        <select name="example" class="Set SetNum" id="set-doc-num">
+                            <option value="doc1">Doc1</option>
+                            <option value="doc2">Doc2</option>
+                            <option value="doc3">Doc3</option>
+                            <option value="doc4">Doc4</option>
+                            <option value="doc5">Doc5</option>
+                            <option value="doc6">Doc6</option>
+                        </select>
+                        <input type="text" class="Set SetName" id="set-doc-name" autocomplete="off" placeholder="Documentの名前を設定してください">
+                        <input type="text" class="Set SetURL" id="set-doc-url" autocomplete="off" placeholder="GM用です.触らないで下さい." readonly style="background-color: gainsboro;">
+                    </div>
+
+                    <div class="SetFormRight">
+                        <input type="submit" class="Btn SetBtn" id="set-btn" value="Set">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="NotifyWrapper">
+            <p class="WritingNotify Inactive">"匿名"が入力中です…</p>
+        </div>
+
+    </footer>
+
+    <!-- javascript & Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/chat.js"></script>
+    <script type="module" src="js/interact.js"></script>
+    <script type="module" src="js/log.js"></script>
+    <script type="module" src="js/setting.js"></script>
+    <script type="module" src="js/voice-input.js"></script>
+    <script type="module" src="js/config.js"></script>
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+    <script type="module" src="js/init-tinymce.js"></script>
+
+</body>
+</html>
